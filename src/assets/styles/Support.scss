@@ -1,0 +1,200 @@
+.support-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--accent-color);
+  color: var(--black);
+}
+
+.main-content-support {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  width: 100%;
+}
+
+/* Support Hero Section */
+.support-content {
+  text-align: center;
+  margin: 10px auto; /* Centering */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: url("../image/support-bg.jpg") center/cover;
+  width: 100%;
+  max-width: 900px;
+}
+
+.support-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Fixed: Center Search Box Properly */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto; /* Ensure it is centered */
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: 550px;
+}
+
+.search-btn {
+  width: 100%; /* Makes button same width as input */
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: rgba(0, 86, 179, 0.9);
+}
+
+/* Fixed: Center Contact Cards */
+
+
+.help-title {
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Help Desk Section */
+.help-desk {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.help-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  overflow-x: auto; /* Enables horizontal scrolling if needed */
+  white-space: nowrap; /* Prevents wrapping */
+  padding-bottom: 10px;
+  max-width: 90vw;
+  margin-right: 100px;
+}
+
+.help-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 250px;
+  transition: 0.3s;
+  flex-shrink: 0; /* Prevents cards from shrinking in small screens */
+}
+
+.help-card:hover {
+  transform: translateY(-5px);
+}
+
+.help-icon {
+  font-size: 40px;
+  color: #5848c2;
+  margin-bottom: 10px;
+}
+
+.help-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.help-card p {
+  font-size: 16px;
+  color: #666;
+}
+
+
+
+
+/* 🌍 Responsive Fixes */
+@media (max-width: 1024px) {
+  .support-content {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .help-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .help-card {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .help-title {
+    font-size: 1.3rem;
+  }
+
+  .help-card {
+    width: 100%;
+  }
+
+  .search-box {
+    max-width: 350px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .support-content {
+    padding: 1rem;
+  }
+
+  .help-title {
+    font-size: 1.2rem;
+  }
+
+  .help-card {
+    padding: 1rem;
+  }
+
+  .help-icon {
+    font-size: 1.8rem;
+  }
+
+  .search-box {
+    max-width: 300px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}

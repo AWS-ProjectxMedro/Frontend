@@ -1,0 +1,68 @@
+/* Overall Page Layout */
+.short60-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10vh;
+}
+
+/* Content Container */
+.content-container {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    max-width: 1400px;
+    margin: 20px auto;
+    gap: 20px;
+}
+
+
+
+
+/* Short60 Section */
+.short-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+}
+
+.short-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 20px;
+}
+
+/* Iframe for Short60 */
+.short-iframe {
+    width: 100%;
+    max-width: 1100px;
+    height: 800px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Fixes */
+@media (max-width: 1024px) {
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        padding: 10px;
+    }
+
+    .short-iframe {
+        width: 90%;
+        height: 600px;
+    }
+}

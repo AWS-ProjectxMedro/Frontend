@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Homepage.scss';
-import logo from '../image/logo.png';
+import '../assets/styles/Homepage.scss';
+import logo from '../assets/image/logo.png';
 import Header from '../Component/Header';
 import Footer from  '../Component/Footer';
-import mob from '../image/home-img.png';
+import mob from '../assets/image/home-img.png';
 import { BiMobileAlt } from 'react-icons/bi';
 import Seo from '../Component/Seo';
 
@@ -17,11 +17,13 @@ const Homepage = () => {
 
       <main className="main-content">
         <section className="description-section">
+          
+          <br /> <br />
           <h1 className="main-heading" >"Cultivating Growth" One Investment at a Time</h1>
           <h5 className='para1' >Empowering you with strategies to grow wealth, manage risk, and achieve financial freedom.</h5>
           <div className='button-container'>
           <button className="button1">Get Started Today</button>
-          <button className="button2"  >Learn About Our Strategy</button>
+          <button className="button2">Learn About Our Strategy</button>
           </div>
         </section>
         <div className="img-section">

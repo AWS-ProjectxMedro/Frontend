@@ -1,60 +1,85 @@
 import React from "react";
-import "./Learn.scss";
+import "../assets/styles/Learn.scss";
 import Header from "../Component/Header";
-import Footer from '../Component/Footer';
-import Seo from '../Component/Seo';
-
+import Footer from "../Component/Footer";
+import Seo from "../Component/Seo";
+import { NavLink } from "react-router-dom";
+import { FaChartLine, FaChartBar, FaShieldAlt, FaMoneyBillWave } from "react-icons/fa";
 
 function Learn() {
     return (
         <div className="learn-container">
-                <Seo title="Home Page"
-                    description="this is home page"
-                    page="Home"
-                    keywords={["trading", "thecaptaltree", "risk management", "strategies"]} />
+            <Seo 
+                title="Learn Page"
+                description="Expand your investment knowledge"
+                page="Learn"
+                keywords={["investment learning", "market trends", "financial growth", "wealth strategies"]} 
+            />
 
-                <Header />
+            <Header />
+
+            <div className="learn-layout">
+                {/* Sidebar Navigation */}
+                <br />
+                <br />
+                <aside className="sidebar">
+                    <h2 className="sidebar-title">Learning Paths</h2>
+                    <ul>
+                        <li><NavLink to="/learn" activeClassName="active">Investment Learning</NavLink></li>
+                        <li><NavLink to="/book" activeClassName="active">Books</NavLink></li>
+                        <li><NavLink to="/short60" activeClassName="active">Short60</NavLink></li>
+                        <li><NavLink to="/blog" activeClassName="active">Blog</NavLink></li>
+                    </ul> 
+                </aside>
+
+                {/* Main Content */}
                 <main className="main-content-learn">
-                    <section className="learn-section">
-                        <h1 className="main-heading-learn">Empower Yourself with Investment Knowledge</h1>
-                        <h3 className="">TheCapitalTree is committed to educating investors on market trends, risk management, and wealth-building strategies.</h3>
+                    <br />
+                    <br />
+                    <section className="learn-section" id="investment-learning">
+                        <div className="hero">
+                            <h1 className="main-heading-learn">Empower Yourself with Investment Knowledge</h1>
+                            <h3>
+                                TheCapitalTree is committed to educating investors on market trends, 
+                                risk management, and wealth-building strategies.
+                            </h3>
+                        </div>
+
                         <h2>What You’ll Learn</h2>
 
                         <div className="learn-grid">
                             <div className="learn-card">
-                                <i className="learning"></i>
+                                <FaChartLine size={60} color="#ffcc00" />
                                 <h3>Investment Basics:</h3>
                                 <p>Insights into emerging investment opportunities.</p>
                             </div>
                             <div className="learn-card">
-                                <i className="learning"></i>
+                                <FaChartBar size={60} color="#ffcc00" />
                                 <h3>Market Trends & Analysis:</h3>
                                 <p>Smart strategies to secure and grow your financial future.</p>
                             </div>
                             <div className="learn-card">
-                                <i className="learning"></i>
+                                <FaShieldAlt size={60} color="#ffcc00" />
                                 <h3>Risk Management:</h3>
                                 <p>Strategies to minimize risks and maximize returns.</p>
                             </div>
                             <div className="learn-card">
-                                <i className="learning"></i>
+                                <FaMoneyBillWave size={60} color="#ffcc00" />
                                 <h3>Wealth Growth Strategies:</h3>
-                                <p> How to create sustainable long-term wealth.</p>
+                                <p>How to create sustainable long-term wealth.</p>
                             </div>
+                        </div>
 
-                        </div>
-                        <br />
-                        <span>Stay ahead with our expert insights and <b> transform the way you invest! </b> </span>
-                        <div className="short">
-                            <span className="short-title">short60</span>
-                            <iframe src="https://shorts60.com" height="800px" width="1400px"></iframe>
-                        </div>
+                        <p className="learnpara">
+                            Stay ahead with our expert insights and <b>transform the way you invest!</b>
+                        </p>
                     </section>
                 </main>
-                <Footer />
             </div>
-            );
 
-            }
+            <Footer />
+        </div>
+    );
+}
 
-            export default Learn;
+export default Learn;

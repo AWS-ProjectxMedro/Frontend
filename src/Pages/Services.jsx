@@ -1,5 +1,5 @@
 import React from "react";
-import "./Services.scss";
+import "../assets/styles/Services.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from '../Component/Seo';

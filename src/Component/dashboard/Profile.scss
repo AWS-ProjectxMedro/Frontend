@@ -1,0 +1,129 @@
+.dashboard-profile{
+    display: flex;
+    background-color: #1E1E78;
+    color: white;
+    height: 140vh;
+    border: 20px solid #0A197C;
+}
+.main-content-profile {
+    flex: 1;
+    padding: 30px;
+    background: radial-gradient(#e66465, #9198e5);
+    border-radius: 12px;
+    margin-left: 20px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid #6c63ff;
+    outline: none;
+}
+
+
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.user-profile h3,
+.preferences h3,
+.billing-info h3 {
+    color: #4a4a8a;
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border: 3px solid #6c63ff;
+}
+
+.profile-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-form input {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 2px solid #6c63ff;
+    outline: none;
+}
+
+.preferences label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.billing-info button {
+    width: 100%;
+    padding: 12px 0;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4a4a8a;
+}
+
+.btn-secondary {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #45a049;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}

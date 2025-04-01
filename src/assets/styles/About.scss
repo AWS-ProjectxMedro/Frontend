@@ -1,0 +1,153 @@
+/* Main Content */
+.main-content-about {
+    flex-grow: 1;
+    padding: 2rem;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    background-image: linear-gradient(410deg, #D7DCFF 87%, #818499 10%);
+}
+
+/* About Section */
+.about-section {
+    text-align: center;
+}
+
+.about-section h1 {
+    font-size: 36px;
+    color: black;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.about-section p {
+    font-size: 20px;
+    color: var(--black);
+    line-height: 1.8;
+    margin: 1rem auto;
+    max-width: 85%;
+}
+
+/* About Image */
+.About-img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 30px 10px 0 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.business-trends {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.About2-img {
+    height: 300px;
+    display: block;
+    margin: 0 0 0 10px;
+    border-radius: 20px;
+    
+}
+
+.about-content{
+   display: flex; 
+}
+
+.About3-img{
+    height: 180px;
+    display: block;
+    margin: 0 0 0 10px;
+    border-radius: 20px;
+}
+.about-para{
+    display: flex;
+    flex-direction: column;
+}
+/* Why Choose Us Section */
+.about-h2{
+   text-align: center; 
+   margin: 20px;
+   color: black;
+}
+
+
+
+.aboutChoose {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+.about-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.about-card .icon {
+    font-size: 40px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.about-card p {
+    font-size: 18px;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* Join Us Section */
+.join-us {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    margin: 20px auto;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.icon{
+    height: 80px;
+    width: 300px;
+    
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content-about {
+        padding: 1rem;
+    }
+
+    .about-section h1 {
+        font-size: 28px;
+    }
+
+    .about-section p {
+        font-size: 16px;
+    }
+
+    .join-us {
+        font-size: 22px;
+    }
+
+    .business-trends {
+        flex-direction: column;
+    }
+}

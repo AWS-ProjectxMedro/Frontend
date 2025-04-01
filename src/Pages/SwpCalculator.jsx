@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SwpCalculator.scss";
+import "../assets/styles/SwpCalculator.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
@@ -13,8 +13,9 @@ function SwpCalculator() {
     const [totalInterest, setTotalInterest] = useState(null);
     const [totalWithdrawn, setTotalWithdrawn] = useState(null);
 
-    const increasePeriod = () => setInvestmentPeriod((prev) => prev + 1);
-    const decreasePeriod = () => setInvestmentPeriod((prev) => Math.max(prev - 1, 1));
+    const handleInputChange = (setter) => (e) => {
+        setter(parseFloat(e.target.value) || 0);
+    };
 
     const calculateSWP = () => {
         let remainingAmount = totalInvestment;
@@ -31,8 +32,6 @@ function SwpCalculator() {
             }
         }
 
-        
-
         setFinalValue(remainingAmount.toFixed(2));
         setTotalInterest(interestEarned.toFixed(2));
         setTotalWithdrawn((monthlyWithdrawal * totalWithdrawals).toFixed(2));
@@ -40,84 +39,46 @@ function SwpCalculator() {
 
     return (
         <div className="swpcalculator-container">
-            <Seo 
+            <Seo
                 title="SWP Calculator"
-                description="This Systematic Withdrawal Plan calculator easily computes your matured sum as per your monthly withdrawals precisely."
+                description="This Systematic Withdrawal Plan calculator computes your matured sum as per your monthly withdrawals."
                 canonical="Swp-calculator"
-                keywords={["trading", "thecaptaltree", "risk management", "strategies"]}
+                keywords={["trading", "thecapitaltree", "risk management", "strategies"]}
             />
             <Header />
             <main className="main-content-swp">
+                <br />
+                <br />
                 <section className="swpcalculator-section">
                     <h1 className="main-heading-swp">SWP Calculator</h1>
                     <div className="swpcalculator-display">
-
-                        <div className="input-row">
-                            <div className="input-container">
-                                <label htmlFor="totalInvestment">Total Investment</label>
+                        {[ 
+                            { label: "Total Investment", value: totalInvestment, setter: setTotalInvestment, max: 1000000 },
+                            { label: "Monthly Withdrawal", value: monthlyWithdrawal, setter: setMonthlyWithdrawal, max: 100000 },
+                            { label: "Expected Rate of Return (%)", value: rateOfReturn, setter: setRateOfReturn, max: 50 }
+                        ].map(({ label, value, setter, max }, index) => (
+                            <div key={index} className="input-row">
+                                <div className="input-container">
+                                    <label>{label}</label>
+                                    <input type="text" value={value} onChange={handleInputChange(setter)} />
+                                </div>
                                 <input
-                                    type="text"
-                                    id="totalInvestment"
-                                    value={totalInvestment}
-                                    onChange={(e) => setTotalInvestment(parseFloat(e.target.value) || 0)}
+                                    type="range"
+                                    min="0"
+                                    max={max}
+                                    step={max / 100}
+                                    value={value}
+                                    onChange={handleInputChange(setter)}
                                 />
                             </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max="1000000"
-                                step="1000"
-                                value={totalInvestment}
-                                onChange={(e) => setTotalInvestment(parseFloat(e.target.value) || 0)}
-                            />
-                        </div>
-
-                        <div className="input-row">
-                            <div className="input-container">
-                                <label htmlFor="monthlyWithdrawal">Monthly Withdrawal</label>
-                                <input
-                                    type="text"
-                                    id="monthlyWithdrawal"
-                                    value={monthlyWithdrawal}
-                                    onChange={(e) => setMonthlyWithdrawal(parseFloat(e.target.value) || 0)}
-                                />
-                            </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max="100000"
-                                step="500"
-                                value={monthlyWithdrawal}
-                                onChange={(e) => setMonthlyWithdrawal(parseFloat(e.target.value) || 0)}
-                            />
-                        </div>
-
-                        <div className="input-row">
-                            <div className="input-container">
-                                <label htmlFor="rateOfReturn">Expected Rate of Return (%)</label>
-                                <input
-                                    type="text"
-                                    id="rateOfReturn"
-                                    value={rateOfReturn}
-                                    onChange={(e) => setRateOfReturn(parseFloat(e.target.value) || 0)}
-                                />
-                            </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max="50"
-                                step="0.1"
-                                value={rateOfReturn}
-                                onChange={(e) => setRateOfReturn(parseFloat(e.target.value) || 0)}
-                            />
-                        </div>
+                        ))}
 
                         <div className="input-container">
-                            <label htmlFor="investmentPeriod">Years of Investment</label>
+                            <label>Years of Investment</label>
                             <div className="investment-controls">
-                                <button className="control-btn" onClick={increasePeriod}>+</button>
-                                <button className="control-btn" onClick={decreasePeriod}>-</button>
-                                <input type="text" id="investmentPeriod" value={investmentPeriod} readOnly />
+                                <button className="control-btn" onClick={() => setInvestmentPeriod((prev) => prev + 1)}>+</button>
+                                <button className="control-btn" onClick={() => setInvestmentPeriod((prev) => Math.max(prev - 1, 1))}>-</button>
+                                <input type="text" value={investmentPeriod} readOnly  className="textinput"/>
                             </div>
                         </div>
 
@@ -127,26 +88,22 @@ function SwpCalculator() {
 
                         {finalValue !== null && (
                             <div className="results-container">
-                                <div className="result-card">
-                                    <div className="result-item">
-                                        <span className="result-label">Final Value:</span>
-                                        <span className="result-value">₹{finalValue}</span>
+                                {[
+                                    { label: "Final Value", value: finalValue },
+                                    { label: "Total Interest Earned", value: totalInterest },
+                                    { label: "Total Withdrawal", value: totalWithdrawn }
+                                ].map(({ label, value }, index) => (
+                                    <div key={index} className="result-item">
+                                        <span className="result-label">{label}:</span>
+                                        <span className="result-value">₹{value}</span>
                                     </div>
-                                    <div className="result-item">
-                                        <span className="result-label">Total Interest Earned:</span>
-                                        <span className="result-value">₹{totalInterest}</span>
-                                    </div>
-                                    <div className="result-item">
-                                        <span className="result-label">Total Withdrawal:</span>
-                                        <span className="result-value">₹{totalWithdrawn}</span>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         )}
-
-                        <div className="circle-design">
+        
+                        
                             <button className="display-button">Invest Now</button>
-                        </div>
+                        
                     </div>
                 </section>
             </main>
@@ -156,3 +113,4 @@ function SwpCalculator() {
 }
 
 export default SwpCalculator;
+

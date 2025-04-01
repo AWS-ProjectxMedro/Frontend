@@ -1,0 +1,77 @@
+.dashboard-user{
+  display: flex;
+  background-color: #1E1E78;
+  color: white;
+  height: 115vh;
+  border: 20px solid #0A197C;
+}
+
+.dashboard__main {
+  flex: 1;
+  padding: 20px;
+  background-color: #4858C2;
+}
+
+.dashboard__chart-placeholder {
+  height: 150px;
+  background: gray;
+  border-radius: 4px;
+}
+
+.dashboard__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard__table th, 
+.dashboard__table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #0074d9;
+}
+
+.dashboard__table th {
+  background-color: #0074d9;
+  color: #ffffff;
+}
+
+.dashboard__section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 78vw;
+}
+
+.dashboard__investment-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  color: black;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.investment-heading {
+  color: white;
+  margin: 10px;
+  margin-left: 50px;
+}
+
+.dashboard__investment-item {
+  color: white;
+}
+
+.dashboard__section-trending-stock {
+  position: absolute;  /* Added for correct positioning */
+  width: 150px;
+  height: 150px;
+  background: gray;
+  border-radius: 4px;
+  bottom: 100px;
+  right: 400px;
+}

@@ -1,6 +1,6 @@
 /* Root Variables */
 :root {
-    --primary-color: #5848c2;
+    --primary-color: #262259;
     --secondary-color: #6f14d1;
     --accent-color: white;
     --gold: #ffd700;
@@ -9,6 +9,7 @@
 
 /* Header */
 .header {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,11 +22,12 @@
     left: 0;
     z-index: 1000;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
 }
 
 /* Prevent content from being hidden behind header */
 body {
-    padding-top: 8vh;
+    
 }
 
 /* Logo */
@@ -44,7 +46,7 @@ body {
 
 /* Logo Text */
 .logo span {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: var(--white);
 }
@@ -57,6 +59,7 @@ body {
     margin-left: 5px;
     margin-right: -145px;
 }
+
 /* Navigation Menu */
 .nav-links {
     display: flex;
@@ -69,7 +72,7 @@ body {
 /* Ensure visibility of menu links */
 .nav-link {
     text-decoration: none;
-    color:  white; /* Force white text */
+    color: white; /* Force white text */
     font-weight: bold;
     font-size: 1.2rem;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -78,4 +81,44 @@ body {
 .nav-link:hover {
     color: var(--gold);
     transform: scale(1.1);
+}
+
+/* Mobile & Tablet Responsive Design */
+@media (max-width: 1024px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        align-items: center;
+    }
+
+    .logo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .Tag-line {
+        font-size: 0.6rem;
+        margin: 5px 0 0 0;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+        display: none; /* Hide menu by default */
+    }
+
+    .nav-links.open {
+        display: flex; /* Show menu when open */
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 10px 0;
+    }
 }

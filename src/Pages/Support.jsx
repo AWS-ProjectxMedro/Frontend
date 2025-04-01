@@ -1,8 +1,9 @@
 import React from "react";
-import "./Support.scss";
+import "../assets/styles/Support.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
+import { FaPhone, FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 
 const Support = () => {
   return (
@@ -17,25 +18,41 @@ const Support = () => {
 
       {/* Main Content */}
       <main className="main-content-support">
-        {/* Top Section with Background Image */}
-        <section className="support-top">
+        {/* Hero Section */}
+        <section className="support-hero">
           <div className="support-content">
-            <h1 className="support-text">How can we help?</h1>
-            <input
-              type="text"
-              placeholder="Search for help..."
-              className="search-input"
-            />
-            <button className="search-btn">Search</button>
+            <h1 className="support-title">How can we help?</h1>
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search for help..."
+                className="search-input"
+              />
+              <button className="search-btn">Search</button>
+            </div>
           </div>
         </section>
 
-        {/* Bottom Section with Help Desk */}
-        <h2 className="help-title">Help Desk</h2>
-        <section className="help-des    k">
-          <div className="help-block">Block 1</div>
-          <div className="help-block">Block 2</div>
-          <div className="help-block">Block 3</div>
+        {/* Help Desk Section */}
+        <section className="help-desk">
+          <h2 className="help-title">Contact Support</h2>
+          <div className="help-options">
+            <div className="help-card">
+              <FaPhone className="help-icon" />
+              <h3>Call Us</h3>
+              <p> 8263066511</p>
+            </div>
+            <div className="help-card">
+              <FaEnvelope className="help-icon" />
+              <h3>Email Us</h3>
+              <p>contact@thecapitaltree.in</p>
+            </div>
+            <div className="help-card">
+              <FaMapMarkerAlt className="help-icon" />
+              <h3>Visit Us</h3>
+              <p>The Capital Tree Office</p>
+            </div>
+          </div>
         </section>
       </main>
 

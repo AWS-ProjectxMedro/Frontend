@@ -1,8 +1,9 @@
 import React from "react";
-import "./Blog.scss";
+import "../assets/styles/Blog.scss";
 import Header from "../Component/Header";
 import Footer from '../Component/Footer';
 import Seo from '../Component/Seo';
+import { NavLink } from "react-router-dom";
 
 function Blog() {
     return (
@@ -15,6 +16,16 @@ function Blog() {
             <p className="Blog-text">
                 Learn about investing and grow your wealth with us.
             </p>
+            <aside className="sidebar">
+                                <h2 className="sidebar-title">Learning Paths</h2>
+                                <ul>
+                                    <li><NavLink to="/learn" activeClassName="active">Investment Learning</NavLink></li>
+                                    <li><NavLink to="/book" activeClassName="active">Books</NavLink></li>
+                                    <li><NavLink to="/short60" activeClassName="active">Short60</NavLink></li>
+                                    <li><NavLink to="/blog" activeClassName="active">Blog</NavLink></li>
+                                </ul> 
+                            </aside>
+            
             </section>
         </main>
        <Footer/>

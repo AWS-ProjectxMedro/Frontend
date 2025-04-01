@@ -52,6 +52,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 80vh;
 }
 
 .input-container {
@@ -80,6 +81,8 @@ input {
     margin-right: 600px;
     text-align: center;
 }
+
+
 
 input:focus {
     border-color: #5848c2;
@@ -111,10 +114,17 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
 }
 
+
+
 .investment-controls {
     display: flex;
     align-items: center;
     gap: 10px;
+    
+}
+
+.textinput {
+    width: 8vw;
 }
 
 .control-btn {
@@ -136,7 +146,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .results-container {
-    background: #f0f0f0;
+    background: #5848c2;
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
@@ -157,48 +167,25 @@ input[type="range"]::-moz-range-thumb {
 
 .result-label {
     font-weight: bold;
+    margin-top:10px;
+    color: white;
 }
+.result-value{
+    color: white;
+}
+
 
 .calculate{
     display: flex;
     flex-direction: row;
+    color: white;
     background-color: #5848c2;
     margin-left: 150px;
-}
-
-.circle-design {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 290px;
-    height: 250px;
-    border-left: 20px solid #16B47A;
-    border-right: 20px solid #5848C2;
-    border-top: 20px solid #5848C2;
-    border-bottom: 20px solid #16B47A;
-    background: white; /* Center color */
-    border-radius: 50%;
-    position: absolute;
-    right: -500px; /* Adjusted for better positioning */
-    top: 50%;
-    transform: translateY(-50%);
-    background-image: conic-gradient(
-        white 0deg, white 44deg, 
-        #5848c2 45deg, #5848c2 90deg, 
-        #5848c2 90deg, white 90deg, 
-        white 270deg
-    );
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    margin-left: 100px;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 
-.circle-design:hover{
-    background: url(../image/logoswp.png);
-    width: 290px;
-    height: 250px;
-}
 
 .display-button{
     display: flex;
