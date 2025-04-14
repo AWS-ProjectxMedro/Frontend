@@ -1,3 +1,4 @@
+/* Support Page Container */
 .support-container {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
   color: var(--black);
 }
 
+/* Main Content */
 .main-content-support {
   flex-grow: 1;
   display: flex;
@@ -15,49 +17,51 @@
   width: 100%;
 }
 
-/* Support Hero Section */
+/* Hero Section */
 .support-content {
   text-align: center;
-  margin: 10px auto; /* Centering */
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: url("../image/support-bg.jpg") center/cover;
-  width: 100%;
-  max-width: 900px;
+  width: 98vw;
+  margin-top:20px;
+  
 }
 
 .support-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: white;
   margin-bottom: 1rem;
 }
 
-/* Fixed: Center Search Box Properly */
+/* Search Box */
 .search-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center horizontally */
+  justify-content: center;
   width: 100%;
   max-width: 400px;
-  margin: 0 auto; /* Ensure it is centered */
+  margin: 0 auto;
 }
 
 .search-input {
+  display: flex;
   width: 100%;
   padding: 12px;
   font-size: 1rem;
   border: 1px solid var(--black);
   border-radius: 5px;
   margin-bottom: 10px;
+ 
   text-align: center;
-  margin-left: 550px;
+  justify-content: center;
 }
 
 .search-btn {
-  width: 100%; /* Makes button same width as input */
+  width: 100%;
   padding: 12px;
   background-color: var(--primary-color);
   color: var(--white);
@@ -72,14 +76,86 @@
   background-color: rgba(0, 86, 179, 0.9);
 }
 
-/* Fixed: Center Contact Cards */
+/* FAQ Section */
+.faq-section {
+  color: white;
+  margin-top: 30px;
+  width: 100%;
+}
 
-
-.help-title {
+.faq-title {
   font-size: 1.5rem;
-  color: black;
-  margin-bottom: 1rem;
   text-align: center;
+  margin-bottom: 15px;
+}
+
+/* FAQ List */
+.faq-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* FAQ Item */
+.faq-item {
+  background: #fff;
+  color: #333;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  height: 80px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* FAQ Question */
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* FAQ Icon */
+.faq-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* FAQ Answer */
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  font-size: 1rem;
+  background: #f8f8f8;
+  padding: 0 15px;
+}
+
+/* Expanded FAQ */
+.faq-item.active {
+  height: 120px; /* Fixed height when expanded */
+}
+
+.faq-item.active .faq-answer {
+  max-height: 40px;
+  opacity: 1;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
 }
 
 /* Help Desk Section */
@@ -88,18 +164,22 @@
   text-align: center;
 }
 
+.help-title {
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+/* Help Options */
 .help-options {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  overflow-x: auto; /* Enables horizontal scrolling if needed */
-  white-space: nowrap; /* Prevents wrapping */
-  padding-bottom: 10px;
-  max-width: 90vw;
-  margin-right: 100px;
+  flex-wrap: wrap;
 }
 
+/* Help Card */
 .help-card {
   background: white;
   padding: 20px;
@@ -108,7 +188,11 @@
   text-align: center;
   width: 250px;
   transition: 0.3s;
-  flex-shrink: 0; /* Prevents cards from shrinking in small screens */
+}
+
+.help-card a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .help-card:hover {
@@ -131,8 +215,20 @@
   color: #666;
 }
 
+/* Map Container */
+.map-container {
+  margin: 20px  ;
+  width: 100vw;
+ 
+  
+}
 
-
+.map-container iframe {
+  width: 100%;
+  height: 450px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 /* 🌍 Responsive Fixes */
 @media (max-width: 1024px) {

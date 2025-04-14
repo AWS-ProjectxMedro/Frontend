@@ -1,10 +1,21 @@
 import React from "react";
 import "../assets/styles/Dashboard.scss";
-import logo3 from "../assets/image/logo3.png";
-import { NavLink } from "react-router-dom";
 import Sidebar from "../Component/dashboard/Sidebar";
 
 function Dashboard() {
+  // Mock data - replace with real data sources
+  const investmentStats = [
+    { label: "Total Invested", value: "₹1,000,00.00", currency: true },
+    { label: "No. of Investments", value: "1,600", note: "(₹1,600 per investment)" },
+    { label: "Rate of Return", value: "+4.75%", trend: "positive" }
+  ];
+
+  const myInvestments = [
+    { name: "Apple Market", value: "₹500,000", roi: "0%" },
+    { name: "Green Investment", value: "₹300,000", roi: "+16%" },
+    { name: "T Motors Stock", value: "₹200,000", roi: "+16%" }
+  ];
+
   return (
     <div className="dashboard-user">
       <Sidebar />
@@ -13,48 +24,40 @@ function Dashboard() {
         <main>
           <h2 className="investment-heading">Investments</h2>
           <section className="dashboard__section investments">
-            <div className="dashboard__investment-data">
-              <div>Total Invested: <br /> ₹1,000,00.00</div>
-            </div>
-            <div className="dashboard__investment-data">
-              <div>No. of Investments: <br /> ₹1,600</div>
-            </div>
-            <div className="dashboard__investment-data">
-              <div>Rate of Return: <br /> +4.75%</div>
-            </div>
+            {investmentStats.map((stat, index) => (
+              <div key={index} className="dashboard__investment-data">
+                <div>{stat.label}</div>
+                <div className="stat-value">{stat.value}</div>
+                {stat.note && <div className="stat-note">{stat.note}</div>}
+              </div>
+            ))}
           </section>
 
           <section className="dashboard__section charts">
             <div className="dashboard__chart">
-              <h3 className="investment-heading">Yearly Total Investment</h3>
+              <h3>Yearly Total Investment</h3>
               <div className="dashboard__chart-placeholder" />
             </div>
             <div className="dashboard__chart">
-              <h3 className="investment-heading">Yearly Total Revenue</h3>
+              <h3>Yearly Total Revenue</h3>
               <div className="dashboard__chart-placeholder" />
             </div>
           </section>
 
-          <h2 className="investment-heading">My Investment</h2>
+          <h2 className="investment-heading">My Investments</h2>
           <section className="dashboard__section my-investments">
-            <div className="dashboard__investment-item">
-              <div>Apple Market</div>
-              <div>Investment Value</div>
-              <div>Discount: 0% Rol</div>
-            </div>
-            <div className="dashboard__investment-item">
-              <div>Green Investment</div>
-              <div>Investment Value</div>
-              <div>Discount: +16% Rol</div>
-            </div>
-            <div className="dashboard__investment-item">
-              <div>T Motors Stock</div>
-              <div>Investment Value</div>
-              <div>Discount: +16% Rol</div>
-            </div>
+            {myInvestments.map((investment, index) => (
+              <div key={index} className="dashboard__investment-item">
+                <div className="investment-name">{investment.name}</div>
+                <div className="investment-value">{investment.value}</div>
+                <div className={`investment-roi ${investment.roi.includes('+') ? 'positive' : ''}`}>
+                  ROI: {investment.roi}
+                </div>
+              </div>
+            ))}
           </section>
 
-          <h2 className="investment-heading">Trending Stock</h2>
+          <h2 className="investment-heading">Trending Stocks</h2>
           <section className="dashboard__section-trending-stock">
             {/* Add Trending Stock Data Here */}
           </section>

@@ -1,115 +1,106 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./Dashboard";
-import "../assets/styles/Login.scss";
 import Header from "../Component/Header";
-import logo1 from "../assets/image/logo1.png";
 import Footer from "../Component/Footer";
-import Seo from '../Component/Seo';
+import Seo from "../Component/Seo";
+import logo1 from "../assets/image/logo1.png";
+import logo6 from "../assets/image/logo6.png";
+import loginAnimation from "../assets/image/Login_no_bg_v2.gif";
+import "../assets/styles/Login.scss";
 
 const LoginRegister = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [showOtpField, setShowOtpField] = useState(false);
-  const [enteredOtp, setEnteredOtp] = useState("");
+  const [enteredOtp, setEnteredOtp] = useState(Array(6).fill(""));
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [registrationData, setRegistrationData] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    watch,
     setError,
     formState: { errors },
+    watch,
   } = useForm();
-
-
 
   const toggleForm = () => {
     setIsRegister(!isRegister);
     setShowOtpField(false);
+    setIsOtpVerified(false);
   };
 
-  const sendOtp = async (data) => {
+  const handleRegistration = async (data) => {
     try {
-      const response = await fetch("http://localhost:3307/api/users/verify-phone", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: data.phone }),
+      console.log("sumit");
+      const response = await axios.post("http://3.109.55.32:3308/api/users/verify-phone", {
+        phone: data.phone,
       });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert(`OTP Sent! Check your phone.`);
-        setPhoneNumber(data.phone);
-        setShowOtpField(true);
-        setOtpSent(true);
-      } else {
-        alert(`Error: ${result.message}`);
-      }
+      toast.success("OTP Sent! Check your phone.");
+      setPhoneNumber(data.phone);
+      setRegistrationData(data);
+      setShowOtpField(true);
     } catch (error) {
-      console.log(error);
-      alert("Error sending OTP. Try again.");
+      toast.error(error.response?.data?.message || "Error sending OTP");
     }
   };
-
-  const registerUser = async (data) => {
-    // Combine phone number with other registration data
-    const registrationData = {
-      ...data,
-      phone: data.phone, // Use the phone number from the form
-    };
-
-    try {
-      const response = await fetch("http://localhost:3307/api/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registrationData),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert("Registration Successful!");
-        // Optionally, redirect or update state after successful registration
-        setIsRegister(false); // Switch to login form, for example
-      } else {
-        alert(`Registration Error: ${result.message}`);
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      alert("Error during registration. Please try again.");
-    }
-  };
-
 
   const verifyOtp = async (e) => {
-    e.preventDefault();
+    
+    
     try {
-      const response = await fetch(`${"http://localhost:3307/api/users/verify-phone"}/verify`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phoneNumber, otp: enteredOtp }),
+      await axios.post("http://3.109.55.32:3308/api/users/verify-phone/verify", {
+        phone: phoneNumber,
+        otp: enteredOtp.join(""),
       });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert("OTP Verified! Registration Successful.");
-        setIsAuthenticated(true);
-        navigate("/dashboard");
-      } else {
-        alert(`Invalid OTP: ${result.message}`);
-      }
+      toast.success("OTP Verified!");
+      setIsOtpVerified(true);
     } catch (error) {
-      alert("Error verifying OTP. Try again.");
+      toast.error("Invalid OTP or Verification Failed.");
     }
   };
 
-  const onLogin = (data) => {
-    setIsAuthenticated(true);
-    navigate("/dashboard");
+  const registerUser = async () => {
+    try {
+      
+      const response = await axios.post("http://3.109.55.32:3308/api/users/register", registrationData);
+      toast.success("Registration Successful!");
+      setIsRegister(false);
+      setShowOtpField(false);
+      setIsOtpVerified(false);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed");
+    }
   };
+
+  const onLogin = async (data) => {
+      
+    try {
+      
+      const response = await axios.post("http://3.109.55.32:3308/api/users/login", data, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+      toast.success("Login Successful!");
+      setIsAuthenticated(true);
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed");
+    }
+  };
+
+  useEffect(() => {}, []);
 
   if (isAuthenticated) {
     return <Dashboard setIsAuthenticated={setIsAuthenticated} />;
@@ -119,116 +110,182 @@ const LoginRegister = () => {
     <div className="auth-container">
       <Seo title="Login Page" description="this is login page" page="Login" keywords="wealth, financial freedom, risk management, strategies" />
       <Header />
-      <div className="auth-card">
-        <br />
-        <br />
-
-        <div className="logo-section1">
-          <div className="logo1">
-            <img src={logo1} alt="The Capital Tree Logo" className="logo1-img" title="The Capital Tree Logo" height="50px" width="50px" loading="eager" />
+      <div className="main-login">
+        <div className="auth-card">
+          <div className="logo-section1">
+            <div className="logo1">
+              <img src={logo1} alt="The Capital Tree Logo" className="logo1-img" height="50" width="50" />
+            </div>
+            <h1 className="brand-name">TheCapitalTree</h1>
           </div>
-          <h1 className="brand-name">TheCapitalTree</h1>
-        </div>
 
-        <>  {/*  <React.Fragment> wrapping the entire conditional */}
           {isRegister ? (
-            <> {/* React.Fragment inside the true block of conditional rendering */}
-
+            <>
               <h2 className="auth-title">Register</h2>
               <p className="auth-subtitle">Create an account to get started</p>
-
               {!showOtpField ? (
-                 <div className="form-with-register-button">
-                <form className="auth-form" onSubmit={handleSubmit(sendOtp)}>
+                <form className="auth-form" onSubmit={handleSubmit(handleRegistration)}>
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" id="name" placeholder="Enter your full name" {...register("name", { required: "Name is required" })} />
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder="Enter your name"
+                      {...register("name", { required: "Name is required" })}
+                    />
                     {errors.name && <p className="error">{errors.name.message}</p>}
                   </div>
-
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" {...register("email", { required: "Email is required" })} />
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Enter your email"
+                      {...register("email", { required: "Email is required" })}
+                    />
                     {errors.email && <p className="error">{errors.email.message}</p>}
                   </div>
-
                   <div className="form-group">
-                    <label htmlFor="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Enter your phone number" {...register("phone", { required: "Phone number is required", pattern: { value: /^[0-9]{10}$/, message: "Enter a valid 10-digit phone number" } })} />
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      placeholder="Enter your phone number"
+                      {...register("phone", {
+                        required: "Phone number is required",
+                        pattern: { value: /^[0-9]{10}$/, message: "Enter a valid 10-digit phone number" },
+                      })}
+                    />
                     {errors.phone && <p className="error">{errors.phone.message}</p>}
                   </div>
-
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password"
-                      placeholder="Create a strong password" {...register("password", {
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      placeholder="Enter your password"
+                      {...register("password", {
                         required: "Password is required",
                         pattern: {
                           value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}$/,
-                          message:
-                            "Password must contain 1 uppercase, 1 lowercase, 1 special character, and be 8-16 characters long.",
+                          message: "Must include 1 uppercase, 1 lowercase, 1 special char, 8–16 chars",
                         },
-                      })} />
+                      })}
+                    />
                     {errors.password && <p className="error">{errors.password.message}</p>}
                   </div>
-
-                  <button type="submit" className="auth-button">Enter OTP</button>
-                  <br />
-                  <br />
-
-                </form>
-                 <button type="button" className="auth-button" onClick={handleSubmit(registerUser)}>Register</button>
-                 </div>
-              ) : (
-                <form className="otp-form" onSubmit={verifyOtp}>
                   <div className="form-group">
-                    <label htmlFor="otp">Enter OTP</label>
-                    <input type="text" id="otp" placeholder="Enter 4-digit OTP" maxLength="4" value={enteredOtp} onChange={(e) => setEnteredOtp(e.target.value)} required />
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      placeholder="Confirm your password"
+                      {...register("confirmPassword", {
+                        required: "Confirm password is required",
+                        validate: (value) => value === watch("password") || "Passwords do not match",
+                      })}
+                    />
+                    {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
                   </div>
-                  <button type="submit" className="auth-button">Verify OTP</button>
+                  <button type="submit" className="auth-button register-button">Register</button>
                 </form>
+              ) : (
+                <>
+                  <form className="otp-form" onSubmit={verifyOtp}>
+                    <div className="form-group otp-boxes">
+                      <label htmlFor="otp">Verify OTP</label>
+                      <div className="otp-inputs">
+                        {enteredOtp.map((digit, index) => (
+                          <input
+                            key={index}
+                            type="text"
+                            maxLength="1"
+                            className="otp-input"
+                            id={`otp-input-${index}`}
+                            value={digit}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(/[^0-9]/g, "");
+                              const newOtp = [...enteredOtp];
+                              newOtp[index] = value;
+                              setEnteredOtp(newOtp);
+                              if (value && index < 5) {
+                                const nextInput = document.getElementById(`otp-input-${index + 1}`);
+                                if (nextInput) nextInput.focus();
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Backspace" && !enteredOtp[index] && index > 0) {
+                                const prevInput = document.getElementById(`otp-input-${index - 1}`);
+                                if (prevInput) prevInput.focus();
+                              }
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <button type="submit" className="auth-button otp-verify-button">Verify OTP</button>
+                  </form>
+                  {isOtpVerified && (
+                    <button className="auth-button final-register-button" onClick={registerUser}>
+                      Create Account
+                    </button>
+                  )}
+                </>
               )}
-
-              <p className="toggle-message">Already have an account? <button onClick={toggleForm}>Log in</button></p>
+              <p className="toggle-message">
+                Already have an account? <button onClick={toggleForm}>Log in</button>
+              </p>
             </>
           ) : (
-            <>  {/* React.Fragment inside the false block of conditional rendering */}
+            <>
               <h2 className="auth-title-log">Log In</h2>
               <p className="auth-subtitle-log">Join for exclusive access</p>
               <form className="auth-form-log" onSubmit={handleSubmit(onLogin)}>
                 <div className="form-group-log">
                   <label htmlFor="email">Email</label>
-                  <input type="email" id="email" placeholder="Enter your email" {...register("email", { required: "Email is required" })} />
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    {...register("email", { required: "Email is required" })}
+                  />
                   {errors.email && <p className="error">{errors.email.message}</p>}
                 </div>
-
                 <div className="form-group-log">
                   <label htmlFor="password">Password</label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
-                    placeholder="Create a strong password"
+                    placeholder="Enter your password"
                     {...register("password", {
                       required: "Password is required",
                       pattern: {
                         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}$/,
-                        message: "Enter Correct Password"
-                      }
+                        message: "Enter correct password format",
+                      },
                     })}
                   />
-
                   {errors.password && <p className="error">{errors.password.message}</p>}
                 </div>
-
-                <button type="submit" className="auth-button-log">Log in</button>
+                <button type="submit" className="auth-button login-button">Login</button>
               </form>
-
-              <p className="toggle-message-log">Don’t have an account? <button onClick={toggleForm}>Register</button></p>
+              <p className="toggle-message-log">
+                Don’t have an account? <button onClick={toggleForm}>Register</button>
+              </p>
             </>
           )}
-        </>
+        </div>
+
+        <div className="loginAnimation">
+          <img src={loginAnimation} alt="MonetTree" height="300" width="360" />
+          <h2>
+            Welcome To <img src={logo6} alt="" height="35" className="welcomelogo" />
+            TheCapitalTree
+          </h2>
+        </div>
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   );
 };

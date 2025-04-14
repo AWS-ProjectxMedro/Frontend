@@ -1,199 +1,306 @@
 /* General Container Styling */
 .invest-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ECF5FE;
 }
 
 /* Invest Section */
 .invest-section {
-    text-align: center;
-    padding: 2rem;
+  text-align: center;
+  padding: 2rem;
 }
 
 /* Main Heading */
 .invest-heading {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 /* Subtitle */
 .invest-section h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
 /* Invest Text */
 .invest-text {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 2rem;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2rem;
 }
 
 /* Form Container */
 .invest-form-container {
-    background-color: #fff;
-    padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    max-width: 400px;
-    margin: 0 auto;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 /* Form Title */
 .form-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 /* Input Styling */
 .invest-input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 /* Button Styling */
 .invest-button {
-    padding: 0.75rem 1.5rem;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .invest-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .invest-container {
-    font-family: "Poppins", sans-serif;
-    color: #333;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  text-align: center;
+
+  .invest-hero {
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-  
-    .invest-hero {
-      background: linear-gradient(to right, #1e3c72, #2a5298);
+    height:35vh;
+
+    .primary-btn {
+      background: #ff7b00;
+      padding: 12px 24px;
+      border: none;
       color: white;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-  
-      .primary-btn {
-        background: #ff7b00;
-        padding: 12px 24px;
-        border: none;
-        color: white;
-        font-size: 16px;
-        margin-top: 20px;
-        cursor: pointer;
-        transition: 0.3s;
-  
-        &:hover {
-          background: #ff9100;
-        }
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: #ff9100;
       }
     }
-  
-    .invest-philosophy {
+  }
+
+  .invest-philosophy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px;
+
+    img {
+      width: 500px;
+      border-radius: 10px;
+    }
+
+    .philosophy-content {
+      max-width: 500px;
+      text-align: left;
+      font-size:x-large;
+      
+      h2{
+        font-size: 42px;
+      }
+    }
+  }
+
+  .invest-benefits {
+    background: #f8f9fa;
+    padding: 50px;
+
+    .benefit-cards {
+      margin-top: 20px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 40px;
-      padding: 50px;
-  
-      img {
-        width: 500px;
+      gap: 50px;
+      flex-wrap: wrap;
+
+      .benefit-card {
+        background: white;
+        padding: 40px;
         border-radius: 10px;
-      }
-  
-      .philosophy-content {
-        max-width: 500px;
-        text-align: left;
-      }
-    }
-  
-    .invest-benefits {
-      background: #f8f9fa;
-      padding: 50px;
-  
-      .benefit-cards {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-  
-        .benefit-card {
-          background: white;
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          width: 250px;
-          transition: transform 0.3s;
-  
-          &:hover {
-            transform: translateY(-5px);
-          }
-        }
-      }
-    }
-  
-    .invest-process {
-      padding: 50px;
-      .process-timeline {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-  
-        .timeline-item {
-          margin: 10px 0;
-          font-size: 18px;
-        }
-      }
-    }
-  
-    .invest-cta {
-      background: #1e3c72;
-      color: white;
-      padding: 50px;
-      margin: 10px;
-  
-      .cta-buttons {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-  
-        .primary-btn,
-        .secondary-btn {
-          padding: 12px 24px;
-          border: none;
-          font-size: 16px;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-  
-        .primary-btn {
-          background: #EE5935 ;
-          color: white;
-        }
-  
-        .secondary-btn {
-          background: #EE5935 ;
-          color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        transition: transform 0.3s;
+
+        &:hover {
+          transform: translateY(-5px);
         }
       }
     }
   }
+
+  .invest-process-invest-performance{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+  }
+
+  .invest-process {
+    padding: 50px;
+    .process-timeline {
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+
+      .timeline-item {
+        margin: 10px 0;
+        font-size: 18px;
+      }
+    }
+    .timeline{
+      height: 600px;
+      border-radius: 20px;
+    }
+  }
+
+  .invest-cta {
+    background: #1e3c72;
+    color: white;
+    padding: 50px;
+    margin:  10px 1px;
+    box-shadow: 1px 5px 5px black;
+    border-radius: 20px;
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 10px;
+
+      .primary-btn,
+      .secondary-btn {
+        padding: 12px 24px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin: 10px;
+      }
+
+      .primary-btn {
+        background: #EE5935 ;
+        color: white;
+        margin: 10px;
+      }
+
+      .secondary-btn {
+        background: #EE5935 ;
+        color: white;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+/* General Performance Highlight Section */
+.invest-performance {
+  background: linear-gradient(to right, #0061ff, #00c6ff);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 30px auto;
+  max-width: 80%;
   
+}
+
+/* Title Animation */
+.fade-in-title {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 1s ease-out forwards;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* List Animation */
+.fade-in-list {
+  opacity: 0;
+  animation: bounceIn 1s ease-out forwards 0.5s;
+}
+
+.fade-in-item {
+  opacity: 1;  /* Ensure visibility after animation */
+  transform: translateY(0); /* Prevent shifting */
+  animation: bounceIn 1s ease-out forwards;
+  font-size: 1.2rem;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;  /* Ensure proper alignment */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+
+.fade-in-item:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.fade-in-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* Highlight Icons */
+.highlight-icon {
+  font-size: 1.5rem;
+  color: white; /* Ensure it has a visible color */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+
+/* Zoom In Effect */
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Bounce In Effect */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

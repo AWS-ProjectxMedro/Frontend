@@ -1,0 +1,97 @@
+.blog-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #ECF5FE;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .blog-layout {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    flex: 1;
+    flex-wrap: wrap;
+    margin: 30px;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      padding: 1rem;
+    }
+  }
+  
+
+  
+  /* Main Content */
+  .main-content-blog {
+    flex: 1;
+    background-color: #ECF5FE ;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+  
+    @media (max-width: 768px) {
+      padding: 1.2rem;
+    }
+  }
+  
+  .main-heading-blog { 
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffcc00, #ffdd44);
+    border-radius: 15px;
+    text-align: center;
+  }
+  
+  .main-heading-learn {
+    font-size: 1.3rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+  }
+  
+  
+  /* Blog Cards */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .blog-card {
+    background-color: #fafafa;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+  
+    h3 {
+      font-size: 1.2rem;
+      color: #222;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Footer Note */
+  .footer-note {
+    margin-top: 2rem;
+    font-style: italic;
+    font-weight: 500;
+    color: #222;
+  }
+  

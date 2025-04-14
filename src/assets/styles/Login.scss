@@ -2,17 +2,26 @@
 .auth-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   justify-content: center;
-  min-height: 170vh;
+  min-height: 100vh;
   
   position: relative;
+  background-color: #ECF5FE;
+}
+
+.main-login{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 200px;
 }
 
 /* Auth Card */
 .auth-card {
   background: #fff;
-  background: linear-gradient(to top left, #4858C2 50%,#EAC0EA 50% );
+  background: linear-gradient(135deg, #262259, #4b4b9d, #6a5acd);
   margin-top: 70px;
   margin-bottom: 10px;
   padding: 2rem;
@@ -21,6 +30,7 @@
   max-width: 400px;
   width: 100%;
   text-align: center;
+  align-items: center;
   position: relative;
   animation: fadeIn 0.5s ease-in-out;
   box-shadow: 20px 20px 50px grey;
@@ -43,7 +53,7 @@
 .brand-name {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #6f14d1;
+  color: white;
   margin-bottom: 1rem;
 }
 
@@ -52,12 +62,12 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: white;
 }
 
 .auth-subtitle, .auth-subtitle-log {
   font-size: 1rem;
-  color: #666;
+  color: silver;
   margin-bottom: 1.5rem;
 }
 
@@ -74,7 +84,7 @@
     font-weight: bold;
     margin-bottom: 0.5rem;
     display: block;
-    color: #333;
+    color: white;
   }
 
   input {
@@ -122,6 +132,7 @@
   text-align: center;
   margin-top: 1rem;
   font-size: 0.9rem;
+  color: white;
 
   button {
     background: none;
@@ -139,6 +150,19 @@
   }
 }
 
+.loginAnimation{
+  margin: 10px;
+  margin: 200px;
+   /* Adjust size */
+  
+  border-radius: 20px; /* Smooth edges */
+   /* Soft shadow */
+}
+
+.welcomelogo{
+  margin: 0px 10px;
+  border-radius: 20px;
+}
 
 
 /* Responsive Footer Fix */

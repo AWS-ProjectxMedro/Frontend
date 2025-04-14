@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../assets/styles/Invest.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
-import philosophy from "../assets/image/invest1.png";
+import philosophy from "../assets/image/invest1.webp";
+import timeline from '../assets/image/timeline.png';
+import { FaChartBar,FaBriefcase,FaMoneyBillWave, FaShieldAlt, FaChartLine, FaCoins, FaLightbulb} from 'react-icons/fa';
 
 function Invest() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 500);
+  }, []);
+
   return (
     <div className="invest-container">
       <Seo
@@ -77,42 +85,43 @@ function Invest() {
           </div>
         </section>
 
-        {/* Investment Process - Using a Timeline */}
-        <section className="invest-process">
-          <h2>Our Investment Process</h2>
-          <div className="process-timeline">
-            <div className="timeline-item">
-              <span>1️⃣</span>
-              <p>Sign Up & Consultation – Understand your financial goals.</p>
+        <div className="invest-process-invest-performance">
+          {/* Investment Process - Using a Timeline */}
+          <section className="invest-process">
+            <h2>Our Investment Process</h2>
+            <div className="process-timeline">
+              <img src={timeline} alt="timeline" className="timeline" />
             </div>
-            <div className="timeline-item">
-              <span>2️⃣</span>
-              <p>Portfolio Design – Customized investment strategies.</p>
-            </div>
-            <div className="timeline-item">
-              <span>3️⃣</span>
-              <p>Investment Execution – Implementing with precision.</p>
-            </div>
-            <div className="timeline-item">
-              <span>4️⃣</span>
-              <p>Monitoring & Reporting – Regular updates.</p>
-            </div>
-            <div className="timeline-item">
-              <span>5️⃣</span>
-              <p>Adjustments & Rebalancing – Adapting to market changes.</p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Performance Highlights */}
-        <section className="invest-performance">
-          <h2>Performance Highlights</h2>
-          <ul>
-            <li>✔️ Average annual returns exceeding 36%.</li>
-            <li>✔️ Strong risk-adjusted returns through diversified strategies.</li>
-            <li>✔️ Proven track record of consistent monthly payouts.</li>
-          </ul>
-        </section>
+      <section className="invest-performance">
+          <h2 className={visible ? "fade-in-title show" : "fade-in-title"}>Performance Highlights</h2>
+          <ul className="fade-in-list show">
+          <li className="fade-in-item">
+          <FaChartBar className="highlight-icon" /> Average annual returns exceeding 36%.
+          </li>
+          <li className="fade-in-item">
+        <FaBriefcase className="highlight-icon" /> Strong risk-adjusted returns through diversified strategies.
+          </li>
+          < li className="fade-in-item">
+        <FaShieldAlt className="highlight-icon" /> Proven track record of consistent monthly payouts.
+          </li>
+          < li className="fade-in-item">
+        <FaMoneyBillWave className="highlight-icon" /> Optimized risk management ensuring stable and high-yield investments.
+          </li>
+          < li className="fade-in-item">
+        <FaChartLine className="highlight-icon" /> Maximizing returns while maintaining a balanced risk profile.
+          </li>
+          < li className="fade-in-item">
+        <FaCoins className="highlight-icon" /> Strategic investment approaches yielding superior market performance.
+          </li>
+          < li className="fade-in-item">
+        <FaLightbulb className="highlight-icon" /> Adaptive market strategies to capitalize on emerging opportunities.
+          </li>
+  </ul>
+</section>
+
+        </div>
 
         {/* CTA - Call to Action */}
         <section className="invest-cta">
@@ -121,8 +130,9 @@ function Invest() {
             <button className="primary-btn">Schedule a Free Consultation</button>
             <button className="secondary-btn">Learn More About Our Funds</button>
           </div>
-          <section>
+          <section className="">
             <h2>Regulatory and Compliance Notes</h2>
+            <br />
             <p>The Capital Tree operates under <b>strict financial guidelines</b>, ensuring compliance with Indian investment laws. Our strategies adhere to SEBI regulations, offering a <b>secure and transparent investment platform</b>.</p>
           </section>
         </section>

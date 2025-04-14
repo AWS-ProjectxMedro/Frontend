@@ -1,196 +1,371 @@
+// --- Base Container ---
 .swpcalculator-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background: whitesmoke;
+    background: #ECF5FE; // Light background for the page
     min-height: 100vh;
 }
 
-.display{
-    display: flex;
-    flex-direction: row;
-    
-}
-
+// --- Main Content Area ---
 .main-content-swp {
+    flex-grow: 1; // Allow main content to take available space
     width: 100%;
-    background: #D1CAFC;
-    padding: 20px;
-    padding-top: 30px;
-    padding-bottom: 40px;
-    border-radius: 8px; 
+    padding: 40px 20px; // Adjust padding
     box-sizing: border-box;
+    display: flex; // Use flex to center the section
+    justify-content: center; // Center the calculator section horizontally
+    align-items: flex-start; // Align section to the top
 }
 
+// --- Calculator Section Card ---
 .swpcalculator-section {
     position: relative;
     background: white;
-    border-radius: 25px;
-    padding: 20px;
-    padding-left: 120px;
-    width: 43%;
-    margin-left: 100px;
-    box-shadow: 5px 10px 8px 10px #888888;   
+    border-radius: 20px; // Slightly softer radius
+    padding: 30px 40px; // Adjust padding
+    width: 60%; // Make section wider
+    max-width: 1100px; // Max width to prevent it getting too large
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); // Softer shadow
+    box-sizing: border-box;
+    margin: 20px 20px; // Centering and vertical margin
+    margin-left: 50px;
 }
 
-
-.display-button{
-    flex-direction: row;
-}
-
+// --- Main Heading ---
 .main-heading-swp {
     font-size: 28px;
     text-align: center;
     color: #5848c2;
-    margin-bottom: 20px;
-    margin-right: 100px;
-
+    margin-bottom: 30px; // Increase space below heading
+    font-weight: 600; // Slightly bolder
 }
 
-.swpcalculator-display,
-.swpcalculator-form {
+// --- NEW: Layout Container for Columns ---
+.calculator-layout-container {
+    display: flex;
+    flex-direction: row; // Arrange children side-by-side
+    gap: 40px; // Space between the two columns
+    justify-content: space-between; // Distribute space if needed
+
+    // Responsive: Stack columns on smaller screens
+    @media (max-width: 992px) {
+        flex-direction: column; // Stack vertically
+        align-items: center; // Center items when stacked
+        gap: 30px;
+    }
+}
+
+// --- NEW: Column 1: Form & Results ---
+.calculator-form-column {
+    flex: 2; // Takes up more space (adjust ratio with column 2 if needed)
+    min-width: 300px; // Minimum width before wrapping might occur
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    height: 80vh;
+    gap: 25px; // Space between input groups and results/button
 }
 
-.input-container {
+// --- Input Styling ---
+.calculator-inputs {
     display: flex;
-    
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 20px; // Space between each input group
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; // Stack label above inputs
+    gap: 8px; // Space between label and input controls
 }
 
 label {
+    font-size: 15px; // Slightly smaller label
+    font-weight: 500; // Medium weight
+    color: #333; // Darker grey
+}
+
+.input-controls {
+    display: flex;
+    flex-direction: column; // Stack text input above range slider
+    gap: 8px;
+}
+
+.value-input { // Style for the text input box
+    padding: 10px 12px;
     font-size: 16px;
-    font-weight: bold;
-    color: black;
-    min-width: 200px;
+    border: 1px solid #ccc; // Lighter border
+    border-radius: 6px;
+    width: 100%; // Take full width of its container
+    box-sizing: border-box;
+    text-align: left; // Align text left for normal input feel
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    &:focus {
+        border-color: #5848c2;
+        box-shadow: 0 0 0 2px rgba(88, 72, 194, 0.2); // Focus ring
+        outline: none;
+    }
+
+    &::placeholder {
+        color: #aaa;
+    }
 }
 
-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 20vw;
-    transition: border 0.3s;
-    margin-right: 600px;
-    text-align: center;
-}
-
-
-
-input:focus {
-    border-color: #5848c2;
-    outline: none;
-}
-
-input::placeholder {
-    color: #aaa;
-}
-
-input[type="range"] {
-      
-    height: 1em;
+.range-slider { // Style for the range input
+    width: 100%; // Take full width
+    height: 8px; // Make slider track slimmer
+    cursor: pointer;
+    background: #e0e0e0; // Lighter track background
     border-radius: 5px;
     outline: none;
-    width: 27.7vw;
-    margin-top: 5px;
+    appearance: none; // Override default look
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px; // Larger thumb
+        height: 16px;
+        background: #5848c2;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: #5848c2;
+        border-radius: 50%;
+        border: none; // Remove default border in Firefox
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+     &:hover::-webkit-slider-thumb {
+         background: #3e30a1;
+     }
+      &:hover::-moz-range-thumb {
+          background: #3e30a1;
+      }
 }
 
 
-
-input[type="range"]::-webkit-slider-thumb,
-input[type="range"]::-moz-range-thumb {
-    appearance: none;
-    width: 8px;
-    height: 8px;
-    background: #5848c2;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-
-
+// --- Investment Period Controls ---
 .investment-controls {
     display: flex;
     align-items: center;
     gap: 10px;
-    
-}
-
-.textinput {
-    width: 8vw;
 }
 
 .control-btn {
-    background: #5848c2;
+    background: #6c5ce7; // Slightly different purple
     color: white;
     padding: 8px 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    transition:  0.3s; 
+    transition: background-color 0.3s;
+    line-height: 1; // Ensure consistent height
+
+    &:hover {
+        background: #5848c2; // Darker on hover
+    }
+
+    &:active {
+        background: #3e30a1; // Even darker when clicked
+    }
 }
 
-#investmentPeriod{
-    width: 45px;
-}
-.control-btn:hover {
-    background: #3e30a1;
-}
-
-.results-container {
-    background: #5848c2;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 28vw;
+.period-input { // Specific styling for the years input
+    width: 60px; // Fixed width
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f8f9fa; // Light background as it's read-only visually
+    color: #333;
 }
 
-.result-card {
+// --- Calculate Button ---
+.calculate-button-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center; // Center the button within its space
+    margin-top: 10px; // Add some space above the button
+}
+
+.calculate {
+    color: white;
+    background-color: #5848c2;
+    padding: 12px 30px; // Make button larger
+    border-radius: 8px; // Slightly rounder
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+
+    &:hover {
+        background-color: #3e30a1;
+    }
+     &:active {
+         transform: scale(0.98); // Slight press effect
+     }
+}
+
+// --- Results Display ---
+.results-container {
+    background: #f0e Dfd; // Lighter background for results
+    // background: linear-gradient(135deg, #6c5ce7, #a29bfe); // Gradient background example
+    background: #5848c2; // Keep original color if preferred
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px; // Space above results
+    color: white; // Text color for results
+    width: 100%; // Take full width of its column
+    box-sizing: border-box;
 }
 
 .result-item {
     display: flex;
     justify-content: space-between;
     font-size: 16px;
+    padding: 8px 0; // Add padding to each result item
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); // Subtle separator line
+    }
 }
 
 .result-label {
+    font-weight: 500; // Medium weight for label
+    color: rgba(255, 255, 255, 0.9); // Slightly transparent white
+}
+
+.result-value {
+    font-weight: 600; // Bolder value
+}
+
+
+// --- NEW: Column 2: Media (Video & Button) ---
+.calculator-media-column {
+    flex: 1; // Takes up remaining space (adjust ratio with column 1 if needed)
+    display: flex;
+    flex-direction: column; // Stack video and button vertically
+    align-items: center; // Center items horizontally
+    justify-content: center; // Center items vertically (adjust as needed, e.g., flex-start)
+    gap: 25px; // Space between video and button
+    min-width: 250px; // Minimum width
+    margin: 20px;
+    margin-top: 150px;
+   
+
+     @media (max-width: 992px) {
+        width: 80%; // Take more width when stacked
+        max-width: 400px; // Limit max width when stacked
+        margin-top: 20px; // Add space when stacked below form
+    }
+}
+
+.investment-video {
+    width: 100%; // Make video responsive
+    max-width: 350px; // Limit max video size
+    height: auto; // Maintain aspect ratio
+    border-radius: 10px; // Rounded corners for video
+    display: block; // Remove extra space below video
+}
+
+.invest-now-button { // Renamed from display-button for clarity
+    color: white;
+    background-color: #28a745; // Green color for "Invest" CTA
+    padding: 12px 30px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    text-align: center; // Ensure text is centered
+
+    &:hover {
+        background-color: #218838; // Darker green on hover
+    }
+
+     &:active {
+         transform: scale(0.98);
+     }
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+    margin: 20px;
+
+   }
+   
+  
+   .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+   
+  
+   .table-container th,
+   .table-container td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+   }
+   
+  
+   .table-container th {
+    background-color: #f5f5f5;
     font-weight: bold;
-    margin-top:10px;
-    color: white;
-}
-.result-value{
-    color: white;
-}
+   }
+   
+  
+   .table-container tbody tr:hover {
+    background-color: #f9f9f9;
+   }
+   
+  
+   @media (max-width: 768px) {
+    .table-container {
+    font-size: 14px;
+    }
+   
+  
+    .table-container th,
+    .table-container td {
+    padding: 8px 10px;
+    }
+   }
+  
+// --- Remove potentially conflicting old styles ---
+/* Remove or comment out the old .swpcalculator-display styles if they exist */
+// .swpcalculator-display {
+//     /* display: flex; */ /* No longer needed here */
+//     /* flex-direction: column; */ /* No longer needed here */
+//     /* gap: 20px; */ /* Handled by new column styles */
+//     /* height: 80vh; */ /* Remove fixed height */
+// }
 
+/* Remove specific positioning overrides for the button if they exist */
+// .display-button {
+//    /* margin-left: 20px; */ /* Remove */
+//    /* margin-bottom: -350px; */ /* Remove */
+//    /* justify-self: center; */ /* Remove */
+// }
 
-.calculate{
-    display: flex;
-    flex-direction: row;
-    color: white;
-    background-color: #5848c2;
-    margin-left: 150px;
-    padding: 10px;
-    border-radius: 15px;
-}
-
-
-
-.display-button{
-    display: flex;
-    justify-self: center;
-    margin-left: 20px;
-    margin-bottom: -350px;
-    background-color: #5848C2;
-}
+/* Adjustments to input styles if needed */
+// input {
+//     /* width: 20vw; */ /* Replaced by width: 100% on .value-input */
+//     /* margin-right: 600px; */ /* Remove */
+// }
+// input[type="range"] {
+//     /* width: 27.7vw; */ /* Replaced by width: 100% on .range-slider */
+// }

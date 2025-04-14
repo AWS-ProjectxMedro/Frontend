@@ -2,22 +2,19 @@
 .learn-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100vw;
-    background: linear-gradient(135deg, #f4f4f4, #eaeaea);
+    background: #ECF5FE;
     min-height: 100vh;
-    padding: 20px 0;
+    padding:  0;
 }
 
 /* Layout with Sidebar and Main Content */
 .learn-layout {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 1400px;
-    margin: 20px auto;
-    gap: 20px;
-    background-color: white;
+    width: 95vw;
+    margin: 10vh;
+    margin-left: 30px;
 }
 
 /* Sidebar */
@@ -73,6 +70,7 @@
 .main-content-learn {
     flex-grow: 1;
     padding: 30px;
+    margin: 10px;
     border-radius: 15px;
     background: #fff;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);

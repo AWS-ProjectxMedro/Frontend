@@ -18,7 +18,7 @@
 
 /* Body */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
     background-color: var(--accent-color);
     color: var(--black);
     overflow-x: hidden;
@@ -59,7 +59,9 @@ header {
 /* Main Heading */
 .main-heading {
     width:100vw;
-    font-size: 36px;
+    font-size: 48px;
+    font-weight: 600;
+    font-style: normal;
     color: black;
     margin-bottom: 2rem;
     line-height: 1.4;

@@ -22,7 +22,7 @@ const Account = () => {
         <div className="account-header">
           <form>
           <button className="change-account-button">Change account</button>
-          <span>@investprouser</span>
+          <span>Sumit</span>
           <img src="account-pic-url" alt="account" className="account-pic" />
           <label>Update display Name:</label>
           <input type="text" placeholder="New Name" />
