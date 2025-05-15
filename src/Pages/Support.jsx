@@ -5,13 +5,14 @@ import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
 import { FaPhone, FaMapMarkerAlt, FaEnvelope, FaChevronDown, FaChevronUp } from "react-icons/fa";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const Support = () => {
-  const [faqs, setFaqs] = useState([
-    { question: "How do I reset my password?", answer: "You can reset your password by going to the login page and clicking on 'Forgot Password'." },
-    { question: "What are the customer support hours?", answer: "Our support team is available 24/7 to assist you." },
-    { question: "How can I track my investments?", answer: "You can track your investments through your dashboard after logging into your account." }
-  ]);
+ const Support = () => {
+ const [faqs, setFaqs] = useState([
+//     { question: "How do I reset my password?", answer: "You can reset your password by going to the login page and clicking on 'Forgot Password'." },
+//     { question: "What are the customer support hours?", answer: "Our support team is available 24/7 to assist you." },
+//     { question: "How can I track my investments?", answer: "You can track your investments through your dashboard after logging into your account." }
+]);
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -22,7 +23,7 @@ const Support = () => {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await axios.get("http://3.109.55.32:3308/api/faqs");
+        const response = await axios.get(`${baseUrl}/api/faqs`,);
         if (Array.isArray(response.data)) {
           setFaqs(response.data);
         }

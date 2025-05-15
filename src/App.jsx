@@ -18,6 +18,12 @@ import MarketGuides from "./Component/dashboard/MarketGuides";
 import Profile from "./Component/dashboard/Profile";
 import InvestmentTools from "./Component/dashboard/InvestmentTools";
 import Sidebar from "./Component/dashboard/Sidebar";
+import AdminDashboard from "./Pages/AdminDashboard";
+import UserManagement from "./Component/AdminDashboard/userManagement";
+import ManageBlog from "./Component/AdminDashboard/manageBlog";
+import Transaction  from "./Component/AdminDashboard/transcation";
+import SidebarAdmin from "../src/Component/AdminDashboard/AdminSidebar";
+import Withdrawal from "../src/Component/AdminDashboard/withdrawal";
 
 import "./App.css";
 
@@ -30,7 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/invest" element={<Invest />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />
@@ -46,6 +52,12 @@ function App() {
             <Route path="/investmenttools" element={<InvestmentTools />} />
             <Route path="/sidebar"  element={<Sidebar setIsAuthenticated={setIsAuthenticated} />}  />
             <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="AdminDashboard" element={<AdminDashboard/>} />
+            <Route path="/userManagement" element={<UserManagement/>} />
+            <Route path="/manageBlog" element={<ManageBlog/>} />
+            <Route path="/withdrawal" element={<Withdrawal />} />
+            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/sidebarAdmin" element={<SidebarAdmin setIsAuthenticated={setIsAuthenticated} />} />
           </Routes>
         </div>
       </Router>

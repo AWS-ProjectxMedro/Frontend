@@ -3,7 +3,7 @@ import "../assets/styles/SwpCalculator.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
-import Animation from "../assets/image/invest.webp"; // Assuming this path is correct
+import Animation from "../assets/image/invest.jpg"; // Assuming this path is correct
 
 function SwpCalculator() {
   const [investmentPeriod, setInvestmentPeriod] = useState(1);
@@ -239,7 +239,7 @@ function SwpCalculator() {
         </section>
         {/* Column 2: Video & Invest Button */}
         <div className="calculator-media-column">
-          <img src={Animation} alt="" width="350px" />
+          <img src={Animation} alt="" width="550px" />
           <button className="invest-now-button">Invest Now</button>
         </div>{" "}
         {/* End Column 2 */}

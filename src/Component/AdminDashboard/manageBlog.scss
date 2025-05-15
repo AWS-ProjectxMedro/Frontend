@@ -1,0 +1,97 @@
+// App.scss
+$app-bg-color: #e6f5ff;
+$side-bg-color: #1a1a2e;
+$sidebar-text-color: #ffffff;
+$button-bg-color: #6d6e71;
+$button-text-color: #ffffff;
+$text-dark: #333;
+$card-bg: #eee;
+
+.dashboard-manageBlog{
+    display: flex;
+}
+
+.app {
+  display: flex;
+  background-color: $app-bg-color;
+  height: 100vh;
+
+  button {
+    margin-top: 20px;
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+}
+
+.main-content-manageBlog {
+  padding: 20px;
+  flex-grow: 1;
+
+  h2 {
+    color: $text-dark;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+    }
+
+    .user-info {
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+
+    .stat {
+      background: $card-bg;
+      padding: 10px;
+      flex: 1;
+
+      h4 {
+        margin: 0;
+      }
+    }
+  }
+
+  .recent-blog {
+    h4 {
+      margin-bottom: 10px;
+    }
+
+    .blog-item {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      gap: 10px;
+
+      input {
+        margin-right: 10px;
+      }
+
+      button {
+        margin-left: auto;
+        background-color: $button-bg-color;
+        color: $button-text-color;
+      }
+    }
+
+    .add-new {
+      margin-top: 20px;
+    }
+  }
+}

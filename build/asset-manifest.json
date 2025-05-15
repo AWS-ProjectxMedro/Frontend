@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2fad1f8c.css",
+    "main.js": "/static/js/main.56429bf2.js",
+    "static/media/Login_no_bg_v2.gif": "/static/media/Login_no_bg_v2.f071e6e039a695780aa7.gif",
+    "static/media/timeline.png": "/static/media/timeline.cdb0c4bee12a99969f6e.png",
+    "static/media/invest.webp": "/static/media/invest.cb70e8db8cd6f0982efa.webp",
+    "static/media/About.png": "/static/media/About.9f7876dfe2bd5c557f2f.png",
+    "static/media/logo1.png": "/static/media/logo1.b76632b178217cdd6132.png",
+    "static/media/logo3.png": "/static/media/logo3.b76632b178217cdd6132.png",
+    "static/media/logo4.png": "/static/media/logo4.b76632b178217cdd6132.png",
+    "static/media/logo6.png": "/static/media/logo6.b76632b178217cdd6132.png",
+    "static/media/about2.png": "/static/media/about2.91bfed261f4adc51754e.png",
+    "static/media/home-img.png": "/static/media/home-img.e1a0728063758cbf7ff3.png",
+    "static/media/invest1.webp": "/static/media/invest1.a32886df50ade391411e.webp",
+    "static/media/logo.png": "/static/media/logo.b8b429d85deccf2f7672.png",
+    "static/media/marketGuides1.png": "/static/media/marketGuides1.c1f0589b6c94e681e624.png",
+    "static/media/marketGuides4.png": "/static/media/marketGuides4.f0facc8de7b6f491ab48.png",
+    "static/media/marketGuides3.png": "/static/media/marketGuides3.510ed63b8542b7fa170b.png",
+    "static/media/marketGuides2.png": "/static/media/marketGuides2.2471e895415854f55058.png",
+    "static/media/About3.png": "/static/media/About3.ad78a30d519cd8e7e83d.png",
+    "static/media/business1.jpg": "/static/media/business1.b9adb33935ca382f60c4.jpg",
+    "static/media/business4.jpg": "/static/media/business4.027f6781a08ccca6248f.jpg",
+    "static/media/business2.jpg": "/static/media/business2.81ec82dc35519990ec33.jpg",
+    "index.html": "/index.html",
+    "main.2fad1f8c.css.map": "/static/css/main.2fad1f8c.css.map",
+    "main.56429bf2.js.map": "/static/js/main.56429bf2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2fad1f8c.css",
+    "static/js/main.56429bf2.js"
+  ]
+}

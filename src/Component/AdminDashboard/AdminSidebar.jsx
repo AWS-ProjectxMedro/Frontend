@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo3 from "../../assets/image/logo3.png";
-import "./Sidebar.scss";
+
 
 const SidebarAdmin = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -30,22 +30,22 @@ const SidebarAdmin = ({ setIsAuthenticated }) => {
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/account" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink to="/transaction" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
               Transaction
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/InvestmentTools" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink to="/withdrawal" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
               Withdrawal
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/MarketGuides" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink to="/manageBlog" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
               Manage Blog
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/Profile" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink to="/userManagement" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
               User Mangament
             </NavLink>
           </li>

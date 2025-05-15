@@ -1,10 +1,16 @@
 .dashboard-user {
   display: flex;
+  flex-direction: row;
   background-color: #1E1E78;
   color: white;
   min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px;
+  }
 }
 
 .dashboard__main {
@@ -13,35 +19,34 @@
   background-color: #4858C2;
   border-radius: 12px;
   margin-left: 20px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: 15px;
+  }
 }
 
-.dashboard__chart-placeholder {
-  height: 200px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  margin-top: 15px;
+.investment-heading {
+  color: white;
+  margin: 20px 0 10px 0;
+  font-size: 1.5rem;
 }
-
 
 .dashboard__section {
   display: flex;
+  flex-direction: row;
   gap: 20px;
   margin-bottom: 30px;
   flex-wrap: wrap;
-  color: white;
 }
 
-
-
 .dashboard__investment-data {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 1 250px;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
   color: black;
+  transition: transform 0.2s;
 
   &:hover {
     transform: translateY(-5px);
@@ -50,41 +55,73 @@
   .stat-value {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 10px 0;
     color: #1E1E78;
+    margin: 10px 0;
   }
 
   .stat-note {
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.9rem;
+    color: #555;
   }
 }
 
-.investment-heading {
-  color: white;
-  margin: 20px 0;
-  padding-left: 10px;
+.heading-section{
+  display: flex;
+  flex-direction: row;
+  gap: 30vw;
+  margin: 1vw;
+}
+
+.dashboard__chart {
+  flex: 1 1 100%;
+  margin-bottom: 30px;
+
+  h3 {
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .dashboard__chart-placeholder {
+    background-color: #EFEFEB;
+    border-radius: 8px;
+    height: 250px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+.my-investment-chart {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .dashboard__investment-item {
-  flex: 1;
-  min-width: 250px;
-  
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 15px;
   border-radius: 8px;
-  margin: 10px 0;
+  margin-bottom: 10px;
+  color: black;
 
   .investment-name {
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-weight: bold;
   }
 
   .investment-value {
     color: #FFD700;
-    margin-bottom: 8px;
+    margin-top: 5px;
   }
 
   .investment-roi {
+    margin-top: 5px;
+
     &.positive {
       color: #00FF7F;
     }
@@ -92,11 +129,26 @@
 }
 
 .dashboard__section-trending-stock {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
+  background-color: #fff;
+  color: black;
+  padding: 15px;
   border-radius: 8px;
-  margin-top: 20px;
-  position: static;
-  width: auto;
-  height: auto;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f3f3f3;
+      font-weight: bold;
+    }
+  }
 }

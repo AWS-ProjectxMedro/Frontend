@@ -1,29 +1,41 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import logo3 from "../../assets/image/logo3.png";
-import "./Sidebar.scss";
+import logo3 from "../../assets/image/logo3.png"; // Ensure this path is correct
+import "./Sidebar.scss"; // Ensure this path is correct
 
-const Sidebar = ({ setIsAuthenticated }) => {
+const Sidebar = ({ setIsAuthenticated }) => { // Destructured prop
+  // Log when the component renders or re-renders
+  console.log('Sidebar props:', { setIsAuthenticated });
+  console.log('Type of setIsAuthenticated on render:', typeof setIsAuthenticated);
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
+    // Log when the handler is called
+    console.log('handleSignOut called. Current setIsAuthenticated:', setIsAuthenticated);
+    console.log('Type of setIsAuthenticated in handleSignOut:', typeof setIsAuthenticated);
+
     if (typeof setIsAuthenticated === 'function') {
-      setIsAuthenticated(false); // Ensure this function exists and is correctly passed
+      localStorage.removeItem("authToken");
+      setIsAuthenticated(false);
+      navigate("/login");
     } else {
-      console.error("setIsAuthenticated is not defined or not a function");
+      console.error("setIsAuthenticated is NOT a function in handleSignOut!");
+      // Fallback behavior: still try to log out and redirect
+      localStorage.removeItem("authToken");
+      navigate("/login");
     }
-    localStorage.removeItem("authToken");
-    navigate("/login");
   };
 
   return (
-    <div className="dashboard">
+    <div className="dashboard"> {/* This class here is a bit unusual if Sidebar is always a child component */}
       <aside className="dashboard__sidebar">
         <div className="dashboard__sidebar-logo">
           <img src={logo3} alt="logo" height="50px" width="50px" />
           <h2 className="dashboard__sidebar-title">User Dashboard</h2>
         </div>
         <ul className="dashboard__sidebar-menu">
+          {/* ... other NavLinks ... */}
           <li className="dashboard__sidebar-menu-item">
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
               Dashboard
@@ -49,7 +61,7 @@ const Sidebar = ({ setIsAuthenticated }) => {
               Profile
             </NavLink>
           </li>
-          <li className="dashboard__sidebar-signout" onClick={handleSignOut}>
+          <li className="dashboard__sidebar-signout" onClick={handleSignOut} style={{ cursor: 'pointer' }}>
             Sign Out
           </li>
         </ul>

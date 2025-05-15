@@ -4,7 +4,7 @@ import "../assets/styles/Invest.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
-import philosophy from "../assets/image/invest1.webp";
+import philosophy from "../assets/image/invest1.jpg";
 import timeline from '../assets/image/timeline.png';
 import { FaChartBar,FaBriefcase,FaMoneyBillWave, FaShieldAlt, FaChartLine, FaCoins, FaLightbulb} from 'react-icons/fa';
 
