@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../assets/styles/Homepage.scss';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
-import mob from '../assets/image/home-img.png';
+import mob from '../assets/image/home-img.jpg';
 import Seo from '../Component/Seo';
 
 const Homepage = () => {

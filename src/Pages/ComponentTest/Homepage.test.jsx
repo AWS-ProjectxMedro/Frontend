@@ -10,7 +10,7 @@ import Homepage from '../Homepage'; // Assumes Homepage.jsx is in src/Pages/
 jest.mock('../../Component/Header', () => () => <div data-testid="header" />);
 jest.mock('../../Component/Footer', () => () => <div data-testid="footer" />);
 jest.mock("../../Component/Seo", () => () => <div data-testid="seo" />);
-jest.mock('../../assets/image/home-img.png', () => 'test-image');
+jest.mock('../../assets/image/home-img.jpg', () => 'test-image');
 
 
 /**

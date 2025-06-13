@@ -3,7 +3,7 @@ import '../assets/styles/About.scss';
 import Header from '../Component/Header';
 import Footer from '../Component/Footer';
 import { FaChartLine, FaUserShield, FaCoins, FaChartPie,FaQuestionCircle } from 'react-icons/fa';
-import about from '../assets/image/About.png';
+import about from '../assets/image/About.jpg';
 import Seo from '../Component/Seo';
 import about2 from '../assets/image/about2.png';
 import about3 from '../assets/image/About3.png';
