@@ -1,82 +1,118 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom';
-import logo3 from "../../assets/image/logo3.png";
+import React, { useState, useEffect, useCallback } from "react";
+import { NavLink, Link } from "react-router-dom"; 
 import Sidebar from "../dashboard/Sidebar";
-import "./MarketGuides.scss";
-import image1 from "../../assets/image/marketGuides1.png";
-import image2 from "../../assets/image/marketGuides2.png";
-import image3 from "../../assets/image/marketGuides3.png";
-import image4 from "../../assets/image/marketGuides4.png";
+import "./Style/MarketGuides.scss" // Adjust the path as necessary
+import axios from "axios";
 
-
+const truncateContent = (htmlContent, maxLength) => {
+  if (!htmlContent) return '';
+  // Strip HTML tags for a cleaner excerpt
+  const textContent = new DOMParser().parseFromString(htmlContent, 'text/html').body.textContent || "";
+  if (textContent.length <= maxLength) return textContent;
+  // Find the last space within the maxLength
+  const trimmedString = textContent.substr(0, maxLength);
+  return trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" "))) + "...";
+};
 
 const MarketGuides = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const baseUrl = process.env.REACT_APP_API_BASE_URL; // Your API base URL
+
+  const fetchPublicBlogs = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Public endpoint, no token needed generally
+      const response = await axios.get(`${baseUrl}/api/blogs`);
+      setBlogs(response.data);
+    } catch (err) {
+      console.error("Error fetching public blog data:", err);
+      setError(
+        "Failed to load articles. " + (err.response?.data?.message || err.message)
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [baseUrl]);
+
+  useEffect(() => {
+    fetchPublicBlogs();
+  }, [fetchPublicBlogs]);
+
   return (
-    
-        <div className="dashboard-marketguides">
+    <div className="dashboard-marketguides">
       <Sidebar />
       <div className="main-content-MarketGuides">
-        <h1>Discover Your Favourite</h1>
-        <div className='search-bar'>
-        <input type="text" placeholder="Search investment categories" />
-        <button className="explore-btn">explore</button>
-        </div>
-        <br />
-        <br />
         <div>
-        <h3>Popular searches</h3>
-        <div className="tags">
-          <span className="tag">market Trends</span>
-          <span className="tag">Design principles</span>
-          <span className="tag">Analysis</span>
-          <span className="tag">Visual Editing</span>
-          <span className="tag">Content Creation</span>
+          
         </div>
-        </div>
-        <br />
-        <div>
-        <h3>Investment Categories</h3>
-        <div className="categories">
-          <span className="category">
-            <span className='right'> ✓</span>Mark</span>
-          <span className="category">
-          <span className='right'> ✓</span>Fin</span>
-          <span className="category">
-          <span className='right'> ✓</span>Creative</span>
-          <span className="category">
-          <span className='right'> ✓</span>Data</span>
-          <span className="category">
-            <span className='right'> ✓</span> Visual</span>
-        </div>
-        </div>
-        
-        <div>
-        <h3>Performance Rating</h3>
-        <div className="rating">
-          {Array.from({ length: 5 }, (_, index) => (
-            <span key={index} className="star">★</span>
-          ))}
-        </div>
-        </div>
-        
-        <h3>Skill level</h3>
-        <div className="skills">
-          <span className="skill">Novice</span>
-          <span className="skill">Advance</span>
-          <span className="skill">Export</span>
-        </div>
-
-        <h3>Tailored for you</h3>
-        <div className="image-gallery">
-          <img src={image1} alt="User Option 1"/>
-          <img src={image2} alt="User Option 2"/>
-          <img src={image3} alt="User Option 3"/>
-          <img src={image4} alt="User Option 4"/>
-        </div>
+        <main className="main-content-blog">
+          <section className="blog-section">
+            <h1 className="main-heading-blog">Blog & Insights</h1>
+            <p className="intro-text">
+              Stay updated with expert market analysis, investment strategies,
+              and financial insights.
+            </p>
+            <div className="hero-blog">
+              <h3>Latest Articles:</h3>
+              {loading && <p className="loading-text">Loading articles...</p>}
+              {error && <p className="error-text">{error}</p>}
+              {!loading && !error && blogs.length === 0 && (
+                <p className="no-articles-text">No articles found at the moment. Check back soon!</p>
+              )}
+              {!loading && !error && blogs.length > 0 && (
+                <div className="blog-grid">
+                  {blogs.map((blog) => (
+                    <div className="blog-card" key={blog.id || blog._id}>
+                      {blog.imageUrl && (
+                        <Link to={`/blog/${blog.id || blog._id}`} className="blog-card-image-link">
+                          <img
+                            src={blog.imageUrl}
+                            alt={blog.title}
+                            className="blog-card-image"
+                          />
+                        </Link>
+                      )}
+                      <div className="blog-card-content">
+                        <h4 className="blog-card-title">
+                          <Link to={`/blog/${blog.id || blog._id}`}>
+                            {blog.title}
+                          </Link>
+                        </h4>
+                        <p className="blog-card-author-date">
+                          By {blog.author || "TheCapitalTree Team"} 
+                          {blog.createdAt && ` on ${new Date(blog.createdAt).toLocaleDateString()}`}
+                        </p>
+                        <p className="blog-card-excerpt">
+                          {truncateContent(blog.content, 120)}
+                        </p>
+                        <div className="blog-card-meta">
+                          {typeof blog.views !== 'undefined' && <span>{blog.views} Views</span>}
+                          {typeof blog.likes !== 'undefined' && <span>{blog.likes} Likes</span>}
+                        </div>
+                        <Link
+                          to={`/blog/${blog.id || blog._id}`}
+                          className="read-more-link"
+                        >
+                          Read More →
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="footer-note">
+                📌 Explore more and take control of your financial future.
+              </p>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
-    
-  )
-}
+  );
+};
 
 export default MarketGuides;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Short60.scss";
+import "./Style/Short60.scss";
 import Header from '../../Component/Header';
 import Footer from '../../Component/Footer';
 

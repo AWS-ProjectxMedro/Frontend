@@ -1,0 +1,250 @@
+// src/Component/Style/Payment.scss
+// --- Theme Color Palette (Dark Theme) ---
+$theme-bg: #0d1117; // A very dark, almost black charcoal background
+$card-bg: #1f2937;
+$input-bg: #374151;
+$border-color: #4b5563;
+$primary-text-color: #e5e7eb;
+$secondary-text-color: #9ca3af;
+$accent-color: #3b82f6;
+$accent-color-hover: #2563eb;
+$success-color: #22c55e;
+$danger-color: #ef4444;
+
+// --- Layout Variables ---
+$sidebar-width-desktop: 260px;
+$breakpoint-md: 768px;
+$spacer: 1rem;
+
+// --- Main Page & Content Wrapper ---
+.payment-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: $theme-bg;
+  color: $primary-text-color;
+
+  // The main content area that respects the sidebar
+  .payment-content-wrapper {
+    flex-grow: 1;
+    padding: $spacer * 2;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: $sidebar-width-desktop;
+
+    @media (max-width: #{$breakpoint-md}) {
+      margin-left: 0;
+      padding: $spacer;
+    }
+  }
+}
+
+// --- Centered Payment Container ---
+.payment-container {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: $spacer * 1.5;
+  }
+}
+
+// --- Payment Type Indicator & Summary ---
+.payment-type-indicator {
+  background-color: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: $spacer * 1.5;
+  margin-bottom: $spacer * 2;
+  width: 100%;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: $spacer;
+    padding-bottom: $spacer * 0.75;
+    border-bottom: 1px solid $border-color;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  p {
+    color: $secondary-text-color;
+    margin: 0;
+  }
+
+  .purchase-summary {
+    display: flex;
+    flex-direction: column;
+    gap: $spacer * 0.75;
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1em;
+
+      strong {
+        color: $secondary-text-color;
+        font-weight: 500;
+      }
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// --- Main Payment Form Card ---
+.payment-form {
+  background-color: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  width: 100%;
+  padding: $spacer * 2;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: #{$breakpoint-md}) {
+    padding: $spacer * 1.5;
+  }
+}
+
+// --- Form Elements (Dark Theme) ---
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacer * 0.5;
+  margin-bottom: $spacer * 1.25;
+
+  label {
+    font-weight: 500;
+    color: $secondary-text-color;
+    font-size: 0.9rem;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: $spacer * 0.85;
+    font-size: 1rem;
+    color: $primary-text-color;
+    background-color: $input-bg;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: darken($secondary-text-color, 15%);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+      box-shadow: 0 0 0 3px rgba($accent-color, 0.3);
+    }
+    
+    &:disabled {
+      background-color: darken($input-bg, 5%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: $spacer;
+  
+  .form-group {
+    flex: 1;
+  }
+}
+
+// --- Buttons ---
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacer;
+  margin-top: $spacer;
+
+  .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    padding: $spacer * 0.8 $spacer * 1.5;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &-primary {
+      color: #fff;
+      background-color: $accent-color;
+      &:hover:not(:disabled) {
+        background-color: $accent-color-hover;
+      }
+    }
+
+    &-secondary {
+      color: $primary-text-color;
+      background-color: $input-bg;
+      border: 1px solid $border-color;
+      &:hover:not(:disabled) {
+        background-color: $border-color;
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// --- Feedback Messages ---
+.error-message, .success-message {
+  padding: $spacer;
+  margin-bottom: $spacer * 1.25;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.error-message {
+  background-color: rgba($danger-color, 0.15);
+  color: $danger-color;
+  border: 1px solid $danger-color;
+}
+
+.success-message {
+  background-color: rgba($success-color, 0.15);
+  color: $success-color;
+  border: 1px solid $success-color;
+}
+
+// --- Spinner for Button ---
+.spinner {
+  width: 1.25em;
+  height: 1.25em;
+  border-width: 0.2em;
+  border-style: solid;
+  border-color: currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-rotate 0.75s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}

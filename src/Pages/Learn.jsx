@@ -22,6 +22,7 @@ function Learn() {
                 {/* Sidebar Navigation */}
                 <br />
                 <br />
+                <br />
                 <aside className="sidebar">
                     <h2 className="sidebar-title">Learning Paths</h2>
                     <ul>

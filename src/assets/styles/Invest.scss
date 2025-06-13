@@ -5,36 +5,36 @@
   justify-content: center;
   min-height: 100vh;
   background-color: #ECF5FE;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  text-align: center;
 }
 
-/* Invest Section */
+/*
+  The following styles (.invest-section, .invest-heading, etc.)
+  were in the original SCSS but don't seem to be directly used by the JSX structure.
+  They are commented out to focus on the styles actively applied.
+*/
+/*
 .invest-section {
   text-align: center;
   padding: 2rem;
 }
-
-/* Main Heading */
 .invest-heading {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
-
-/* Subtitle */
 .invest-section h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 1rem;
 }
-
-/* Invest Text */
 .invest-text {
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 2rem;
 }
-
-/* Form Container */
 .invest-form-container {
   background-color: #fff;
   padding: 1.5rem;
@@ -43,14 +43,10 @@
   max-width: 400px;
   margin: 0 auto;
 }
-
-/* Form Title */
 .form-title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
-
-/* Input Styling */
 .invest-input {
   width: 100%;
   padding: 0.75rem;
@@ -59,8 +55,6 @@
   border-radius: 5px;
   font-size: 1rem;
 }
-
-/* Button Styling */
 .invest-button {
   padding: 0.75rem 1.5rem;
   background-color: #007bff;
@@ -71,157 +65,160 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .invest-button:hover {
   background-color: #0056b3;
 }
+*/
 
-.invest-container {
-  font-family: "Poppins", sans-serif;
-  color: #333;
+/* Hero Section */
+.invest-hero {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  height: 35vh; // Can be adjusted or set to auto for responsiveness
 
-  .invest-hero {
-    background: linear-gradient(to right, #1e3c72, #2a5298);
+  .invest-heading {
+    font-size: 2.5rem; // Base size
+    margin-bottom: 0.5rem;
+  }
+
+  .invest-subtext {
+    font-size: 1.2rem; // Base size
+    margin-bottom: 1.5rem;
+    max-width: 600px; // Constrain width for better readability
+  }
+
+  .primary-btn {
+    background: #ff7b00;
+    padding: 12px 24px;
+    border: none;
     color: white;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height:35vh;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
 
-    .primary-btn {
-      background: #ff7b00;
-      padding: 12px 24px;
-      border: none;
-      color: white;
-      font-size: 16px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: 0.3s;
+    &:hover {
+      background: #ff9100;
+    }
+  }
+}
+
+/* Investment Philosophy Section */
+.invest-philosophy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px;
+
+  img {
+    width: 500px;
+    max-width: 100%; // Ensure image scales down
+    height: auto;   // Maintain aspect ratio
+    border-radius: 10px;
+  }
+
+  .philosophy-content {
+    max-width: 500px;
+    text-align: left;
+
+    h2 {
+      font-size: 2.8rem; // Adjusted from 42px
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem; // More specific control than x-large
+      line-height: 1.6;
+    }
+  }
+}
+
+/* Key Benefits Section */
+.invest-benefits {
+  background: #f8f9fa;
+  padding: 50px 20px; // Add horizontal padding
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+
+  .benefit-cards {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+
+    .benefit-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 250px; // Base width
+      transition: transform 0.3s;
+      text-align: center;
 
       &:hover {
-        background: #ff9100;
-      }
-    }
-  }
-
-  .invest-philosophy {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    padding: 50px;
-
-    img {
-      width: 500px;
-      border-radius: 10px;
-    }
-
-    .philosophy-content {
-      max-width: 500px;
-      text-align: left;
-      font-size:x-large;
-      
-      h2{
-        font-size: 42px;
-      }
-    }
-  }
-
-  .invest-benefits {
-    background: #f8f9fa;
-    padding: 50px;
-
-    .benefit-cards {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
-
-      .benefit-card {
-        background: white;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 250px;
-        transition: transform 0.3s;
-
-        &:hover {
-          transform: translateY(-5px);
-        }
-      }
-    }
-  }
-
-  .invest-process-invest-performance{
-    display: flex;
-    flex-direction: row;
-    margin: 20px;
-  }
-
-  .invest-process {
-    padding: 50px;
-    .process-timeline {
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-
-      .timeline-item {
-        margin: 10px 0;
-        font-size: 18px;
-      }
-    }
-    .timeline{
-      height: 600px;
-      border-radius: 20px;
-    }
-  }
-
-  .invest-cta {
-    background: #1e3c72;
-    color: white;
-    padding: 50px;
-    margin:  10px 1px;
-    box-shadow: 1px 5px 5px black;
-    border-radius: 20px;
-
-    .cta-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin: 10px;
-
-      .primary-btn,
-      .secondary-btn {
-        padding: 12px 24px;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-        margin: 10px;
+        transform: translateY(-5px);
       }
 
-      .primary-btn {
-        background: #EE5935 ;
-        color: white;
-        margin: 10px;
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; // For icon and text if any
       }
-
-      .secondary-btn {
-        background: #EE5935 ;
-        color: white;
-        margin: 10px;
+      p {
+        font-size: 1rem;
+        line-height: 1.5;
       }
     }
   }
 }
 
-/* General Performance Highlight Section */
+/* Container for Investment Process and Performance Highlights */
+.invest-process-invest-performance {
+  display: flex;
+  flex-direction: row; // Default for larger screens
+  margin: 20px;
+  gap: 20px;
+}
+
+/* Investment Process Section */
+.invest-process {
+  padding: 50px 20px; // Add horizontal padding
+  flex: 1; // Takes available space
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+
+  .process-timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .timeline {
+      max-width: 100%;
+      height: auto; // Maintain aspect ratio
+      max-height: 600px; // Cap height if needed
+      border-radius: 20px;
+      object-fit: contain; // Ensures the image scales within bounds
+    }
+  }
+}
+
+/* Performance Highlights Section */
 .invest-performance {
   background: linear-gradient(to right, #0061ff, #00c6ff);
   color: white;
@@ -229,73 +226,137 @@
   padding: 40px 20px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin: 30px auto;
-  max-width: 80%;
-  
-}
+  margin: 30px auto; // Default margin
+  max-width: 80%;    // Default max-width
+  flex: 1; // Takes available space
 
-/* Title Animation */
-.fade-in-title {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: zoomIn 1s ease-out forwards;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+  h2.fade-in-title { // Target h2 with the animation class
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
 
-/* List Animation */
-.fade-in-list {
-  opacity: 0;
-  animation: bounceIn 1s ease-out forwards 0.5s;
-}
+  .fade-in-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0; // Initial state for animation
+    animation: bounceIn 1s ease-out forwards 0.5s;
+  }
 
-.fade-in-item {
-  opacity: 1;  /* Ensure visibility after animation */
-  transform: translateY(0); /* Prevent shifting */
-  animation: bounceIn 1s ease-out forwards;
-  font-size: 1.2rem;
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1);
-  display: flex;  /* Ensure proper alignment */
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-}
+  .fade-in-item {
+    opacity: 0; // Initial state for individual item animation
+    transform: translateY(20px); // Initial state for individual item animation
+    animation: bounceIn 0.6s ease-out forwards; // Staggered via nth-child
+    font-size: 1.1rem; // Base size
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // Align items to the start
+    text-align: left;
+    gap: 10px;
+    transition: all 0.3s ease;
 
+    &:nth-child(1) { animation-delay: 0.2s; }
+    &:nth-child(2) { animation-delay: 0.4s; }
+    &:nth-child(3) { animation-delay: 0.6s; }
+    &:nth-child(4) { animation-delay: 0.8s; }
+    &:nth-child(5) { animation-delay: 1.0s; }
+    &:nth-child(6) { animation-delay: 1.2s; }
+    &:nth-child(7) { animation-delay: 1.4s; }
+  }
 
-.fade-in-item:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.fade-in-item:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-/* Highlight Icons */
-.highlight-icon {
-  font-size: 1.5rem;
-  color: white; /* Ensure it has a visible color */
-  flex-shrink: 0; /* Prevent shrinking */
-}
-
-
-/* Zoom In Effect */
-@keyframes zoomIn {
-  to {
-    opacity: 1;
-    transform: scale(1.2);
+  .highlight-icon {
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
   }
 }
 
-/* Bounce In Effect */
+/* CTA Section */
+.invest-cta {
+  background: #1e3c72;
+  color: white;
+  padding: 50px 20px; // Add horizontal padding
+  margin: 20px 10px; // Adjust margin
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+
+  h2 {
+    font-size: 1.8rem; // Base size
+    margin-bottom: 20px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap; // Allow buttons to wrap
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 12px 24px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 5px; // Adjust margin for wrapped items
+      border-radius: 5px;
+      min-width: 200px; // Ensure buttons have a minimum width
+    }
+
+    .primary-btn {
+      background: #EE5935;
+      color: white;
+      &:hover { background: darken(#EE5935, 10%); }
+    }
+
+    .secondary-btn {
+      background: #EE5935; // Consider a different style for secondary
+      // Example: background: transparent; border: 2px solid #EE5935; color: #EE5935;
+      color: white;
+       &:hover { background: darken(#EE5935, 10%); }
+    }
+  }
+
+  // Regulatory and Compliance Notes Section (nested)
+  section {
+    margin-top: 30px;
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 700px; // Constrain width
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+
+/* Animation Keyframes */
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1); // Changed from 1.2 for a more subtle effect
+  }
+}
+
 @keyframes bounceIn {
   0% {
     opacity: 0;
     transform: translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px);
   }
   100% {
     opacity: 1;
@@ -303,4 +364,182 @@
   }
 }
 
+/* --- Responsive Styles --- */
 
+/* Medium devices (tablets, small desktops, 992px and down) */
+@media (max-width: 992px) {
+  .invest-hero {
+    .invest-heading { font-size: 2.2rem; }
+    .invest-subtext { font-size: 1.1rem; }
+  }
+
+  .invest-philosophy {
+    flex-direction: column; // Stack image and text
+    gap: 30px;
+    padding: 40px 20px;
+
+    img { width: 80%; max-width: 400px; }
+    .philosophy-content {
+      max-width: 90%;
+      text-align: center;
+      h2 { font-size: 2.5rem; }
+      p { font-size: 1rem; }
+    }
+  }
+
+  .invest-benefits {
+    h2 { font-size: 2rem; }
+    .benefit-cards .benefit-card {
+      width: calc(50% - 20px); // Two cards per row
+      min-width: 200px;
+    }
+  }
+
+  .invest-process-invest-performance {
+    flex-direction: column; // Stack process and performance sections
+    margin: 15px;
+    gap: 30px;
+  }
+
+  .invest-process, .invest-performance {
+    padding: 30px 15px; // Reduce padding
+    max-width: 100%; // Allow them to take full width in column layout
+  }
+  .invest-process h2, .invest-performance h2.fade-in-title {
+    font-size: 2rem;
+  }
+}
+
+/* Small devices (landscape phones, tablets, 768px and down) */
+@media (max-width: 768px) {
+  .invest-hero {
+    padding: 40px 20px;
+    height: auto; // Adjust height automatically
+    .invest-heading { font-size: 2rem; }
+    .invest-subtext { font-size: 1rem; }
+    .primary-btn { font-size: 15px; padding: 10px 20px; }
+  }
+
+  .invest-philosophy {
+    padding: 30px 15px;
+    img { width: 90%; max-width: 350px; }
+    .philosophy-content {
+      h2 { font-size: 2.2rem; }
+      p { font-size: 0.95rem; }
+    }
+  }
+
+  .invest-benefits {
+    padding: 40px 15px;
+    h2 { font-size: 1.8rem; }
+    .benefit-cards .benefit-card {
+      width: calc(100% - 20px); // One card per row
+      max-width: 350px; // Max width for single card
+      margin-left: auto;
+      margin-right: auto;
+      padding: 25px;
+      h3 { font-size: 1.2rem; }
+      p { font-size: 0.95rem; }
+    }
+  }
+  
+  .invest-process h2, .invest-performance h2.fade-in-title {
+    font-size: 1.8rem;
+  }
+  .invest-performance .fade-in-item {
+    font-size: 1rem;
+    padding: 12px;
+    .highlight-icon { font-size: 1.3rem; }
+  }
+
+  .invest-cta {
+    padding: 40px 15px;
+    h2 { font-size: 1.6rem; }
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+      .primary-btn, .secondary-btn {
+        width: 80%;
+        max-width: 300px;
+      }
+    }
+    section { // Regulatory notes
+      h2 { font-size: 1.3rem; }
+      p { font-size: 0.9rem; }
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  .invest-hero {
+    padding: 30px 15px;
+    .invest-heading { font-size: 1.6rem; }
+    .invest-subtext { font-size: 0.9rem; }
+    .primary-btn { font-size: 14px; padding: 10px 18px; }
+  }
+
+  .invest-philosophy {
+    padding: 25px 10px;
+    img { width: 95%; max-width: 300px; }
+    .philosophy-content {
+      h2 { font-size: 1.8rem; }
+      p { font-size: 0.9rem; }
+    }
+  }
+
+  .invest-benefits {
+    padding: 30px 10px;
+    h2 { font-size: 1.6rem; }
+    .benefit-cards .benefit-card {
+      padding: 20px;
+      h3 { font-size: 1.1rem; }
+      p { font-size: 0.9rem; }
+    }
+  }
+
+  .invest-process, .invest-performance {
+    padding: 25px 10px;
+  }
+  .invest-process h2, .invest-performance h2.fade-in-title {
+    font-size: 1.6rem;
+  }
+  .invest-performance .fade-in-item {
+    font-size: 0.9rem;
+    gap: 8px;
+    padding: 10px;
+    .highlight-icon { font-size: 1.2rem; }
+  }
+  .invest-process .process-timeline .timeline {
+    max-height: 400px; // Further constrain timeline image height
+  }
+
+  .invest-cta {
+    padding: 30px 10px;
+    margin: 15px 5px;
+    border-radius: 15px;
+    h2 { font-size: 1.4rem; }
+    .cta-buttons {
+      .primary-btn, .secondary-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+        min-width: 180px;
+      }
+    }
+    section { // Regulatory notes
+      h2 { font-size: 1.2rem; }
+      p { font-size: 0.85rem; }
+    }
+  }
+}
+
+.primary-btn, .secondary-btn {
+  text-decoration: none !important;
+  color: white !important;
+  background: #EE5935;
+  border: none;
+  border-radius: 5px;
+  
+  cursor: pointer;
+  display: inline-block;
+}

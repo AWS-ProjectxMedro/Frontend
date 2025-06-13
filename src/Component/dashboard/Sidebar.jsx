@@ -1,71 +1,148 @@
-import React from 'react';
+// src/Component/dashboard/Sidebar.jsx
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import logo3 from "../../assets/image/logo3.png"; // Ensure this path is correct
-import "./Sidebar.scss"; // Ensure this path is correct
+import logo3 from "../../assets/image/logo3.png";
+import "../../assets/styles/Sidebar.scss";
+import { FaBars, FaTimes } from 'react-icons/fa';
 
-const Sidebar = ({ setIsAuthenticated }) => { // Destructured prop
-  // Log when the component renders or re-renders
-  console.log('Sidebar props:', { setIsAuthenticated });
-  console.log('Type of setIsAuthenticated on render:', typeof setIsAuthenticated);
-
+const Sidebar = ({ onLogout }) => {
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Fixed logout handler
   const handleSignOut = () => {
-    // Log when the handler is called
-    console.log('handleSignOut called. Current setIsAuthenticated:', setIsAuthenticated);
-    console.log('Type of setIsAuthenticated in handleSignOut:', typeof setIsAuthenticated);
-
-    if (typeof setIsAuthenticated === 'function') {
-      localStorage.removeItem("authToken");
-      setIsAuthenticated(false);
-      navigate("/login");
+    if (typeof onLogout === 'function') {
+      onLogout(); // This will trigger App.jsx to clear auth and redirect to login
     } else {
-      console.error("setIsAuthenticated is NOT a function in handleSignOut!");
-      // Fallback behavior: still try to log out and redirect
+      console.error("Sidebar: onLogout prop is missing or not a function!");
+      // Fallback - clear localStorage and force reload
       localStorage.removeItem("authToken");
-      navigate("/login");
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userData");
+      window.location.href = '/login';
     }
   };
 
+  // Handle payment navigation with manual payment option
+  const handlePaymentNavigation = (e) => {
+    e.preventDefault(); // Prevent default NavLink behavior
+    closeMobileNav();
+    
+    // Navigate to payment with a flag indicating it's a manual payment
+    navigate('/dashboard/payment', { 
+      state: { 
+        isManualPayment: true,
+        purchaseDetails: null // No specific purchase details for manual payment
+      } 
+    });
+  };
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
+  const closeMobileNav = () => {
+    if (isMobileNavOpen) {
+      setIsMobileNavOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMobileNavOpen) {
+      const closeNav = () => setIsMobileNavOpen(false);
+      window.addEventListener('popstate', closeNav);
+      return () => {
+        window.removeEventListener('popstate', closeNav);
+      };
+    }
+  }, [isMobileNavOpen]);
+
   return (
-    <div className="dashboard"> {/* This class here is a bit unusual if Sidebar is always a child component */}
-      <aside className="dashboard__sidebar">
+    <div className={`dashboard-container-wrapper ${isMobileNavOpen ? 'mobile-sidebar-open' : ''}`}>
+      <button
+        className="dashboard__sidebar-toggle"
+        onClick={toggleMobileNav}
+        aria-label="Toggle navigation"
+        aria-expanded={isMobileNavOpen}
+      >
+        {isMobileNavOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      <aside className={`dashboard__sidebar ${isMobileNavOpen ? 'is-open' : ''}`}>
         <div className="dashboard__sidebar-logo">
           <img src={logo3} alt="logo" height="50px" width="50px" />
-          <h2 className="dashboard__sidebar-title">User Dashboard</h2>
+          <h2 className="dashboard__sidebar-title">Dashboard</h2>
         </div>
         <ul className="dashboard__sidebar-menu">
-          {/* ... other NavLinks ... */}
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/dashboard" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink 
+              to="/dashboard" 
+              end 
+              onClick={closeMobileNav} 
+              className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}
+            >
               Dashboard
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/account" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
-              Account
-            </NavLink>
-          </li>
-          <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/InvestmentTools" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink 
+              to="/dashboard/investmenttools" 
+              onClick={closeMobileNav} 
+              className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}
+            >
               Investment Tool
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/MarketGuides" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink 
+              to="/dashboard/marketguides" 
+              onClick={closeMobileNav} 
+              className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}
+            >
               Market Guides
             </NavLink>
           </li>
           <li className="dashboard__sidebar-menu-item">
-            <NavLink to="/Profile" className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}>
+            <NavLink 
+              to="/dashboard/profile" 
+              onClick={closeMobileNav} 
+              className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}
+            >
               Profile
             </NavLink>
           </li>
-          <li className="dashboard__sidebar-signout" onClick={handleSignOut} style={{ cursor: 'pointer' }}>
+          <li className="dashboard__sidebar-menu-item">
+            {/* Modified Payment Link */}
+            <a 
+              href="#"
+              onClick={handlePaymentNavigation}
+              className="dashboard__sidebar-menu-link"
+            >
+              Payment
+            </a>
+          </li>
+          <li className="dashboard__sidebar-menu-item">
+            <NavLink 
+              to="/dashboard/withdrawal" 
+              onClick={closeMobileNav} 
+              className={({ isActive }) => isActive ? "dashboard__sidebar-menu-item--active" : ""}
+            >
+              Withdrawal
+            </NavLink>
+          </li>
+          <li 
+            className="dashboard__sidebar-signout" 
+            onClick={() => { 
+              handleSignOut(); 
+              closeMobileNav(); 
+            }} 
+            style={{ cursor: 'pointer' }}
+          >
             Sign Out
           </li>
         </ul>
       </aside>
+      {isMobileNavOpen && <div className="dashboard__sidebar-overlay" onClick={toggleMobileNav}></div>}
     </div>
   );
 };

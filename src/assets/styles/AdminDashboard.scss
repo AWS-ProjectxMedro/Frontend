@@ -1,122 +1,227 @@
-.dashboard {
+// src/assets/styles/AdminDashboard.scss
+// src/assets/styles/_variables.scss (or a similar shared location)
+
+// Colors
+$primary-color: #3498db;      // A general primary color (e.g., blue for links, buttons)
+$sidebar-bg: #2c3e50;         // Dark blue/gray for sidebar
+$sidebar-text-color: #ecf0f1;
+$sidebar-active-bg: #34495e;
+$sidebar-hover-bg: #3b5168;
+
+$header-bg: #ffffff;
+$header-text-color: #333;
+$header-border-color: #e8e8e8;
+
+$content-bg: #f0f2f5;          // Main background for content area
+$card-bg: #ffffff;
+$card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+$card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+$text-primary: #2c3e50;
+$text-secondary: #576574;
+$text-light: #7f8c8d;
+
+$border-color: #e0e0e0;
+$table-header-bg: #f8f9fa;
+$table-row-hover-bg: #e9ecef;
+
+$error-bg: #fbebeb;
+$error-text: #c0392b;
+$error-border: #e74c3c;
+$success-color: #27ae60;
+$accent-color-blue: #4858C2; // From your card styling
+
+// Typography
+$font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+  Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-size-base: 1rem;     // 16px
+$font-size-sm: 0.875rem; // 14px
+$font-size-lg: 1.25rem;  // 20px
+
+// Layout
+$sidebar-width-desktop: 260px;
+$sidebar-width-mobile-open: 240px; // Slightly narrower for mobile overlay
+$header-height: 60px;
+
+// Breakpoints
+$bp-sm: 576px;  // Small devices (landscape phones)
+$bp-md: 768px;  // Medium devices (tablets) - Often sidebar toggle point
+$bp-lg: 992px;  // Large devices (desktops)
+$bp-xl: 1200px; // Extra large devices
+
+// Transitions
+$transition-speed: 0.3s;
+$transition-easing: ease-in-out;
+
+// --- Main Layout ---
+.dashboard-layout {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: $content-bg;
+  font-family: $font-family-sans;
+  position: relative; // For overlaying sidebar on mobile
 
-  .sidebar {
-    background-color: #292b2c; // Darker color for modern look
-    color: white;
-    width: 240px;
-    padding: 20px;
-    position: relative;
+  // --- Sidebar Placeholder ---
+  // Actual sidebar styles should be in AdminSidebar.scss
+  // This controls how the layout reacts to the sidebar's presence.
+  // .admin-sidebar { ... }
 
-    .admin {
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+  // --- Main Content Area ---
+  .main-content-Admin {
+    margin-top: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; // To stack header and outlet content
+    margin-left: $sidebar-width-desktop;
+    transition: margin-left $transition-speed $transition-easing;
+    overflow-x: hidden; // Prevent horizontal scroll from content
+    width: calc(100% - #{$sidebar-width-desktop}); // Initial width
 
-    nav {
-      ul {
-        list-style: none;
-        padding: 0;
-
-        li {
-          margin: 10px 0;
-          cursor: pointer;
-          transition: background 0.3s;
-
-          &:hover {
-            background: rgba(255, 255, 255, 0.1);
-          }
-        }
-      }
-    }
-
-    .sign-out {
-      margin-top: 20px;
-      background-color: #dc3545; // Bootstrap red
-      border: none;
-      padding: 10px;
-      color: white;
-      cursor: pointer;
-      width: 100%;
+    .page-content-wrapper { // Wrapper for the content from <Outlet />
+      padding: $header-height + 20px 20px 20px 20px; // Top padding accounts for fixed header
+      flex-grow: 1;
+      overflow-y: auto; // Scroll for page content itself
     }
   }
 
-  .main-content {
-    background-color: #f8f9fa; // Lighter background
-    flex: 1;
-    padding: 20px;
+  // --- Header ---
+  .Admin-header {
+    background-color: $header-bg;
+    color: $header-text-color;
+    height: $header-height;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $header-border-color;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 
-    .header {
-      h1 {
-        margin: 0;
-        color: #343a40; // Use Bootstrap dark color
+    position: fixed;
+    top: 0;
+    left: $sidebar-width-desktop;
+    right: 0;
+    z-index: 990; // Below sidebar overlay, above main page content
+    transition: left $transition-speed $transition-easing;
+
+    .header-title-area {
+      display: flex;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.3rem; // Adjusted for better balance
+      font-weight: 600;
+      color: $text-primary;
+    }
+
+    .sub-header { // Welcome message
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      margin-left: auto; // Pushes it to the far right
+      padding-left: 20px;
+    }
+  }
+
+  // --- Hamburger Menu Icon ---
+  .hamburger-menu {
+    display: none; // Hidden on desktop by default
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1050; // Above sidebar overlay, header
+    margin-right: 15px; // Space from title if title is next to it
+
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: $header-text-color;
+      margin: 5px 0;
+      transition: all $transition-speed $transition-easing;
+      border-radius: 3px;
+    }
+
+    &.open {
+      span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
       }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
 
-      .sub-header {
-        color: #6c757d; // Secondary color
+  // --- Sidebar Visibility States ---
+  // Applied to .dashboard-layout
+  &.sidebar-hidden {
+    .main-content-Admin {
+      margin-left: 0;
+      width: 100%;
+    }
+    .Admin-header {
+      left: 0;
+    }
+    // .admin-sidebar related styles would be in AdminSidebar.scss
+    // e.g., transform: translateX(-100%);
+  }
+
+  // This state would be for a collapsed (icon-only) sidebar on desktop
+  // &.sidebar-collapsed-desktop {
+  //   .admin-sidebar { width: 80px; /* ... styles for icon only ... */ }
+  //   .main-content-Admin { margin-left: 80px; width: calc(100% - 80px); }
+  //   .Admin-header { left: 80px; }
+  // }
+}
+
+// --- Responsive Adjustments ---
+@media (max-width: ($bp-md - 1px)) { // Mobile and smaller tablets
+  .dashboard-layout {
+    .hamburger-menu {
+      display: block; // Show hamburger
+    }
+
+    // When sidebar is open as an overlay on mobile
+    &.sidebar-visible {
+      .admin-sidebar {
+        // Styles for overlay sidebar (width, position: fixed, z-index)
+        // should be in AdminSidebar.scss
+        // e.g., width: $sidebar-width-mobile-open; transform: translateX(0);
+      }
+      // Optional: Dim the main content when mobile sidebar is open
+      // .main-content-Admin::after {
+      //   content: '';
+      //   position: fixed;
+      //   top: 0; left: 0; right: 0; bottom: 0;
+      //   background-color: rgba(0,0,0,0.5);
+      //   z-index: 995; // Between sidebar and header
+      // }
+    }
+
+    // Default state for mobile: sidebar is hidden, content takes full width
+    .main-content-Admin {
+      margin-left: 0 !important;
+      width: 100% !important;
+
+      .page-content-wrapper {
+        padding: $header-height + 15px 15px 15px 15px; // Adjust padding
       }
     }
 
-    .cards-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+    .Admin-header {
+      left: 0 !important;
+      padding: 0 15px;
 
-      .card {
-        background-color: #e9ecef;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-        h3 {
-          margin: 0 0 10px;
-          color: #343a40;
-        }
-
-        p {
-          color: #6c757d;
-        }
-
-        &.activated-investment {
-          background-color: #d1c4e9; // Use consistent color with branding
-        }
-        
-        &.active-investment-plan {
-          background-color: #d1c4e9;
-
-          .progress-circle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
-
-            span {
-              font-weight: bold;
-            }
-
-            .circle {
-              width: 100px;
-              height: 100px;
-              border: 10px solid #673ab7;
-              border-radius: 50%;
-              position: relative;
-              margin: 10px 0;
-
-              .fill {
-                background-color: #673ab7;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                border-radius: 50%;
-                transition: width 0.3s ease; // Smooth progress animation
-              }
-            }
-          }
-        }
+      h1 {
+        font-size: 1.15rem;
+        margin-left: 5px; // Space after hamburger if it's on the left of title
+      }
+      .sub-header {
+        display: none; // Hide welcome message on small screens
       }
     }
   }

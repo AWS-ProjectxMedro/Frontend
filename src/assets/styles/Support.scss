@@ -1,296 +1,244 @@
-/* Support Page Container */
+/* Global variables for consistent design */
+$primary-color: var(--primary-color);
+$accent-color: var(--accent-color);
+$white-color: var(--white);
+$black-color: var(--black);
+$border-radius-main: 10px;
+$shadow-main: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+/* Main container for the support page */
 .support-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--accent-color);
-  color: var(--black);
+  background-color: $accent-color;
+  color: $black-color;
 }
 
-/* Main Content */
 .main-content-support {
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 2rem 1rem; // More padding on top/bottom
+}
+
+/* Hero section with background and title */
+.support-hero {
+  background: url("../image/support-bg.jpg") center/cover no-repeat;
+  border-radius: $border-radius-main;
+  box-shadow: $shadow-main;
   padding: 3rem 1.5rem;
-  width: 100%;
-}
-
-/* Hero Section */
-.support-content {
   text-align: center;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: url("../image/support-bg.jpg") center/cover;
-  width: 98vw;
-  margin-top:20px;
-  
+  margin-bottom: 3rem;
+
+  .support-title {
+    font-size: clamp(2rem, 5vw, 2.8rem); // Responsive font size
+    font-weight: bold;
+    color: $white-color;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-box {
+    display: flex;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+
+    .search-input {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: $primary-color;
+      }
+    }
+    
+    // Removed the separate search button for a cleaner look, but you can add it back if needed.
+  }
 }
 
-.support-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-/* Search Box */
-.search-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.search-input {
-  display: flex;
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid var(--black);
-  border-radius: 5px;
-  margin-bottom: 10px;
- 
-  text-align: center;
-  justify-content: center;
-}
-
-.search-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--primary-color);
-  color: var(--white);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.3s ease;
-}
-
-.search-btn:hover {
-  background-color: rgba(0, 86, 179, 0.9);
-}
-
-/* FAQ Section */
+/* FAQ section styling */
 .faq-section {
-  color: white;
-  margin-top: 30px;
-  width: 100%;
-}
-
-.faq-title {
-  font-size: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 3rem auto; // Center the section
   text-align: center;
-  margin-bottom: 15px;
+
+  .faq-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 2rem;
+    color: $black-color;
+  }
+  
+  // Container for loading/error messages and the list
+  .faq-list-container {
+    .loading-message, .error-message, .no-results-message {
+      color: #666;
+      font-size: 1.1rem;
+      padding: 2rem;
+    }
+  }
+
+  .faq-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .faq-item {
+    background: $white-color;
+    border: 1px solid #e0e0e0;
+    border-radius: $border-radius-main;
+    margin-bottom: 1rem;
+    box-shadow: $shadow-main;
+    overflow: hidden; // Crucial for the accordion effect
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      text-align: left;
+      color: #333;
+    }
+    
+    .faq-icon-wrapper {
+        flex-shrink: 0; // Prevent icon from shrinking
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .faq-answer-wrapper {
+      max-height: 0; // **THE FIX**: Collapsed by default
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.4s ease-out;
+
+      .faq-answer {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #555;
+        padding: 0 1.5rem 0 1.5rem; // Padding is added during transition
+      }
+    }
+
+    // Active state for the expanded accordion item
+    &.active {
+      .faq-icon-wrapper {
+        transform: rotate(180deg);
+      }
+      .faq-answer-wrapper {
+        max-height: 300px; // Set to a value larger than any possible answer
+        opacity: 1;
+        
+        .faq-answer {
+            padding: 0 1.5rem 1rem 1.5rem;
+        }
+      }
+    }
+  }
 }
 
-/* FAQ List */
-.faq-list {
-  list-style: none;
-  padding: 0;
-  max-width: 700px;
-  margin: auto;
-}
-
-/* FAQ Item */
-.faq-item {
-  background: #fff;
-  color: #333;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  height: 80px; /* Fixed height */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* FAQ Question */
-.faq-question {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-}
-
-/* FAQ Icon */
-.faq-icon {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* FAQ Answer */
-.faq-answer {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
-  font-size: 1rem;
-  background: #f8f8f8;
-  padding: 0 15px;
-}
-
-/* Expanded FAQ */
-.faq-item.active {
-  height: 120px; /* Fixed height when expanded */
-}
-
-.faq-item.active .faq-answer {
-  max-height: 40px;
-  opacity: 1;
-}
-
-.faq-item.active .faq-icon {
-  transform: rotate(180deg);
-}
-
-/* Help Desk Section */
+/* Contact / Help Desk Section */
 .help-desk {
-  margin-top: 50px;
   text-align: center;
-}
+  margin-bottom: 3rem;
 
-.help-title {
-  font-size: 1.5rem;
-  color: black;
-  margin-bottom: 1rem;
-}
+  .help-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 2rem;
+  }
 
-/* Help Options */
-.help-options {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
+  .help-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap; // Allows cards to wrap on smaller screens
+  }
 
-/* Help Card */
-.help-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 250px;
-  transition: 0.3s;
-}
+  .help-card {
+    background: $white-color;
+    padding: 1.5rem;
+    border-radius: $border-radius-main;
+    box-shadow: $shadow-main;
+    text-align: center;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-.help-card a {
-  text-decoration: none;
-  color: inherit;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.help-card:hover {
-  transform: translateY(-5px);
-}
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
 
-.help-icon {
-  font-size: 40px;
-  color: #5848c2;
-  margin-bottom: 10px;
-}
+    .help-icon {
+      font-size: 2.5rem;
+      color: $primary-color;
+      margin-bottom: 1rem;
+    }
 
-.help-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
 
-.help-card p {
-  font-size: 16px;
-  color: #666;
+    p {
+      font-size: 1rem;
+      color: #666;
+    }
+  }
 }
 
 /* Map Container */
 .map-container {
-  margin: 20px  ;
-  width: 100vw;
- 
-  
+  max-width: 1200px;
+  margin: 10px auto;
+  border-radius: $border-radius-main;
+  overflow: hidden; // Ensures the iframe corners are rounded
+  box-shadow: $shadow-main;
+
+  iframe {
+    display: block; // Removes the small space below the iframe
+    width: 100%;
+    height: 450px;
+    border: 0;
+  }
 }
 
-.map-container iframe {
-  width: 100%;
-  height: 450px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content-support {
+    padding: 1.5rem 1rem;
+  }
 
-/* 🌍 Responsive Fixes */
-@media (max-width: 1024px) {
-  .support-content {
-    max-width: 100%;
-    padding: 1.5rem;
+  .support-hero {
+    padding: 2rem 1rem;
   }
 
   .help-options {
     flex-direction: column;
     align-items: center;
-  }
-
-  .help-card {
-    width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .help-title {
-    font-size: 1.3rem;
-  }
-
-  .help-card {
-    width: 100%;
-  }
-
-  .search-box {
-    max-width: 350px;
-  }
-
-  .search-input {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .support-content {
-    padding: 1rem;
-  }
-
-  .help-title {
-    font-size: 1.2rem;
-  }
-
-  .help-card {
-    padding: 1rem;
-  }
-
-  .help-icon {
-    font-size: 1.8rem;
-  }
-
-  .search-box {
-    max-width: 300px;
-  }
-
-  .search-input {
-    max-width: 100%;
-  }
-
-  .search-btn {
-    width: 100%;
+    gap: 1.5rem;
+    
+    .help-card {
+        width: 100%;
+        max-width: 400px; // Give a max-width on mobile
+    }
   }
 }

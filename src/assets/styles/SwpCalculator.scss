@@ -8,123 +8,166 @@
 
 // --- Main Content Area ---
 .main-content-swp {
-    flex-grow: 1; // Allow main content to take available space
+    
+    flex-grow: 1;
     width: 100%;
-    margin-top:2vh;
-    padding: 40px 20px; // Adjust padding
+    padding: 20px; // Unified padding, adjust as needed
     box-sizing: border-box;
-    display: flex; // Use flex to center the section
-    justify-content: center; // Center the calculator section horizontally
-    align-items: flex-start; // Align section to the top
+    display: flex;
+    flex-direction: row; // Side-by-side by default
+    justify-content: center; // Center the two main columns if space allows
+    align-items: flex-start; // Align items to the top
+    gap: 30px; // Space between the calculator section and media column
+
+    @media (max-width: 1024px) { // Breakpoint to stack main columns
+        flex-direction: column;
+        align-items: center; // Center items when stacked
+        padding: 20px 10px; // Adjust padding for smaller screens
+        gap: 20px;
+    }
 }
 
-// --- Calculator Section Card ---
+// --- Calculator Section Card (Left Main Column) ---
 .swpcalculator-section {
     position: relative;
     background: white;
-    border-radius: 20px; // Slightly softer radius
-    padding: 30px 40px; // Adjust padding
-    width: 60%; // Make section wider
-    max-width: 1100px; // Max width to prevent it getting too large
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); // Softer shadow
+    border-radius: 20px;
+    padding: 30px 35px; // Adjusted padding
+    // width: 60%; // Replaced by flex-basis for better control with gap
+    flex-basis: 60%; // Takes up 60% of available space in the row
+    max-width: 750px; // Max width for the calculator card
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 20px 20px; // Centering and vertical margin
-    margin-left: 50px;
+    margin: 60px 20px; // Removed, main-content-swp handles alignment and gap
+    // margin-left: 50px; // Removed
+
+    @media (max-width: 1024px) { // When main columns stack
+        flex-basis: auto; // Reset flex-basis
+        width: 95%;       // Take more width
+        max-width: 700px; // Adjust max-width for stacked view
+        margin: 0;        // Reset margin, gap from parent handles spacing
+        padding: 25px 20px;
+    }
+
+    @media (max-width: 600px) {
+        padding: 20px 15px;
+    }
 }
 
 // --- Main Heading ---
 .main-heading-swp {
+    margin-top: 40px;
     font-size: 28px;
     text-align: center;
     color: #5848c2;
-    margin-bottom: 30px; // Increase space below heading
-    font-weight: 600; // Slightly bolder
-}
+    margin-bottom: 30px;
+    font-weight: 600;
 
-// --- NEW: Layout Container for Columns ---
-.calculator-layout-container {
-    display: flex;
-    flex-direction: row; // Arrange children side-by-side
-    gap: 40px; // Space between the two columns
-    justify-content: space-between; // Distribute space if needed
-
-    // Responsive: Stack columns on smaller screens
-    @media (max-width: 992px) {
-        flex-direction: column; // Stack vertically
-        align-items: center; // Center items when stacked
-        gap: 30px;
+    @media (max-width: 768px) {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+     @media (max-width: 480px) {
+        font-size: 22px;
     }
 }
 
-// --- NEW: Column 1: Form & Results ---
+// --- Layout Container for Form Columns (within swpcalculator-section) ---
+.calculator-layout-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: space-between;
+
+    @media (max-width: 992px) { // This is for stacking inside the card
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    @media (max-width: 600px) {
+        gap: 20px;
+    }
+}
+
+// --- Column 1: Form & Results (within calculator-layout-container) ---
 .calculator-form-column {
-    flex: 2; // Takes up more space (adjust ratio with column 2 if needed)
-    min-width: 300px; // Minimum width before wrapping might occur
+    flex: 2; // Takes up more space
+    min-width: 0; // Allow shrinking below intrinsic min-width
     display: flex;
     flex-direction: column;
-    gap: 25px; // Space between input groups and results/button
+    gap: 25px;
+
+    @media (max-width: 992px) {
+        width: 100%; // Take full width of parent when stacked
+    }
 }
 
 // --- Input Styling ---
 .calculator-inputs {
     display: flex;
     flex-direction: column;
-    gap: 20px; // Space between each input group
+    gap: 20px;
 }
 
 .input-group {
     display: flex;
-    flex-direction: column; // Stack label above inputs
-    gap: 8px; // Space between label and input controls
+    flex-direction: column;
+    gap: 8px;
 }
 
 label {
-    font-size: 15px; // Slightly smaller label
-    font-weight: 500; // Medium weight
-    color: #333; // Darker grey
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+     @media (max-width: 480px) {
+        font-size: 14px;
+    }
 }
 
 .input-controls {
     display: flex;
-    flex-direction: column; // Stack text input above range slider
+    flex-direction: column;
     gap: 8px;
 }
 
-.value-input { // Style for the text input box
+.value-input {
     padding: 10px 12px;
     font-size: 16px;
-    border: 1px solid #ccc; // Lighter border
+    border: 1px solid #ccc;
     border-radius: 6px;
-    width: 100%; // Take full width of its container
+    width: 100%;
     box-sizing: border-box;
-    text-align: left; // Align text left for normal input feel
+    text-align: left;
     transition: border-color 0.3s, box-shadow 0.3s;
 
     &:focus {
         border-color: #5848c2;
-        box-shadow: 0 0 0 2px rgba(88, 72, 194, 0.2); // Focus ring
+        box-shadow: 0 0 0 2px rgba(88, 72, 194, 0.2);
         outline: none;
     }
 
-    &::placeholder {
-        color: #aaa;
+    &::placeholder { color: #aaa; }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        padding: 9px 10px;
     }
 }
 
-.range-slider { // Style for the range input
-    width: 100%; // Take full width
-    height: 8px; // Make slider track slimmer
+.range-slider {
+    width: 100%;
+    height: 8px;
     cursor: pointer;
-    background: #e0e0e0; // Lighter track background
+    background: #e0e0e0;
     border-radius: 5px;
     outline: none;
-    appearance: none; // Override default look
+    appearance: none;
     -webkit-appearance: none;
 
     &::-webkit-slider-thumb {
         appearance: none;
         -webkit-appearance: none;
-        width: 16px; // Larger thumb
+        width: 16px;
         height: 16px;
         background: #5848c2;
         border-radius: 50%;
@@ -137,17 +180,13 @@ label {
         height: 16px;
         background: #5848c2;
         border-radius: 50%;
-        border: none; // Remove default border in Firefox
+        border: none;
         cursor: pointer;
         transition: background 0.3s;
     }
 
-     &:hover::-webkit-slider-thumb {
-         background: #3e30a1;
-     }
-      &:hover::-moz-range-thumb {
-          background: #3e30a1;
-      }
+     &:hover::-webkit-slider-thumb { background: #3e30a1; }
+     &:hover::-moz-range-thumb { background: #3e30a1; }
 }
 
 
@@ -159,7 +198,7 @@ label {
 }
 
 .control-btn {
-    background: #6c5ce7; // Slightly different purple
+    background: #6c5ce7;
     color: white;
     padding: 8px 12px;
     border: none;
@@ -168,120 +207,45 @@ label {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    line-height: 1; // Ensure consistent height
+    line-height: 1;
 
-    &:hover {
-        background: #5848c2; // Darker on hover
-    }
+    &:hover { background: #5848c2; }
+    &:active { background: #3e30a1; }
 
-    &:active {
-        background: #3e30a1; // Even darker when clicked
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 7px 10px;
     }
 }
 
-.period-input { // Specific styling for the years input
-    width: 60px; // Fixed width
+.period-input {
+    width: 60px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 6px;
     text-align: center;
     font-weight: bold;
-    background-color: #f8f9fa; // Light background as it's read-only visually
+    background-color: #f8f9fa;
     color: #333;
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        padding: 9px;
+        width: 50px;
+    }
 }
 
 // --- Calculate Button ---
 .calculate-button-container {
     display: flex;
-    justify-content: center; // Center the button within its space
-    margin-top: 10px; // Add some space above the button
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .calculate {
     color: white;
     background-color: #5848c2;
-    padding: 12px 30px; // Make button larger
-    border-radius: 8px; // Slightly rounder
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-
-    &:hover {
-        background-color: #3e30a1;
-    }
-     &:active {
-         transform: scale(0.98); // Slight press effect
-     }
-}
-
-// --- Results Display ---
-.results-container {
-    background: #f0e Dfd; // Lighter background for results
-    // background: linear-gradient(135deg, #6c5ce7, #a29bfe); // Gradient background example
-    background: #5848c2; // Keep original color if preferred
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 15px; // Space above results
-    color: white; // Text color for results
-    width: 100%; // Take full width of its column
-    box-sizing: border-box;
-}
-
-.result-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    padding: 8px 0; // Add padding to each result item
-
-    &:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2); // Subtle separator line
-    }
-}
-
-.result-label {
-    font-weight: 500; // Medium weight for label
-    color: rgba(255, 255, 255, 0.9); // Slightly transparent white
-}
-
-.result-value {
-    font-weight: 600; // Bolder value
-}
-
-
-// --- NEW: Column 2: Media (Video & Button) ---
-.calculator-media-column {
-    flex: 1; // Takes up remaining space (adjust ratio with column 1 if needed)
-    display: flex;
-    flex-direction: column; // Stack video and button vertically
-    align-items: center; // Center items horizontally
-    justify-content: center; // Center items vertically (adjust as needed, e.g., flex-start)
-    gap: 25px; // Space between video and button
-    min-width: 250px; // Minimum width
-    margin: 20px;
-    margin-top: 150px;
-   
-
-     @media (max-width: 992px) {
-        width: 80%; // Take more width when stacked
-        max-width: 400px; // Limit max width when stacked
-        margin-top: 20px; // Add space when stacked below form
-    }
-}
-
-.investment-video {
-    width: 100%; // Make video responsive
-    max-width: 350px; // Limit max video size
-    height: auto; // Maintain aspect ratio
-    border-radius: 10px; // Rounded corners for video
-    display: block; // Remove extra space below video
-}
-
-.invest-now-button { // Renamed from display-button for clarity
-    color: white;
-    background-color: #28a745; // Green color for "Invest" CTA
     padding: 12px 30px;
     border-radius: 8px;
     border: none;
@@ -289,84 +253,184 @@ label {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
-    text-align: center; // Ensure text is centered
 
-    &:hover {
-        background-color: #218838; // Darker green on hover
+    &:hover { background-color: #3e30a1; }
+    &:active { transform: scale(0.98); }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        padding: 10px 25px;
     }
-
-     &:active {
-         transform: scale(0.98);
-     }
 }
 
-.table-container {
+// --- Results Display ---
+.results-container {
+    background: #5848c2;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    color: white;
     width: 100%;
-    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
-    margin: 20px;
+    box-sizing: border-box;
 
-   }
-   
-  
-   .table-container table {
+    @media (max-width: 480px) {
+        padding: 15px;
+    }
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 8px 0;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+        padding: 7px 0;
+    }
+}
+
+.result-label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.result-value {
+    font-weight: 600;
+}
+
+
+// --- Column 2: Media (Video & Button) - Right Main Column ---
+.calculator-media-column {
+    // flex: 1; // Replaced by flex-basis
+    flex-basis: 30%; // Takes up 30% of available space in the row
+    max-width: 400px; // Max width for media column
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; // Center items vertically within its space
+    gap: 25px;
+    // min-width: 250px; // Can be removed or adjusted
+    // margin: 20px; // Removed, parent handles spacing
+    // margin-top: 150px; // Significantly reduced for better alignment
+    margin-top: 200px; // Some top margin to align nicely if form is tall
+
+    img { // Style the image directly
+        margin-top: 50px;
+        width: 100%; // Make image responsive within its container
+        max-width: 350px; // Limit max image size
+        height: auto;
+        border-radius: 10px;
+        display: block;
+    }
+
+    @media (max-width: 1024px) { // When main columns stack
+        flex-basis: auto; // Reset flex-basis
+        width: 80%;      // Take more width when stacked
+        max-width: 380px; // Max-width when stacked
+        margin-top: 30px; // Adjust top margin for stacked layout
+        margin-bottom: 20px; // Add bottom margin when stacked
+    }
+
+    // The nested media query from before, ensure it's still relevant
+    // @media (max-width: 992px) { /* This might be redundant if 1024px already handles stacking */
+    //     width: 80%;
+    //     max-width: 400px;
+    //     margin-top: 20px;
+    // }
+
+    @media (max-width: 600px) {
+        gap: 20px;
+        img {
+            max-width: 300px;
+        }
+    }
+}
+
+.invest-now-button {
+  display: inline-block;
+  background: #ee5935;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 16px;
+  text-decoration: none; // removes underline
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #d94c2b;
+  }
+}
+
+
+// --- Table Container (Outside main-content-swp, direct child of .swpcalculator-container) ---
+.table-container {
+    width: 95%; // Make it slightly less than full viewport width
+    max-width: 1000px; // Set a max-width for very large screens
+    overflow-x: auto;
+    margin: 30px auto; // Center the table and add vertical margin
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; // Optional: round corners for the table container
+    background-color: white; // Optional: if table rows don't have full background
+}
+
+.table-container table {
     width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   }
-   
-  
-   .table-container th,
-   .table-container td {
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Moved to .table-container
+}
+
+.table-container th,
+.table-container td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-   }
-   
-  
-   .table-container th {
+}
+
+.table-container th {
     background-color: #f5f5f5;
     font-weight: bold;
-   }
-   
-  
-   .table-container tbody tr:hover {
+    position: sticky; // Make headers sticky
+    top: 0;            // Stick to the top of the scrollable container
+    z-index: 1;        // Ensure header is above table content
+}
+
+.table-container tbody tr:hover {
     background-color: #f9f9f9;
-   }
-   
-  
-   @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .table-container {
-    font-size: 14px;
+        font-size: 14px;
+        width: 90%; // Adjust width for smaller screens
+        margin: 20px auto;
     }
-   
-  
+
     .table-container th,
     .table-container td {
-    padding: 8px 10px;
+        padding: 10px 10px; // Reduce padding
+        font-size: 13px; // Smaller font for table content on mobile
     }
-   }
-  
-// --- Remove potentially conflicting old styles ---
-/* Remove or comment out the old .swpcalculator-display styles if they exist */
-// .swpcalculator-display {
-//     /* display: flex; */ /* No longer needed here */
-//     /* flex-direction: column; */ /* No longer needed here */
-//     /* gap: 20px; */ /* Handled by new column styles */
-//     /* height: 80vh; */ /* Remove fixed height */
-// }
+}
 
-/* Remove specific positioning overrides for the button if they exist */
-// .display-button {
-//    /* margin-left: 20px; */ /* Remove */
-//    /* margin-bottom: -350px; */ /* Remove */
-//    /* justify-self: center; */ /* Remove */
-// }
+@media (max-width: 480px) {
+    .table-container th,
+    .table-container td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+}
 
-/* Adjustments to input styles if needed */
-// input {
-//     /* width: 20vw; */ /* Replaced by width: 100% on .value-input */
-//     /* margin-right: 600px; */ /* Remove */
-// }
-// input[type="range"] {
-//     /* width: 27.7vw; */ /* Replaced by width: 100% on .range-slider */
-// }
+// --- Remove potentially conflicting old styles (as per your original comments) ---
+// These are good to keep commented out or remove if not used elsewhere
+// .swpcalculator-display { /* ... */ }
+// .display-button { /* ... */ }
+// input { /* ... */ }
+// input[type="range"] { /* ... */ }

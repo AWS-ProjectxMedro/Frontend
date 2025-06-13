@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Book.scss";
+import "./Style/Book.scss";
 import Header from "../../Component/Header";  
 import Footer from "../../Component/Footer";  
 import commonStocks from "../../assets/image/business1.jpg";

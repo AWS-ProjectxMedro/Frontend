@@ -38,7 +38,7 @@ function Invest() {
               Unlock consistent growth through innovative and risk-adjusted
               portfolio strategies.
             </p>
-            <button className="primary-btn">Get Started</button>
+            <Link to="/login" className="primary-btn">Get Started</Link>
           </div>
         </section>
 
@@ -126,9 +126,11 @@ function Invest() {
         {/* CTA - Call to Action */}
         <section className="invest-cta">
           <h2>Take the next step toward financial freedom!</h2>
-          <div className="cta-buttons">
-            <button className="primary-btn">Schedule a Free Consultation</button>
-            <button className="secondary-btn">Learn More About Our Funds</button>
+          <div className="cta-buttons" >
+            <a className="primary-btn" href="tel:+918263066511">Schedule a Free Consultation</a>
+           <Link to="/learn" className="secondary-btn">Learn More About Our Funds</Link>
+            
+
           </div>
           <section className="">
             <h2>Regulatory and Compliance Notes</h2>

@@ -1,193 +1,247 @@
 /* --- Responsive Footer SCSS - Refined --- */
 
 // --- Define Breakpoints (Adjust values as needed) ---
-$breakpoint-large: 1200px; // Max container width
+$breakpoint-large: 1200px;   // Max container width for footer content
+$breakpoint-desktop: 992px; // Larger tablets, small desktops
 $breakpoint-medium: 768px;  // Tablet - when columns likely start stacking
-$breakpoint-small: 500px;   // Mobile - smaller adjustments (Adjusted from 576)
-$breakpoint-xsmall: 380px; // Very small screens
+$breakpoint-small: 500px;   // Mobile - smaller adjustments
+$breakpoint-xsmall: 380px;  // Very small screens
 
 .footer {
-    background-color: #262259;
-    color: #fff;
-    padding: 10px 5px 10px 5px; // Base padding
+    background-color: #262259; // Dark background
+    color: #fff; // White text
+    // --- Responsive base padding ---
+    padding: 40px 20px 20px 20px; // More vertical padding top, responsive horizontal
     text-align: center;
-    border-top: 1px solid white;
-    overflow-x: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); // Subtle white top border
+    overflow-x: hidden; // Good for preventing accidental horizontal scroll
 
-    .footer-content {
-        display: grid;
-        // --- Reduced min width for better wrapping on narrow screens ---
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Reduced from 200px
-        gap: 25px;
-        max-width: $breakpoint-large;
-        margin: 0 auto;
-        padding: 0; // Padding is on the parent .footer
+    @media (max-width: $breakpoint-medium) {
+        padding: 30px 15px 15px 15px;
+    }
+    @media (max-width: $breakpoint-small) {
+        padding: 25px 10px 10px 10px;
+    }
+}
 
-        @media (max-width: $breakpoint-medium) {
-            gap: 20px;
-        }
-         @media (max-width: $breakpoint-small) {
-            gap: 15px;
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Good base for auto-fit columns
+    gap: 30px; // Increased base gap for better separation
+    max-width: $breakpoint-large; // Constrain content width
+    margin: 0 auto; // Center the content grid
+    // Padding is handled by the parent .footer
+
+    @media (max-width: $breakpoint-desktop) {
+        gap: 25px; // Slightly reduce gap for medium-large screens
+    }
+    @media (max-width: $breakpoint-medium) {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); // Allow fewer, wider columns for tablets
+        gap: 20px;
+    }
+    @media (max-width: $breakpoint-small) {
+        grid-template-columns: 1fr; // Stack to a single column on small mobiles
+        gap: 25px; // Increase gap when stacked for vertical rhythm
+    }
+}
+
+.footer-section {
+    text-align: left;
+    margin: 0; // Reset default margins
+    word-break: break-word;   // Standard property for breaking words
+    overflow-wrap: break-word; // Alias for word-break
+
+    h2 {
+        font-size: 1.3rem; // Consistent base size
+        margin-bottom: 18px; // Increased margin for visual hierarchy
+        color: #ffcc00; // Accent color for headings
+        padding-bottom: 5px;
+        // border-bottom: 1px solid rgba(255, 255, 255, 0.15); // Optional subtle underline
+
+        @media (max-width: $breakpoint-small) {
+            font-size: 1.2rem; // Slightly smaller on mobile
+            margin-bottom: 15px;
         }
     }
 
-    .footer-section {
-        text-align: left;
-        margin: 0;
-        
-        // --- Add word break for potentially long text ---
-        word-break: break-word; /* Allow breaking long words if necessary */
-        overflow-wrap: break-word; /* Standard property for breaking words */
-
-
-        h2 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0; // Reset default margins
         
 
-            li {
-                margin-bottom: 10px;
-                margin-left: 0;
+        li {
+            margin-bottom: 12px; // Consistent spacing
+            margin-left: 0;
 
-                a {
-                    color: white;
-                    text-decoration: none;
-                    transition: color 0.3s;
-                    display: inline-block;
-                    &:hover { color: #ffcc00; }
+            a {
+                color: rgba(255, 255, 255, 0.85); // Slightly softer white for links
+                text-decoration: none;
+                transition: color 0.3s ease, padding-left 0.3s ease;
+                display: inline-block; // Allows padding and prevents full width
+                font-size: 0.95rem;
+
+                &:hover {
+                    color: #ffcc00; // Bright hover color
+                    padding-left: 5px; // Slight indent on hover
                 }
             }
         }
-
-        @media (max-width: $breakpoint-medium) {
-            text-align: center;
-             ul {
-                 display: inline-block;
-                 text-align: left; // Keep list items aligned left if preferred
-             }
-            .contact {
-                align-items: center;
-            }
-        }
-         @media (max-width: $breakpoint-small) {
-            h2{
-                font-size: 1.3rem;
-            }
-         }
     }
 
-    .footer-heading {
-        display: flex;
-        align-items: center;
+    // --- Responsive text alignment for sections ---
+    @media (max-width: $breakpoint-medium) {
+        // text-align: center; // Center entire section content on tablets if desired
+        // If text-align: center is applied above, the ul needs to be inline-block to be centered
+        // ul {
+        //     display: inline-block; // If parent is text-align: center
+        //     text-align: left; // Keep list items themselves left-aligned
+        // }
+    }
+     @media (max-width: $breakpoint-small) {
+        // On single column layout, sections are already full width,
+        // so text-align: left is often preferable for readability.
+        // If you want everything centered on mobile:
+        // text-align: center;
+        // ul {
+        //     display: inline-block; // If parent is text-align: center
+             text-align: center;
+        // }
+     }
+}
+
+.footer-heading { // Specifically for the logo and brand name section
+    display: flex;
+    align-items: center;
+    gap: 12px; // Increased gap
+    margin-bottom: 20px; // More space below heading
+
+    .footerLogo {
+        width: 45px; // Slightly larger base logo
+        height: auto;
+        border-radius: 8px; // Common radius
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+       font-size: 1.6rem; // Larger logo text
+       margin: 0;
+       font-weight: 600; // Bolder
+    }
+
+    @media (max-width: $breakpoint-medium) {
+        justify-content: center; // Center logo heading on tablets
+        text-align: center;
+    }
+    @media (max-width: $breakpoint-small) {
         gap: 10px;
-        margin-bottom: 10px;
-
-        .footerLogo {
-            width: 40px; // Slightly smaller again maybe
-            height: auto;
-            border-radius: 12px; // Adjust radius
-            flex-shrink: 0; // Prevent logo from shrinking too much
-        }
-        .logo-text {
-           font-size: 1.5rem;
-           margin: 0;
-        }
-
-         @media (max-width: $breakpoint-medium) {
-            justify-content: center;
-         }
-         @media (max-width: $breakpoint-small) {
-             .logo-text { font-size: 1.4rem; } // Smaller text on mobile
-         }
+        .footerLogo { width: 40px; }
+        .logo-text { font-size: 1.45rem; }
     }
+}
 
-    .footer-para {
-        margin: 15px 0;
-        line-height: 1.5;
-        // Ensure wrapping (already handled by .footer-section rule, but explicit doesn't hurt)
-        word-break: break-word;
-        overflow-wrap: break-word;
-    }
+.footer-para {
+    margin: 15px 0;
+    line-height: 1.6; // Good for readability
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8); // Softer white for paragraphs
+    // Wrapping already handled by .footer-section
+}
 
-    .contact {
-        margin: 15px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+.contact { // For contact details like email/phone
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; // Consistent gap
 
-        a {
-            text-decoration: none;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.3s;
-             // Ensure links wrap if needed (already handled by .footer-section, but good practice)
-             word-break: break-all; // More aggressive break if needed for URLs/emails
-             overflow-wrap: break-word;
-
-             &:hover { color: #ffcc00; }
-          }
-    }
-
-    .social-icons {
-        display: flex;
-        flex-wrap: wrap; // Allow icons to wrap if needed on very narrow screens
-        justify-content: flex-start;
-        gap: 15px; // Slightly smaller gap?
-        margin: 25px 0 0 0;
-        width: auto;
-        padding: 5px 0;
-        margin-top: 200px;
-        
-
-        @media (max-width: $breakpoint-medium) {
-            justify-content: center;
-            gap: 20px; // Restore/increase gap for touch targets
-        }
-
-        a {
-           display: inline-block;
-           transition: transform 0.3s;
-           line-height: 0;
-           &:hover { transform: scale(1.15); }
-        }
-
-        .social-icon {
-            background-color: white;
-            color: #262259;
-            font-size: 1.4rem; // Slightly smaller icons?
-            padding: 5px; // Adjust padding
-            border-radius: 4px; // Adjust radius
-            display: block;
-        }
-    }
-
-    .footer-bottom {
-        display: flex;
-        justify-content: center;
+    a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.85); // Match link color
+        display: inline-flex; // Good for icon alignment
         align-items: center;
-        text-align: center; // Ensure text is centered even if flex alignment has issues
-        margin-top: 5px;
-        border-top: 1px solid white;
-        padding: 5px 10px; // Add horizontal padding here too
-        font-size: 0.85rem;
-        margin-bottom: 0;
+        gap: 10px; // Space between icon and text
+        transition: color 0.3s ease;
+        font-size: 0.95rem;
+        word-break: break-all; // Good for long emails/URLs
+        overflow-wrap: break-word;
 
-        .copyright {
-            margin: 0;
-        }
+        &:hover { color: #ffcc00; }
 
-        @media (max-width: $breakpoint-small) {
-            font-size: 0.75rem;
+        svg, i { // If using SVG or Font Awesome icons
+            flex-shrink: 0; // Prevent icon from shrinking
+            font-size: 1.1em; // Slightly larger icon relative to text
         }
-        @media (max-width: $breakpoint-xsmall) {
-            font-size: 0.7rem; // Even smaller for tiny screens
+    }
+    @media (max-width: $breakpoint-small) {
+        margin-left: 100px;
+    }
+}
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; // Default left alignment
+    gap: 12px; // Base gap
+    // --- Removed the very large margin-top: 200px; ---
+    // --- Adjusted to a more standard margin ---
+    margin-top: 25px; 
+    margin-bottom: 20px; // Add some bottom margin before footer-bottom
+    padding: 5px 0;
+
+    @media (max-width: $breakpoint-medium) {
+        justify-content: center; // Center icons on tablets and mobile
+        gap: 15px; // Slightly larger gap for touch targets
+    }
+    @media (max-width: $breakpoint-small) {
+        margin-top: 20px;
+        gap: 12px;
+    }
+
+    a {
+       display: inline-block; // Or flex for perfect centering if icon is complex
+       transition: transform 0.2s ease-out;
+       line-height: 0; // Important for vertically aligning inline-block icons
+
+       &:hover {
+            transform: scale(1.15) translateY(-2px); // More engaging hover
         }
+    }
+
+    .social-icon { // Assuming this is a wrapper if using <i> or <svg>
+        background-color: white;
+        color: #262259; // Icon color matching footer background
+        font-size: 1.3rem; // Base icon size
+        // --- Adjusted padding for a more balanced look ---
+        padding: 8px; // Square padding for icons
+        border-radius: 6px; // Slightly rounded corners
+        display: flex; // For centering icon inside if needed
+        align-items: center;
+        justify-content: center;
+        width: 38px;  // Fixed width for consistent size
+        height: 38px; // Fixed height for consistent size
+    }
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 25px; // Consistent margin from content above
+    border-top: 1px solid rgba(255, 255, 255, 0.1); // Subtle separator
+    padding: 15px 10px; // More vertical padding
+    font-size: 0.9rem; // Slightly larger base copyright text
+    color: rgba(255, 255, 255, 0.7); // Softer white for copyright
+
+    .copyright {
+        margin: 0;
+    }
+
+    @media (max-width: $breakpoint-small) {
+        font-size: 0.8rem;
+        padding: 12px 10px;
+    }
+    @media (max-width: $breakpoint-xsmall) {
+        font-size: 0.75rem; // Ensure legibility
     }
 }

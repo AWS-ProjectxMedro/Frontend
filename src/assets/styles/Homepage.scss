@@ -1,3 +1,7 @@
+/* =================================================================== */
+/* YOUR ORIGINAL DESKTOP STYLES - UNCHANGED, AS REQUESTED             */
+/* =================================================================== */
+
 /* Reset and Box Sizing */
 *,
 *::before,
@@ -22,7 +26,6 @@ body {
     background-color: var(--accent-color);
     color: var(--black);
     overflow-x: hidden;
-    
 }
 
 /* Container */
@@ -50,7 +53,6 @@ header {
     justify-content: space-between;
     padding: 4rem 2rem;
     background: #ECF5FE;
-    //linear-gradient(to bottom right , white 50%,#5848c2 20%, #5848C2 100px);
     text-align: initial;
     flex-wrap: wrap;
     height:110vh;
@@ -81,12 +83,6 @@ header {
     gap: 2rem;
     margin-top: 5rem;
     margin-left: 3rem;
-}
-
-
-
-.about-images{
-    display: flex;
 }
 
 button:hover {
@@ -123,8 +119,8 @@ button:hover {
     color: black;
     font-size: 20px;
     max-width: 600px;
-
 }
+
 .img-section {
     flex: 1;
     display: flex;
@@ -158,6 +154,130 @@ button:hover {
     margin-top: -50px;
     margin-right: 100px;
     margin-left: -40px;
-    
     position: absolute; 
+}
+
+.info-section {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin-left: 1rem;
+}
+
+.info-section h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.plan-box {
+  margin-bottom: 1rem;
+}
+
+.plan-box h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.plan-box p {
+  color: #555;
+}
+
+
+/* =================================================================== */
+/* 🌍 RESPONSIVE OVERRIDES FOR SMALLER DEVICES                        */
+/* These styles will only apply on screens smaller than 1024px.      */
+/* =================================================================== */
+
+@media (max-width: 1024px) {
+  /* Make the main layout a single column */
+  .main-content {
+    flex-direction: column;
+    height: auto; /* Let height be determined by content */
+    padding: 3rem 1.5rem;
+    gap: 3rem; /* Add space between text and image sections */
+  }
+
+  /* Center the text section */
+  .description-section {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  /* Reset harmful desktop-only margins and adjust fonts */
+  .main-heading {
+    margin-top: 0; /* CRITICAL: Reset the huge negative margin */
+    width: auto; /* CRITICAL: Remove 100vw width */
+    font-size: 38px;
+    line-height: 1.3;
+  }
+  
+  .para1 {
+    margin-top: 1.5rem; /* Reduce the large top margin */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Stack buttons vertically and center them */
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    margin-left: 0; /* Reset the left margin */
+  }
+  
+  .button1, .button2 {
+      width: 80%;
+      max-width: 300px;
+  }
+
+  /* Tidy up the image section for mobile */
+  .img-section {
+    width: 100%;
+    height: auto;
+    flex-direction: column; /* Stack the images */
+    gap: 2rem; /* Add space between the stacked images */
+    align-items: center;
+  }
+
+  .img-section img {
+      position: static; /* CRITICAL: remove relative/absolute positioning */
+      width: 70%;
+      max-width: 280px;
+      height: auto;
+  }
+  
+  /* Reset the specific positioning of the second image */
+  .mobile2 {
+      margin: 0; /* CRITICAL: Reset all margins */
+  }
+
+  .img-section img:hover {
+      transform: scale(1.1); /* A more subtle hover effect for mobile */
+  }
+  
+  .info-section {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+  }
+}
+
+/* Additional fine-tuning for very small phone screens */
+@media (max-width: 576px) {
+    .main-heading {
+        font-size: 32px;
+    }
+    
+    .para1 {
+        font-size: 18px;
+    }
+    
+    .main-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }

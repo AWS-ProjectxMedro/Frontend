@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../assets/styles/SwpCalculator.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
@@ -240,7 +241,8 @@ function SwpCalculator() {
         {/* Column 2: Video & Invest Button */}
         <div className="calculator-media-column">
           <img src={Animation} alt="" width="550px" />
-          <button className="invest-now-button">Invest Now</button>
+          
+          <Link to="/login" className="invest-now-button">Invest Now</Link>
         </div>{" "}
         {/* End Column 2 */}
       </main>
