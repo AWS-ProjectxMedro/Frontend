@@ -1,339 +1,793 @@
-/* Auth Container */
+/* ==========================================================================
+   Login Component SCSS - Complete Responsive Styles
+   ========================================================================== */
+
+/* Variables */
+$primary-gradient: linear-gradient(135deg, #262259, #4b4b9d, #6a5acd);
+$button-gradient: linear-gradient(135deg, #6f14d1, #5848c2);
+$button-gradient-hover: linear-gradient(135deg, #5848c2, #6f14d1);
+$background-color: #ECF5FE;
+$white: #ffffff;
+$silver: #c0c0c0;
+$light-gray: #f8f9fa;
+$border-color: #ccc;
+$focus-color: #8a75f5;
+$error-color: #f44336;
+$success-color: #4CAF50;
+$warning-color: #ff9800;
+$accent-color: #ffdd57;
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$large-desktop: 1200px;
+
+/* Base Container */
 .auth-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
   position: relative;
-  background-color: #ECF5FE;
-  overflow-x: hidden; // Prevent horizontal scroll from animation or card
+  background-color: $background-color;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main Login Layout */
 .main-login {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2rem; // Space between card and animation
-  padding: 2rem; // Add some padding around the content
-  flex-grow: 1; // Allow it to take available vertical space
-  // margin-left: 200px; // Problematic for responsiveness, will be removed/adjusted
+  gap: 3rem;
+  padding: 2rem;
+  flex-grow: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 
-  @media (max-width: 1024px) { // Tablet and smaller laptops
+  @media (max-width: $desktop) {
     flex-direction: column;
-    margin-left: 0; // Reset margin
     gap: 2rem;
-    padding: 2rem 1rem; // Adjust padding
+    padding: 2rem 1rem;
   }
 
-  @media (max-width: 768px) { // Smaller tablets
+  @media (max-width: $tablet) {
     padding: 1.5rem 0.5rem;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 1rem 0.25rem;
+    gap: 1rem;
   }
 }
 
 /* Auth Card */
 .auth-card {
-  background: linear-gradient(135deg, #262259, #4b4b9d, #6a5acd);
-  padding: 2rem;
+  background: $primary-gradient;
+  padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 10px 10px 30px rgba(0,0,0,0.15); // Enhanced shadow
-  max-width: 400px;
-  width: 100%; // Take full width of its container (which is controlled by main-login or media queries)
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 
+              0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  width: 100%;
   text-align: center;
-  position: relative; // For potential absolute children or animations
-  animation: fadeIn 0.5s ease-in-out;
-   margin-top: 70px; // Remove fixed top margin, rely on flexbox alignment
-  // margin-bottom: 10px; // Remove fixed bottom margin
-  flex-shrink: 0; // Prevent card from shrinking too much if animation takes space
+  position: relative;
+  animation: fadeIn 0.6s ease-in-out;
+  margin-top: 70px;
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
 
-  @media (max-width: 1024px) { // When stacked
-    order: 1; // Ensure card is first when stacked
-    max-width: 450px; // Can be slightly wider when centered and stacked
+  @media (max-width: $desktop) {
+    order: 1;
+    max-width: 480px;
+    margin-top: 0;
   }
 
-  @media (max-width: 500px) {
-    width: 90vw; // Take most of viewport width
+  @media (max-width: $tablet) {
+    padding: 2rem;
+    max-width: 90vw;
+  }
+
+  @media (max-width: $mobile) {
     padding: 1.5rem;
-    // margin: auto; // Already handled by parent flex centering
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 5px 5px 20px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   }
 }
 
 /* Logo Section */
 .logo-section1 {
   text-align: center;
-  margin-bottom: 1rem;
-}
-
-.logo1-img {
-  height: 50px; // Keep height
-  width: 50px;  // Make it a square if it's a circle
-  margin-bottom: 10px;
-  border-radius: 50%;
-}
-
-/* Brand Name */
-.brand-name {
-  font-size: clamp(1.5rem, 4vw, 1.8rem); // Responsive font size
-  font-weight: bold;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-/* Titles */
-.auth-title, .auth-title-log {
-  font-size: clamp(1.6rem, 5vw, 2rem);
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: white;
-}
-
-.auth-subtitle, .auth-subtitle-log {
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  color: silver;
   margin-bottom: 1.5rem;
+
+  .logo1-img {
+    height: 55px;
+    width: 55px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: $mobile) {
+      height: 45px;
+      width: 45px;
+    }
+  }
+
+  .brand-name {
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Form Titles */
+.auth-title,
+.auth-title-log {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: $white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.auth-subtitle,
+.auth-subtitle-log {
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.8rem;
+  line-height: 1.4;
 }
 
 /* Form Styling */
-.auth-form, .auth-form-log, .otp-form {
-  .form-group { // Removed .form-group-log as it's identical
-    margin-bottom: 1rem;
+.auth-form,
+.auth-form-log {
+  .form-group {
+    margin-bottom: 1.2rem;
     text-align: left;
-    // color: red; // This was applied to the group, probably intended for error messages.
+    position: relative;
 
     label {
       font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
       display: block;
-      color: white;
+      color: $white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    > div {
+      position: relative;
     }
 
     input[type="text"],
     input[type="email"],
     input[type="tel"],
-    input[type="password"] { // More specific selectors for inputs
+    input[type="password"] {
       width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 10px; // Slightly less round for modern feel
+      padding: 0.85rem 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
       font-size: 1rem;
-      transition: all 0.3s ease-in-out;
-      background-color: #f8f9fa; // Light background for better contrast
-      color: #333; // Darker text color for input
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #333;
+      box-sizing: border-box;
 
       &:focus {
-        border-color: #8a75f5; // Lighter purple focus
+        border-color: $accent-color;
         outline: none;
-        box-shadow: 0 0 0 3px rgba(138, 117, 245, 0.25); // Focus ring
+        box-shadow: 0 0 0 3px rgba(255, 221, 87, 0.3);
+        background-color: $white;
+        transform: translateY(-1px);
       }
+
       &::placeholder {
-        color: #aaa;
+        color: #999;
+        opacity: 0.8;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
     }
 
-    .error { // Style for error messages from react-hook-form
-      color: #ffdddd; // Light red for better visibility on dark background
-      font-size: 0.8rem;
-      margin-top: 0.25rem;
-    }
-
-    // Password toggle button styling (if not inline)
-    .password-toggle-btn {
+    // Password toggle button
+    button[type="button"] {
       position: absolute;
-      right: 10px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
-      color: #ccc; // Color for Show/Hide text
-      font-size: 0.85rem;
-      padding: 5px;
+      font-size: 18px;
+      color: #666;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      z-index: 2;
 
       &:hover {
-        color: white;
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #333;
+      }
+
+      &:focus {
+        outline: 2px solid $focus-color;
+        outline-offset: 2px;
+      }
+    }
+
+    .error {
+      color: #ffcccb;
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      animation: fadeInScale 0.3s ease;
+
+      &::before {
+        content: "⚠️";
+        font-size: 0.9rem;
       }
     }
   }
 }
 
-/* OTP Form Specifics */
-.otp-form {
-  margin-top: 1rem;
-  .otp-boxes {
-    label {
-      text-align: center; // Center the "Verify OTP sent to..." label
+/* Enhanced OTP Section */
+.otp-section {
+  width: 100%;
+  animation: slideInUp 0.4s ease-out;
+  
+  .otp-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    .otp-icon {
+      font-size: 3.5rem;
       margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    
+    .otp-title {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 600;
+      color: $white;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .otp-subtitle {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+      line-height: 1.5;
+      
+      strong {
+        color: $accent-color;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
     }
   }
-  .otp-inputs {
-    display: flex;
-    justify-content: center; // Center OTP input boxes
-    gap: 0.5rem; // Space between OTP boxes
+  
+  .otp-form {
+    margin-bottom: 1.8rem;
+    
+    .otp-inputs-container {
+      margin-bottom: 1.5rem;
+      
+      .otp-inputs {
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
 
-    .otp-input {
-      width: 40px; // Fixed width for OTP inputs
-      height: 45px;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 8px;
-      padding: 0.5rem 0; // Adjust padding
-      // Inherits general input styles, add specifics if needed
+        .otp-input {
+          width: 48px;
+          height: 54px;
+          text-align: center;
+          font-size: 1.4rem;
+          font-weight: 700;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.95);
+          color: #333;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          outline: none;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+          &:focus {
+            border-color: $accent-color;
+            background: $white;
+            box-shadow: 0 0 0 3px rgba(255, 221, 87, 0.3),
+                        0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: scale(1.08);
+          }
+
+          &.filled {
+            border-color: $success-color;
+            background: rgba(76, 175, 80, 0.1);
+            color: #2E7D32;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+          }
+
+          &.error {
+            border-color: $error-color;
+            background: rgba(244, 67, 54, 0.1);
+            animation: shake 0.6s ease-in-out;
+            box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.3);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+          }
+        }
+
+        @media (max-width: $mobile) {
+          gap: 0.4rem;
+          
+          .otp-input {
+            width: 42px;
+            height: 48px;
+            font-size: 1.2rem;
+          }
+        }
+
+        @media (max-width: 360px) {
+          gap: 0.3rem;
+          
+          .otp-input {
+            width: 38px;
+            height: 44px;
+            font-size: 1.1rem;
+          }
+        }
+      }
+      
+      .otp-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: rgba(244, 67, 54, 0.15);
+        border: 1px solid rgba(244, 67, 54, 0.4);
+        border-radius: 10px;
+        padding: 0.8rem;
+        color: #ffcccb;
+        font-size: 0.85rem;
+        animation: fadeInScale 0.3s ease-out;
+        backdrop-filter: blur(8px);
+        
+        .error-icon {
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+  
+  .otp-footer {
+    text-align: center;
+    
+    .otp-help-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    
+    .otp-warning {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(255, 152, 0, 0.15);
+      border: 1px solid rgba(255, 152, 0, 0.4);
+      border-radius: 10px;
+      padding: 0.8rem;
+      color: #ffcc80;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      animation: fadeInScale 0.3s ease-out;
+      backdrop-filter: blur(8px);
+      
+      .warning-icon {
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
     }
   }
 }
 
-/* Buttons */
-.auth-button, // Applied to main action buttons like Login, Register (before OTP)
-.otp-verify-button,
-.final-register-button {
+/* Button Styles */
+.auth-button,
+.otp-verify-btn {
   width: 100%;
-  padding: 0.85rem; // Slightly more padding
-  background: linear-gradient(135deg, #6f14d1, #5848c2);
-  color: white;
+  padding: 0.9rem 1rem;
+  background: $button-gradient;
+  color: $white;
   border: none;
-  border-radius: 24px;
+  border-radius: 25px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin-top: 0.5rem; // Add some top margin
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 0.8rem;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: 0;
+  }
 
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, #5848c2, #6f14d1);
-    transform: scale(1.03); // Slightly less aggressive scale
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background: $button-gradient-hover;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
   }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+  
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .button-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    position: relative;
+    z-index: 1;
+    
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid $white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
   }
 }
 
-.resend-otp-button {
-  background: none;
-  border: 1px solid silver; // Subtle border
-  color: silver;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+.resend-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.8rem;
+  border-radius: 22px;
   font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  margin-top: 1rem;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto;
+  backdrop-filter: blur(8px);
 
   &:hover:not(:disabled) {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-    border-color: white;
+    background: rgba(255, 255, 255, 0.2);
+    color: $white;
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+  
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
+  }
+  
+  .cooldown-icon,
+  .resend-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
   }
 }
 
-
-/* Toggle Message between Login/Register */
-.toggle-message, .toggle-message-log {
-  text-align: center;
-  margin-top: 1.5rem; // More space
+.back-to-login {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
   font-size: 0.9rem;
-  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  backdrop-filter: blur(8px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: $white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Auth Links */
+.auth-links {
+  text-align: center;
+  margin: 1rem 0;
+
+  .forgot-password-link {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: $accent-color;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+/* Toggle Messages */
+.toggle-message,
+.toggle-message-log {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
 
   button {
     background: none;
     border: none;
-    color: #f0f0f0; // Lighter color for link
-    font-weight: bold;
+    color: $accent-color;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 0.95rem; // Slightly larger
-    transition: color 0.3s ease-in-out;
-    padding: 0.25rem; // Add some padding for easier clicking
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.3rem;
 
     &:hover {
       text-decoration: underline;
-      color: #ffdd57; // Gold hover color
+      text-underline-offset: 3px;
+      background: rgba(255, 221, 87, 0.1);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
   }
 }
 
 /* Login Animation Section */
 .loginAnimation {
-  // margin: 10px; // Too small
-  // margin: 200px; // Too large and fixed, very problematic
-  display: flex; // Use flex for internal alignment
+  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
-  color: #333; // Text color for the animation section
-  max-width: 400px; // Max width for the animation container
-  width: 100%; // Responsive width
+  gap: 1.5rem;
+  color: #333;
+  max-width: 420px;
+  width: 100%;
+  flex-shrink: 0;
 
-  img { // Target the animation gif
-    max-width: 100%; // Make image responsive
-    height: auto; // Maintain aspect ratio
-    max-height: 300px; // Limit max height of GIF
-    border-radius: 15px; // Softer radius
+  img {
+    max-width: 100%;
+    height: auto;
+    max-height: 320px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 
   h2 {
-    font-size: clamp(1.1rem, 3vw, 1.4rem); // Responsive font size
+    font-size: clamp(1rem, 3vw, 1.4rem);
     font-weight: 600;
-    color: #262259; // Dark blue to match card
+    color: #262259;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap; // Allow wrapping if "TheCapitalTree" is long
-    gap: 0.3rem; // Space around logo
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .welcomelogo {
-    // margin: 0px 10px; // Handled by gap in h2
-    border-radius: 8px; // Softer radius for small logo
-    height: 28px; // Adjust size as needed
+    border-radius: 8px;
+    height: 32px;
     width: auto;
-  }
+    transition: transform 0.3s ease;
 
-  @media (max-width: 1024px) { // When stacked
-    order: 2; // Ensure animation is second when stacked
-    max-width: 350px;
-    margin-top: 2rem; // Add some space from the card when stacked
-  }
-
-  @media (max-width: 768px) {
-    h2 {
-      font-size: clamp(1rem, 4vw, 1.2rem);
+    &:hover {
+      transform: scale(1.1);
     }
-    .welcomelogo { height: 24px; }
   }
 
-  @media (max-width: 500px) {
-    // Optionally hide or make it smaller on very small screens
-    // display: none; // Example: To hide on very small screens
-    gap: 0.5rem;
-    img { max-height: 200px; }
-    h2 { display: none; } // Hiding just the "Welcome To..." text on very small screens
+  @media (max-width: $desktop) {
+    order: 2;
+    max-width: 380px;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: $tablet) {
+    margin-top: 1rem;
+    
+    h2 {
+      font-size: clamp(0.9rem, 4vw, 1.2rem);
+    }
+    
+    .welcomelogo {
+      height: 28px;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    gap: 1rem;
+    
+    img {
+      max-height: 220px;
+      border-radius: 16px;
+    }
+    
+    h2 {
+      display: none; // Hide on very small screens
+    }
   }
 }
 
-/* Responsive Footer Fix - This is okay but depends on your Footer's actual behavior */
-@media (max-height: 700px) {
-  // .footer {
-  //   position: relative; // This might not be needed if Footer is part of normal flow
-  // }
-}
-
-/* Animation for Auth Card FadeIn */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-8px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for better keyboard navigation */
+*:focus-visible {
+  outline: 2px solid $accent-color;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .auth-card {
+    border: 2px solid $white;
+  }
+  
+  input:focus {
+    border-width: 3px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .auth-container {
+    background: white;
+  }
+  
+  .auth-card {
+    background: white;
+    color: black;
+    box-shadow: none;
+    border: 1px solid black;
   }
 }

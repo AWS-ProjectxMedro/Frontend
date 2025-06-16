@@ -59,8 +59,12 @@
     ]
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|svg|css|scss)$": "<rootDir>/__mocks__/fileMock.js"
+    },
     "transformIgnorePatterns": [
       "/node_modules/(?!axios)/"
     ]
+    
   }
 }

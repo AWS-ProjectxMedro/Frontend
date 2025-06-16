@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import './Style/Withdrawal.scss';
 
+const baseURL = process.env.REACT_APP_PAYMENT_API_BASE_URL;
+
 const Withdrawal = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -28,7 +30,7 @@ const Withdrawal = () => {
     const fetchUserBalance = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            const response = await axios.get(`http://43.204.120.102:3308/api/users/balance`, {
+            const response = await axios.get(`${baseURL}/api/users/balance`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUserBalance(response.data.balance || 0);
@@ -41,7 +43,7 @@ const Withdrawal = () => {
     const fetchWithdrawalHistory = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            const response = await axios.get(`http://43.204.120.102:3308/api/withdrawals/my`, {
+            const response = await axios.get(`${baseURL}/api/withdrawals/my`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             
@@ -83,7 +85,7 @@ const Withdrawal = () => {
                 reason: form.reason || 'Withdrawal request'
             };
 
-            const response = await axios.post(`http://43.204.120.102:3308/api/withdrawals`, payload, {
+            const response = await axios.post(`${baseURL}/api/withdrawals`, payload, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'

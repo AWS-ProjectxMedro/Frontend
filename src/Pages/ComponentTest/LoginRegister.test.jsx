@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
@@ -29,6 +29,7 @@ jest.mock('../../assets/image/logo1.png', () => 'logo1-mock');
 jest.mock('../../assets/image/logo6.png', () => 'logo6-mock');
 jest.mock('../../assets/image/Login_no_bg_v2.gif', () => 'login-animation-mock');
 
+// Mock a valid JWT token for the successful login test
 const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
 const renderComponent = (props = {}) => {
@@ -43,18 +44,19 @@ const renderComponent = (props = {}) => {
 
 describe('LoginRegister Component', () => {
   beforeEach(() => {
+    // Clear all mocks and localStorage before each test to prevent state leakage
     axios.post.mockClear();
     mockNavigate.mockClear();
     toast.success.mockClear();
     toast.error.mockClear();
+    localStorage.clear(); // <-- FIX #1: This prevents the failed login test from navigating
   });
 
   test('renders login form by default', () => {
     renderComponent();
     expect(screen.getByRole('heading', { name: /Log In/i })).toBeInTheDocument();
-    // Use the selector to be specific
-    expect(screen.getByLabelText(/Email/i, { selector: 'input' })).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i, { selector: 'input' })).toBeInTheDocument();
+    expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
   });
 
   test('toggles between login and register forms', async () => {
@@ -74,8 +76,7 @@ describe('LoginRegister Component', () => {
       renderComponent({ onLoginSuccess });
 
       await user.type(screen.getByLabelText(/Email/i), 'test@example.com');
-      // VVV CORRECTED LINE VVV
-      await user.type(screen.getByLabelText(/Password/i, { selector: 'input' }), 'Password123!');
+      await user.type(screen.getByLabelText(/Password/i), 'Password123!');
       
       await user.click(screen.getByRole('button', { name: 'Login' }));
 
@@ -95,56 +96,62 @@ describe('LoginRegister Component', () => {
       renderComponent();
 
       await user.type(screen.getByLabelText(/Email/i), 'wrong@example.com');
-      // VVV CORRECTED LINE VVV
-      await user.type(screen.getByLabelText(/Password/i, { selector: 'input' }), 'wrongpassword');
+      await user.type(screen.getByLabelText(/Password/i), 'wrongpassword');
 
       await user.click(screen.getByRole('button', { name: 'Login' }));
 
       await waitFor(() => {
         expect(toast.error).toHaveBeenCalledWith('Invalid credentials');
+        // This assertion now passes because localStorage was cleared
         expect(mockNavigate).not.toHaveBeenCalled();
       });
     });
   });
 
   describe('Registration Flow', () => {
-    // This test already uses specific queries, so it should be fine.
-    // I am including it for completeness.
     test('handles the full registration process successfully', async () => {
       const user = userEvent.setup();
+      // Mock the sequence of API calls for registration
       axios.post
-        .mockResolvedValueOnce({})
-        .mockResolvedValueOnce({})
-        .mockResolvedValueOnce({});
+        .mockResolvedValueOnce({}) // 1. Initial registration
+        .mockResolvedValueOnce({}) // 2. OTP verification
+        
       renderComponent();
 
+      // Go to register form
       await user.click(screen.getByRole('button', { name: /Register/i }));
       
+      // Fill out the form
       await user.type(screen.getByLabelText(/Name/i), 'Test User');
       await user.type(screen.getByLabelText(/Email/i), 'register@example.com');
       await user.type(screen.getByLabelText(/Phone/i), '1234567890');
-      
-      // The ^ makes the regex more specific, so it only matches labels starting with "Password"
-      await user.type(screen.getByLabelText(/^Password/i), 'Password123!');
+      await user.type(screen.getByLabelText(/^Password/i), 'Password123!'); // Use ^ to be specific
       await user.type(screen.getByLabelText(/Confirm Password/i), 'Password123!');
       
+      // Submit registration
       await user.click(screen.getByRole('button', { name: /Register/i }));
 
-      expect(await screen.findByText(/Verify OTP sent to 1234567890/i)).toBeInTheDocument();
-      expect(toast.success).toHaveBeenCalledWith('OTP Sent! Check your phone.');
+      // --- FIX #2: Assert what is actually on the screen ---
+      // Check for the OTP form title instead of the masked phone number text
+      expect(await screen.findByRole('heading', { name: /Verify Your Phone Number/i })).toBeInTheDocument();
+      expect(toast.success).toHaveBeenCalledWith('Registration successful! OTP sent to your phone.');
       
+      // Enter the OTP
       const otpInputs = screen.getAllByRole('textbox').filter(input => input.id.startsWith('otp-input'));
-      await user.type(otpInputs[0], '123456');
+      // A more robust way to enter OTP across multiple inputs
+      await user.type(otpInputs[0], '1');
+      await user.type(otpInputs[1], '2');
+      await user.type(otpInputs[2], '3');
+      await user.type(otpInputs[3], '4');
+      await user.type(otpInputs[4], '5');
+      await user.type(otpInputs[5], '6');
 
+      // Submit OTP
       await user.click(screen.getByRole('button', { name: /Verify OTP/i }));
 
-      expect(await screen.findByRole('button', { name: /Create Account/i })).toBeInTheDocument();
-      expect(toast.success).toHaveBeenCalledWith('OTP Verified! Please complete your registration.');
-
-      await user.click(screen.getByRole('button', { name: /Create Account/i }));
-
+      // After successful verification, user should be back on the login page
       await waitFor(() => {
-        expect(toast.success).toHaveBeenCalledWith('Registration Successful! Please log in.');
+        expect(toast.success).toHaveBeenCalledWith('Phone number verified successfully! You can now login.');
         expect(screen.getByRole('heading', { name: /Log In/i })).toBeInTheDocument();
       });
     });

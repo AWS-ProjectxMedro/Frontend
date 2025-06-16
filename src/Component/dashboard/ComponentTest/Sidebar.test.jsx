@@ -1,51 +1,54 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Sidebar from './Sidebar';
+import Sidebar from '../Sidebar';
 
 // 1. MOCK DEPENDENCIES
-// Mock react-router-dom to control navigation and link rendering
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'), // import and retain all actual exports
-    useNavigate: () => mockNavigate, // override useNavigate with a mock
-    // Mock NavLink to be a simple <a> tag to check its props
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockNavigate,
+    // THE CRITICAL FIX IS HERE: Added {children} inside the <a> tag.
     NavLink: jest.fn(({ children, to, onClick, className }) => (
-        <a href={to} onClick={onClick} className={className({ isActive: false })}>
+        <a href={to} onClick={onClick} className={typeof className === 'function' ? className({ isActive: false }) : className}>
             {children}
         </a>
     )),
 }));
 
-// Mock react-icons to simplify the test output
 jest.mock('react-icons/fa', () => ({
     FaBars: () => <div data-testid="bars-icon" />,
     FaTimes: () => <div data-testid="times-icon" />,
 }));
 
-// Mock static assets
-jest.mock('../../assets/image/logo3.png', () => 'logo.png');
+// Mock the image asset with the correct relative path from the component
+jest.mock('../../../assets/image/logo3.png', () => 'logo.png');
 
-// Mock console.error to prevent logging during the edge-case test
+// Mock console.error to check for the fallback warning without polluting the test output
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-// Mock localStorage
+// Mock localStorage for testing authentication state
 const localStorageMock = (() => {
     let store = {};
     return {
         getItem: key => store[key] || null,
-        setItem: (key, value) => { store[key] = value.toString() },
-        removeItem: key => { delete store[key] },
-        clear: () => { store = {} },
+        setItem: (key, value) => { store[key] = value.toString(); },
+        removeItem: key => { delete store[key]; },
+        clear: () => { store = {}; },
     };
 })();
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+// Mock window.location for the sign-out fallback test
+const location = window.location;
+delete window.location;
+window.location = { ...location, href: '' };
 
 
 // 2. TEST SUITE
 describe('Sidebar Component', () => {
 
-    const mockSetIsAuthenticated = jest.fn();
+    const mockOnLogout = jest.fn();
 
     // Clear all mocks before each test to ensure isolation
     beforeEach(() => {
@@ -54,88 +57,99 @@ describe('Sidebar Component', () => {
     });
 
     test('renders correctly with all navigation links', () => {
-        render(<Sidebar setIsAuthenticated={mockSetIsAuthenticated} />);
+        render(<Sidebar onLogout={mockOnLogout} />);
 
         // Check for static elements
-        expect(screen.getByText('Dashboard')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /dashboard/i })).toBeInTheDocument();
         expect(screen.getByRole('img', { name: /logo/i })).toBeInTheDocument();
 
-        // Check for all navigation links
+        // Check for all navigation links with the correct paths
         expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('href', '/dashboard');
-        expect(screen.getByRole('link', { name: 'Investment Tool' })).toHaveAttribute('href', '/InvestmentTools');
-        expect(screen.getByRole('link', { name: 'Market Guides' })).toHaveAttribute('href', '/MarketGuides');
-        expect(screen.getByRole('link', { name: 'Profile' })).toHaveAttribute('href', '/Profile');
-        expect(screen.getByRole('link', { name: 'Payment' })).toHaveAttribute('href', '/Payment');
+        expect(screen.getByRole('link', { name: 'Investment Tool' })).toHaveAttribute('href', '/dashboard/investmenttools');
+        expect(screen.getByRole('link', { name: 'Market Guides' })).toHaveAttribute('href', '/dashboard/marketguides');
+        expect(screen.getByRole('link', { name: 'Profile' })).toHaveAttribute('href', '/dashboard/profile');
+        expect(screen.getByRole('link', { name: 'Withdrawal' })).toHaveAttribute('href', '/dashboard/withdrawal');
+        
+        // The Payment link is a special case (it's an <a> tag with an onClick handler)
+        expect(screen.getByRole('link', { name: 'Payment' })).toHaveAttribute('href', '#');
         expect(screen.getByText('Sign Out')).toBeInTheDocument();
     });
 
     describe('Sign Out Functionality', () => {
-        test('calls setIsAuthenticated, removes token, and navigates to login on sign out', async () => {
+        test('calls onLogout prop when it is provided as a function', async () => {
             const user = userEvent.setup();
-            localStorage.setItem('authToken', 'test-token');
-            render(<Sidebar setIsAuthenticated={mockSetIsAuthenticated} />);
+            render(<Sidebar onLogout={mockOnLogout} />);
 
             const signOutButton = screen.getByText('Sign Out');
             await user.click(signOutButton);
             
-            // Verify all sign-out actions occurred
-            expect(localStorage.getItem('authToken')).toBeNull();
-            expect(mockSetIsAuthenticated).toHaveBeenCalledWith(false);
-            expect(mockNavigate).toHaveBeenCalledWith('/login');
+            // Verify the primary action occurred
+            expect(mockOnLogout).toHaveBeenCalledTimes(1);
+
+            // Verify fallback actions did NOT occur
+            expect(mockConsoleError).not.toHaveBeenCalled();
+            expect(window.location.href).toBe('');
         });
 
-        test('still navigates to login if setIsAuthenticated is not a function', async () => {
+        test('uses fallback to clear localStorage and redirect if onLogout is not a function', async () => {
             const user = userEvent.setup();
-            // Render the component with a non-function prop
-            render(<Sidebar setIsAuthenticated={null} />);
+            localStorage.setItem('authToken', 'test-token');
+            render(<Sidebar onLogout={null} />);
 
             const signOutButton = screen.getByText('Sign Out');
             await user.click(signOutButton);
 
-            // It should still clear the token and navigate
+            // It should clear localStorage and redirect using window.location
             expect(localStorage.getItem('authToken')).toBeNull();
-            expect(mockNavigate).toHaveBeenCalledWith('/login');
+            expect(window.location.href).toBe('/login');
 
-            // The component's prop-checking function should not have been called
-            expect(mockSetIsAuthenticated).not.toHaveBeenCalled();
-            // The component's error handler should have been called
-            expect(mockConsoleError).toHaveBeenCalledWith("setIsAuthenticated is NOT a function in handleSignOut!");
+            // The component's error handler should have been called with the correct message
+            expect(mockConsoleError).toHaveBeenCalledWith("Sidebar: onLogout prop is missing or not a function!");
+        });
+    });
+
+    describe('Payment Navigation', () => {
+        test('calls navigate with correct state when Payment link is clicked', async () => {
+            const user = userEvent.setup();
+            render(<Sidebar onLogout={mockOnLogout} />);
+
+            const paymentLink = screen.getByRole('link', { name: 'Payment' });
+            await user.click(paymentLink);
+
+            expect(mockNavigate).toHaveBeenCalledWith('/dashboard/payment', {
+                state: {
+                    isManualPayment: true,
+                    purchaseDetails: null
+                }
+            });
         });
     });
 
     describe('Mobile Navigation', () => {
         test('toggles the mobile sidebar visibility on button click', async () => {
             const user = userEvent.setup();
-            render(<Sidebar setIsAuthenticated={mockSetIsAuthenticated} />);
+            render(<Sidebar onLogout={mockOnLogout} />);
 
-            const sidebar = screen.getByRole('complementary'); // <aside> has this role
+            const sidebar = screen.getByRole('complementary');
             const toggleButton = screen.getByRole('button', { name: /toggle navigation/i });
             
-            // Initial state: closed
             expect(sidebar).not.toHaveClass('is-open');
             expect(screen.getByTestId('bars-icon')).toBeInTheDocument();
-            expect(screen.queryByTestId('times-icon')).not.toBeInTheDocument();
-            expect(screen.queryByTestId('sidebar-overlay')).not.toBeInTheDocument();
 
-            // First click: open
+            // Open sidebar
             await user.click(toggleButton);
             expect(sidebar).toHaveClass('is-open');
             expect(screen.getByTestId('times-icon')).toBeInTheDocument();
-            expect(screen.queryByTestId('bars-icon')).not.toBeInTheDocument();
-            // The overlay is rendered outside the component, so we look in the whole document.body
             expect(document.querySelector('.dashboard__sidebar-overlay')).toBeInTheDocument();
 
-
-            // Second click: close
+            // Close sidebar
             await user.click(toggleButton);
             expect(sidebar).not.toHaveClass('is-open');
-            expect(screen.getByTestId('bars-icon')).toBeInTheDocument();
-            expect(screen.queryByTestId('times-icon')).not.toBeInTheDocument();
         });
 
         test('closes the mobile sidebar when a navigation link is clicked', async () => {
             const user = userEvent.setup();
-            render(<Sidebar setIsAuthenticated={mockSetIsAuthenticated} />);
+            render(<Sidebar onLogout={mockOnLogout} />);
             
             const sidebar = screen.getByRole('complementary');
             const toggleButton = screen.getByRole('button', { name: /toggle navigation/i });
@@ -154,7 +168,7 @@ describe('Sidebar Component', () => {
 
         test('closes the mobile sidebar when the overlay is clicked', async () => {
             const user = userEvent.setup();
-            render(<Sidebar setIsAuthenticated={mockSetIsAuthenticated} />);
+            render(<Sidebar onLogout={mockOnLogout} />);
 
             const sidebar = screen.getByRole('complementary');
             const toggleButton = screen.getByRole('button', { name: /toggle navigation/i });

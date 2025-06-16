@@ -10,7 +10,8 @@ const externalDataApiBaseUrl = process.env.REACT_APP_EXTERNAL_DATA_API_BASE_URL;
 const externalDataApiKey = process.env.REACT_APP_EXTERNAL_DATA_API_KEY; // For the external API
 
 // --- Axios Instance with Authorization Header ---
-const apiClient = axios.create({
+// *** CHANGE: Added 'export' so this can be imported and mocked in tests ***
+export const apiClient = axios.create({
     baseURL: `${baseUrl}/api`, // Set the base URL for all requests from this client
 });
 
@@ -222,7 +223,7 @@ const AdminPlans = () => {
             {isLoading && plans.length === 0 && !error && <div className="loading-indicator">Loading plans...</div>}
 
             {showFormModal && (
-                <div className="modal-overlay" onClick={resetFormAndCloseModal}>
+                <div className="modal-overlay" data-testid="modal-overlay" onClick={resetFormAndCloseModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <button className="modal-close-button" onClick={resetFormAndCloseModal}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="24" height="24">

@@ -1,4 +1,3 @@
-// src/Component/dashboard/Sidebar.jsx
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo3 from "../../assets/image/logo3.png";
