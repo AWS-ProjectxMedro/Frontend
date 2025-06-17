@@ -1,192 +1,577 @@
 // ===================================================
 //
-//      REFACTORED & IMPROVED DASHBOARD STYLES
+//      RESPONSIVE DASHBOARD STYLES
 //
 // ===================================================
 
-// --- 1. THEME VARIABLES & MIXINS ---
+// --- 1. RESPONSIVE BREAKPOINTS ---
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1440px;
+
+// --- 2. THEME VARIABLES & MIXINS ---
 $sidebar-width: 260px;
+$sidebar-width-collapsed: 60px;
 $sidebar-breakpoint: 768px;
 
 // UI/UX Color Palette
 $dashboard-bg: #161632;
 $card-bg: #1F1F3D;
 $text-primary: #FFFFFF;
-$text-secondary: #a0a8c2; // Brightened for better readability
+$text-secondary: #a0a8c2;
 $accent-color: #8A7CFF;
 $accent-color-hover: #a196ff;
 $positive-change: #00D186;
 $negative-change: #FF4D4D;
-$border-color: rgba(255, 255, 255, 0.08); // Slightly more visible for polish
+$border-color: rgba(255, 255, 255, 0.08);
 $font-family: 'Inter', -apple-system, sans-serif;
 $card-border-radius: 12px;
 $card-padding: 24px;
 
+// Responsive mixins
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// --- 2. BASE LAYOUT ---
+@mixin mobile-first($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$breakpoint-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: $breakpoint-sm) and (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+// --- 3. BASE LAYOUT ---
 .dashboard-user.theme-dark {
   display: flex;
   min-height: 100vh;
   font-family: $font-family;
   background-color: $dashboard-bg;
   color: $text-primary;
+  position: relative;
+
+  // Mobile-first approach
+  flex-direction: column;
+  
+  @include mobile-first($breakpoint-sm) {
+    flex-direction: row;
+  }
 
   .dashboard__main-content {
     flex: 1;
-    padding: 30px;
-    margin-left: $sidebar-width;
-    transition: margin-left 0.3s ease;
-    @media (max-width: $sidebar-breakpoint) {
-      margin-left: 0;
-      padding: 20px;
+    padding: 20px 15px;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-width: 0; // Prevent flex item overflow
+
+    @include mobile-first($breakpoint-sm) {
+      padding: 25px;
+      margin-left: $sidebar-width;
+    }
+
+    @include mobile-first($breakpoint-md) {
+      padding: 30px;
+    }
+
+    @include mobile-first($breakpoint-lg) {
+      padding: 40px;
+    }
+
+    // When sidebar is collapsed on mobile
+    &.sidebar-collapsed {
+      @include mobile-first($breakpoint-sm) {
+        margin-left: $sidebar-width-collapsed;
+      }
     }
   }
 }
 
-// --- 3. PAGE HEADER ---
+// --- 4. RESPONSIVE SIDEBAR ---
+.sidebar {
+  width: $sidebar-width;
+  background-color: #1f232d;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #333;
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  transform: translateX(-100%);
+
+  @include mobile-first($breakpoint-sm) {
+    position: static;
+    transform: translateX(0);
+    height: auto;
+  }
+
+  // Mobile sidebar toggle states
+  &.sidebar-open {
+    transform: translateX(0);
+  }
+
+  &.sidebar-collapsed {
+    @include mobile-first($breakpoint-sm) {
+      width: $sidebar-width-collapsed;
+      
+      .sidebar-title,
+      .sidebar-link-text {
+        display: none;
+      }
+      
+      .sidebar-link {
+        justify-content: center;
+        padding: 12px 0;
+      }
+    }
+  }
+
+  .sidebar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #fff;
+    
+    @include mobile-only {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  .sidebar-nav {
+    flex-grow: 1;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    color: #a0a8c2;
+    text-decoration: none;
+    padding: 12px 0;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $accent-color;
+    }
+
+    .sidebar-icon {
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .logout-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto;
+
+    @include mobile-only {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Mobile sidebar overlay
+.sidebar-overlay {
+  display: none;
+  
+  @include mobile-only {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// Mobile menu toggle button
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background-color: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  color: $text-primary;
+
+  @include mobile-only {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// --- 5. PAGE HEADER ---
 .dashboard-content__header {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  
+  @include mobile-first($breakpoint-sm) {
+    margin-bottom: 30px;
+  }
+
   h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
     margin: 0 0 5px 0;
+    
+    @include mobile-first($breakpoint-sm) {
+      font-size: 28px;
+    }
+    
+    @include mobile-first($breakpoint-md) {
+      font-size: 32px;
+    }
   }
+
   p {
-    font-size: 16px;
+    font-size: 14px;
     color: $text-secondary;
-    margin: 0;
+    margin: 0 0 15px 0;
+    
+    @include mobile-first($breakpoint-sm) {
+      font-size: 16px;
+    }
+  }
+
+  .header-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    color: $text-secondary;
+    
+    @include mobile-first($breakpoint-sm) {
+      flex-direction: row;
+      gap: 2rem;
+      font-size: 15px;
+    }
+    
+    @include mobile-first($breakpoint-md) {
+      gap: 3rem;
+    }
   }
 }
 
-// --- 4. FLUID DASHBOARD GRID (FIXES FULL-WIDTH CARD ISSUE) ---
+// --- 6. RESPONSIVE DASHBOARD GRID ---
 .dashboard-grid-cards {
   display: grid;
-  gap: 25px;
-  // This is the core fix. It creates a flexible grid where cards will
-  // automatically wrap to the next line without stretching.
-  // Each card will be at least 380px wide, or grow to fill space.
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 20px;
+  
+  // Mobile: Single column
+  grid-template-columns: 1fr;
+  
+  // Small tablets: 2 columns for smaller cards
+  @include mobile-first($breakpoint-sm) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+  
+  // Medium screens: Allow more flexible sizing
+  @include mobile-first($breakpoint-md) {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+  
+  // Large screens: Optimal card sizing
+  @include mobile-first($breakpoint-lg) {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  }
+  
+  // Extra large screens: Limit max columns for better UX
+  @include mobile-first($breakpoint-xl) {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }
 
-// --- 5. GENERAL CARD STYLING ---
-// This class should be applied directly to your MUI <Paper> components
+// --- 7. RESPONSIVE CARD STYLING ---
 .dashboard-card {
-  background-color: $card-bg !important; // !important can help override MUI inline styles
-  padding: $card-padding;
+  background-color: $card-bg !important;
+  padding: 20px;
   border-radius: $card-border-radius !important;
   color: $text-primary !important;
   display: flex;
   flex-direction: column;
-  border: 1px solid transparent; // For hover effect
+  border: 1px solid transparent;
   transition: all 0.3s ease;
+  min-height: 280px;
 
-  // Polished hover effect for better UX
-  &:hover {
-    transform: translateY(-5px);
-    border-color: $border-color;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  @include mobile-first($breakpoint-sm) {
+    padding: $card-padding;
+    min-height: 320px;
+  }
+
+  // Hover effects only on non-touch devices
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-5px);
+      border-color: $border-color;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
   }
 
   .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding-bottom: 15px;
     margin-bottom: 20px;
     border-bottom: 1px solid $border-color;
+    flex-wrap: wrap;
+    gap: 10px;
+
     h3 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       margin: 0;
+      
+      @include mobile-first($breakpoint-sm) {
+        font-size: 16px;
+      }
+    }
+
+    .data-source {
+      font-size: 12px;
+      color: $text-secondary;
+      
+      @include mobile-first($breakpoint-sm) {
+        font-size: 13px;
+      }
     }
   }
 
   .card-body {
-    flex-grow: 1; // Ensures the body fills available space
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 
     .amount {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       line-height: 1.2;
       margin: 0 0 8px 0;
+      word-break: break-all;
+      
+      @include mobile-first($breakpoint-sm) {
+        font-size: 32px;
+        word-break: normal;
+      }
     }
+
     .change {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
+      margin-bottom: 15px;
+      
+      @include mobile-first($breakpoint-sm) {
+        font-size: 14px;
+      }
+      
       &.positive { color: $positive-change; }
       &.negative { color: $negative-change; }
     }
   }
 }
 
-// --- 6. CHART CONTAINER & STATES ---
-.chart-container-bar {
+// --- 8. RESPONSIVE CHART CONTAINER ---
+.chart-container-bar,
+.chart-container-line {
   flex-grow: 1;
-  min-height: 220px; // Set a minimum height
+  min-height: 180px;
   position: relative;
-  margin-top: auto; // Pushes chart to the bottom of the card body
-  padding-top: 20px; // Space above chart
-  @include flex-center; // Center content like loading/empty states
+  margin-top: auto;
+  padding-top: 15px;
+  @include flex-center;
+
+  @include mobile-first($breakpoint-sm) {
+    min-height: 220px;
+    padding-top: 20px;
+  }
+
+  // Ensure charts are responsive
+  .recharts-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+  }
 }
 
-// This is for empty/loading states inside the chart container for better UX
+// Chart loading and empty states
 .chart-overlay-state {
   @include flex-center;
   flex-direction: column;
   gap: 15px;
   color: $text-secondary;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
 
+  @include mobile-first($breakpoint-sm) {
+    font-size: 14px;
+  }
+
   .spinner.small {
-    width: 30px;
-    height: 30px;
-    border-width: 3px;
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
     border-style: solid;
     border-color: rgba($accent-color, 0.2);
     border-top-color: $accent-color;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+
+    @include mobile-first($breakpoint-sm) {
+      width: 30px;
+      height: 30px;
+      border-width: 3px;
+    }
   }
+
   .empty-icon {
-    font-size: 32px;
+    font-size: 28px;
     opacity: 0.5;
+    
+    @include mobile-first($breakpoint-sm) {
+      font-size: 32px;
+    }
   }
 }
 
-// --- 7. SPECIFIC CARD STYLES ---
+// --- 9. RESPONSIVE SPECIFIC CARD STYLES ---
 .card-market-place {
   .market-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
   .market-item {
     display: flex;
     align-items: center;
-    padding: 12px 0;
+    justify-content: space-between;
+    padding: 10px 0;
     border-bottom: 1px solid $border-color;
+    font-size: 14px;
+    
+    @include mobile-first($breakpoint-sm) {
+      padding: 12px 0;
+      font-size: 15px;
+    }
+
     &:last-child {
       border-bottom: none;
     }
+
+    .market-info {
+      flex: 1;
+      min-width: 0;
+      
+      .market-name {
+        font-weight: 500;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .market-price {
+        font-size: 12px;
+        color: $text-secondary;
+        
+        @include mobile-first($breakpoint-sm) {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .market-change {
+      font-weight: 500;
+      font-size: 13px;
+      
+      @include mobile-first($breakpoint-sm) {
+        font-size: 14px;
+      }
+    }
   }
-  // Other specific market item styles...
 }
 
-// --- 8. INTERACTIVE ELEMENTS ---
+// Transaction items responsive styling
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid $border-color;
+  font-size: 14px;
+  
+  @include mobile-first($breakpoint-sm) {
+    padding: 12px 0;
+    font-size: 15px;
+  }
+
+  .transaction-type {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .transaction-amount {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+// --- 10. RESPONSIVE INTERACTIVE ELEMENTS ---
 .action-btn {
   background-color: rgba($text-primary, 0.05);
   color: $text-secondary;
   border: 1px solid $border-color;
-  padding: 8px 14px;
-  font-size: 13px;
+  padding: 8px 12px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   border-radius: 8px;
@@ -194,6 +579,12 @@ $card-padding: 24px;
   align-items: center;
   gap: 6px;
   transition: all 0.2s ease;
+  min-height: 36px;
+
+  @include mobile-first($breakpoint-sm) {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
 
   &:hover, &:focus {
     background-color: rgba($text-primary, 0.1);
@@ -201,11 +592,18 @@ $card-padding: 24px;
     border-color: rgba($text-primary, 0.2);
     outline: none;
   }
+
+  // Touch-friendly sizing on mobile
+  @include mobile-only {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
 }
 
-// Dropdown styles, now cleaned up and integrated
+// Responsive dropdown
 .dropdown-container {
   position: relative;
+  
   .dropdown-menu {
     position: absolute;
     top: calc(100% + 5px);
@@ -216,18 +614,34 @@ $card-padding: 24px;
     list-style: none;
     padding: 8px 0;
     margin: 0;
-    min-width: 160px;
+    min-width: 140px;
     z-index: 1000;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 
+    @include mobile-first($breakpoint-sm) {
+      min-width: 160px;
+    }
+
     li {
-      padding: 10px 18px;
-      font-size: 14px;
+      padding: 10px 16px;
+      font-size: 13px;
       color: $text-secondary;
       cursor: pointer;
       white-space: nowrap;
       transition: background-color 0.2s ease, color 0.2s ease;
+      
+      @include mobile-first($breakpoint-sm) {
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+
+      // Touch-friendly sizing
+      @include mobile-only {
+        padding: 14px 16px;
+        font-size: 14px;
+      }
+
       &:hover {
         background-color: rgba($accent-color, 0.2);
         color: $text-primary;
@@ -236,8 +650,124 @@ $card-padding: 24px;
   }
 }
 
+// --- 11. RESPONSIVE UTILITIES ---
+.hide-mobile {
+  @include mobile-only {
+    display: none !important;
+  }
+}
 
-// --- 9. ANIMATIONS ---
+.hide-tablet {
+  @include tablet-only {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @include desktop-up {
+    display: none !important;
+  }
+}
+
+.show-mobile-only {
+  display: none !important;
+  
+  @include mobile-only {
+    display: block !important;
+  }
+}
+
+.show-tablet-only {
+  display: none !important;
+  
+  @include tablet-only {
+    display: block !important;
+  }
+}
+
+.show-desktop-only {
+  display: none !important;
+  
+  @include desktop-up {
+    display: block !important;
+  }
+}
+
+// Text size utilities for different screens
+.text-responsive {
+  font-size: 14px;
+  
+  @include mobile-first($breakpoint-sm) {
+    font-size: 16px;
+  }
+  
+  @include mobile-first($breakpoint-lg) {
+    font-size: 18px;
+  }
+}
+
+// Responsive spacing utilities
+.spacing-responsive {
+  margin: 15px;
+  
+  @include mobile-first($breakpoint-sm) {
+    margin: 20px;
+  }
+  
+  @include mobile-first($breakpoint-md) {
+    margin: 25px;
+  }
+  
+  @include mobile-first($breakpoint-lg) {
+    margin: 30px;
+  }
+}
+
+// --- 12. ANIMATIONS ---
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+// Smooth transitions for responsive changes
+* {
+  box-sizing: border-box;
+}
+
+// Ensure images and media are responsive
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+// Responsive table styling (if needed)
+table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  @include mobile-only {
+    font-size: 14px;
+    
+    th, td {
+      padding: 8px 4px;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .sidebar,
+  .mobile-menu-toggle,
+  .action-btn {
+    display: none !important;
+  }
+  
+  .dashboard__main-content {
+    margin-left: 0 !important;
+    padding: 20px !important;
+  }
+  
+  .dashboard-card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
 }

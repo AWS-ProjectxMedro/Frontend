@@ -37,7 +37,9 @@ const UserManagement = lazy(() => import("./Component/AdminDashboard/userManagem
 const ManageBlog = lazy(() => import("./Component/AdminDashboard/manageBlog"));
 const TransactionPage = lazy(() => import("./Component/AdminDashboard/transcation"));
 const AdminPlansPage = lazy(() => import("./Component/AdminDashboard/AdminPlans"));
-const AdminWithdrawal = lazy(() => import("./Component/AdminDashboard/Withdrawal"));
+
+const AdminWithdrawal = lazy(() => import("./Component/AdminDashboard/Withdrawal.jsx"));
+
 
 // Layout Component
 const DashboardLayout = lazy(() => import("./Pages/DashboardLayout"));

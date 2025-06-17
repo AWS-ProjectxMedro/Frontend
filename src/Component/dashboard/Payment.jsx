@@ -25,6 +25,7 @@ const Payment = () => {
     expiryDate: '',
     cvv: '',
     cardHolderName: '',
+    upiId: '',
     description: ''
   });
   
@@ -36,7 +37,7 @@ const Payment = () => {
     if (purchaseDetails && !isManualPayment) {
       setPaymentData(prev => ({
         ...prev,
-        description: `Purchase of ${purchaseDetails.quantity} shares of ${purchaseDetails.symbol} at $${purchaseDetails.price} per share`
+        description: `Purchase of ${purchaseDetails.quantity} shares of ${purchaseDetails.symbol} at ₹${purchaseDetails.price} per share`
       }));
     } else if (isManualPayment) {
       setPaymentData(prev => ({ ...prev, description: 'Manual payment' }));
@@ -77,6 +78,9 @@ const Payment = () => {
     }
   };
 
+  const isCardPayment = paymentData.paymentMethod === 'credit_card' || paymentData.paymentMethod === 'debit_card';
+  const isUpiPayment = paymentData.paymentMethod === 'upi';
+
   return (
     <div className="dashboard-page payment-page">
       <Sidebar />
@@ -95,8 +99,8 @@ const Payment = () => {
               <div className="purchase-summary">
                 <p><strong>Symbol:</strong> {purchaseDetails.symbol}</p>
                 <p><strong>Quantity:</strong> {purchaseDetails.quantity} shares</p>
-                <p><strong>Price per share:</strong> ${purchaseDetails.price}</p>
-                <p><strong>Total Cost:</strong> ${purchaseDetails.totalCost}</p>
+                <p><strong>Price per share:</strong> ₹{purchaseDetails.price}</p>
+                <p><strong>Total Cost:</strong> ₹{purchaseDetails.totalCost}</p>
               </div>
             </div>
           ) : (
@@ -109,7 +113,7 @@ const Payment = () => {
 
         <form onSubmit={handleSubmit} className="payment-form">
           <div className="form-group">
-            <label htmlFor="amount">Amount ($)</label>
+            <label htmlFor="amount">Amount (₹)</label>
             <input
               id="amount"
               type="number"
@@ -132,10 +136,11 @@ const Payment = () => {
             >
               <option value="credit_card">Credit Card</option>
               <option value="debit_card">Debit Card</option>
+              <option value="upi">UPI</option>
             </select>
           </div>
 
-          {(paymentData.paymentMethod === 'credit_card' || paymentData.paymentMethod === 'debit_card') && (
+          {isCardPayment && (
             <>
               <div className="form-group">
                 <label htmlFor="cardHolderName">Card Holder Name</label>
@@ -191,6 +196,24 @@ const Payment = () => {
                 </div>
               </div>
             </>
+          )}
+
+          {isUpiPayment && (
+            <div className="form-group">
+              <label htmlFor="upiId">UPI ID</label>
+              <input
+                id="upiId"
+                type="text"
+                name="upiId"
+                value={paymentData.upiId}
+                onChange={handleInputChange}
+                placeholder="yourname@paytm / yourname@phonepe / yourname@gpay"
+                required
+              />
+              <small className="form-help-text">
+                Enter your UPI ID (e.g., yourname@paytm, yourname@phonepe, yourname@gpay)
+              </small>
+            </div>
           )}
 
           {error && <div className="error-message">{error}</div>}

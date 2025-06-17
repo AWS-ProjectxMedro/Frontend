@@ -156,17 +156,7 @@ const styles = {
 const Sidebar = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
     const handleLogout = () => { localStorage.removeItem("authToken"); localStorage.removeItem("userData"); setIsAuthenticated(false); navigate("/login", { replace: true }); };
-    return (
-        <aside style={styles.sidebar}>
-            <h1 style={styles.sidebarTitle}>My Dashboard</h1>
-            <nav style={styles.sidebarNav}>
-                <a href="#dashboard" style={styles.sidebarLink}>Dashboard</a>
-                <a href="#profile" style={styles.sidebarLink}>Profile</a>
-                <a href="#settings" style={styles.sidebarLink}>Settings</a>
-            </nav>
-            <button onClick={handleLogout} style={styles.logoutButton}>Logout</button>
-        </aside>
-    );
+   
 };
 
 const initializeFirebaseMessaging = async () => { console.log("Mock Firebase Messaging Initialized."); return Promise.resolve("mock-firebase-token-12345"); };

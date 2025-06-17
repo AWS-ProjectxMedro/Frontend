@@ -1,0 +1,146 @@
+// AdminSidebar.scss
+
+// --- Variables (can be imported from a central _variables.scss) ---
+$sidebar-bg: #061763; // Darker background for admin panel
+$sidebar-text-color: rgba(248, 250, 252, 0.7); // Brighter base text
+$sidebar-text-color-hover: #f8fafc; // Full white on hover/active
+$sidebar-active-bg: #334155; // Active item background
+$sidebar-active-accent: #06b6d4; // Accent color for active item (left border)
+$sidebar-width-desktop: 260px;
+$sidebar-width-mobile-open: 220px;
+$sidebar-transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+
+.admin-sidebar {
+  width: $sidebar-width-desktop;
+  background-color: $sidebar-bg;
+  color: $sidebar-text-color;
+  padding: 0; // Padding will be on inner elements
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: $sidebar-transition;
+  z-index: 1000; // Ensure it's above other content
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+
+  // Scrollbar styling (optional)
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+
+  &__logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px; // Reduced margin
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    img {
+      height: 45px; // Slightly smaller logo
+      width: 45px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  &__title { // For "Admin Dashboard" text
+    font-size: 1.1rem; // Slightly smaller
+    font-weight: 600;
+    margin: 0;
+    color: $sidebar-text-color-hover; // Brighter title
+    text-align: center;
+  }
+  
+  &__menu {
+    list-style: none;
+    padding: 0 15px; // Padding around the menu items
+    margin: 0;
+    flex-grow: 1; // Allows signout to be pushed to bottom if structure allows
+
+    &-item {
+      margin: 8px 0; // Spacing between items
+      
+      a { // Styling for NavLink
+        display: block; // Or flex if you add icons
+        padding: 12px 15px;
+        color: $sidebar-text-color;
+        text-decoration: none;
+        border-radius: 6px; // Softer radius
+        transition: all 0.2s ease;
+        font-weight: 500;
+        
+        &:hover {
+          background-color: rgba(75, 85, 99, 0.4); // Slightly more opaque hover
+          color: $sidebar-text-color-hover;
+        }
+        
+        // Active link class from NavLink
+        &.active-link { 
+          background-color: $sidebar-active-bg;
+          color: $sidebar-text-color-hover;
+          font-weight: 600; // Bolder active link
+          position: relative; // For the accent border
+          
+          &:before {
+            content: '';
+            position: absolute;
+            left: -15px; // Align with the edge of the sidebar's padding
+            top: 0;
+            height: 100%;
+            width: 4px; // Thinner accent
+            background-color: $sidebar-active-accent;
+            border-radius: 0 3px 3px 0;
+          }
+        }
+      }
+    }
+  }
+  
+  &__signout {
+    margin: 20px 15px; // Consistent padding
+    padding: 12px 15px;
+    background-color: rgba(239, 68, 68, 0.8);
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: rgba(220, 53, 69, 1); // Darker red on hover
+    }
+  }
+}
+
+// --- Responsive Sidebar Adjustments ---
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: $sidebar-width-mobile-open;
+    transform: translateX(-100%); // Hidden by default on mobile
+    // box-shadow: 4px 0 15px rgba(0,0,0,0.2); // Stronger shadow when it overlays
+
+    &.open { // This class is toggled by JS via AdminDashboard's state
+      transform: translateX(0);
+    }
+    
+    // Adjust logo and title for smaller sidebar if needed
+    &__logo-section {
+      padding: 15px;
+      img { height: 40px; width: 40px; }
+    }
+    &__title { font-size: 1rem; }
+
+    &__menu-item a.active-link:before {
+        left: -15px; // Ensure accent stays aligned if padding changes
+    }
+  }
+}

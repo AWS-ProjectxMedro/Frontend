@@ -68,8 +68,8 @@ const Withdrawal = () => {
             return;
         }
 
-        if (parseFloat(form.amount) < 10) {
-            toast.error('Minimum withdrawal amount is $10');
+        if (parseFloat(form.amount) < 100) {
+            toast.error('Minimum withdrawal amount is ₹100');
             return;
         }
 
@@ -158,13 +158,13 @@ const Withdrawal = () => {
                     
                     <div className="withdrawal-balance-display">
                         <span className="withdrawal-balance-text">Available Balance:</span>
-                        <span className="withdrawal-balance-value">${userBalance.toFixed(2)}</span>
+                        <span className="withdrawal-balance-value">₹{userBalance.toFixed(2)}</span>
                     </div>
 
                     <div className="withdrawal-form-wrapper">
                         <form onSubmit={handleSubmit} className="withdrawal-form">
                             <div className="form-group">
-                                <label htmlFor="amount">Withdrawal Amount (USD):</label>
+                                <label htmlFor="amount">Withdrawal Amount (INR):</label>
                                 <input
                                     type="number"
                                     name="amount"
@@ -172,7 +172,7 @@ const Withdrawal = () => {
                                     value={form.amount}
                                     onChange={handleChange}
                                     placeholder="Enter amount to withdraw"
-                                    min="1"
+                                    min="100"
                                     max={userBalance}
                                     step="0.01"
                                     required
@@ -206,14 +206,14 @@ const Withdrawal = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="ifscCode">IFSC/Routing Code:</label>
+                                <label htmlFor="ifscCode">IFSC Code:</label>
                                 <input
                                     type="text"
                                     name="ifscCode"
                                     id="ifscCode"
                                     value={form.ifscCode}
                                     onChange={handleChange}
-                                    placeholder="Enter IFSC or routing code"
+                                    placeholder="Enter IFSC code (e.g. SBIN0001234)"
                                     required
                                 />
                             </div>
@@ -242,7 +242,7 @@ const Withdrawal = () => {
                                             <span>Processing...</span>
                                         </>
                                     ) : (
-                                        `Request Withdrawal ${form.amount ? `$${form.amount}` : ''}`
+                                        `Request Withdrawal ${form.amount ? `₹${form.amount}` : ''}`
                                     )}
                                 </button>
                             </div>
@@ -257,7 +257,7 @@ const Withdrawal = () => {
                                     <div key={withdrawal.id || index} className="withdrawal-history-item">
                                         <div className="withdrawal-history-info">
                                             <span className="withdrawal-amount">
-                                                ${withdrawal.amount || '0.00'}
+                                                ₹{withdrawal.amount || '0.00'}
                                             </span>
                                             <span className="withdrawal-date">
                                                 {formatDate(withdrawal.createdAt || withdrawal.created_at)}
