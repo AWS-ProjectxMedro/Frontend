@@ -43,7 +43,7 @@ const Footer = () => {
                     <h2>Resources</h2>
                     <ul>
                         <li><Link to="/">Terms & Conditions</Link></li>
-                        <li><Link to="/services">Privacy Policy</Link></li>
+                        <li><Link to="/">Privacy Policy</Link></li>
                         <li><Link to="/Support">FAQs</Link></li>
                     </ul>
                 </div>
