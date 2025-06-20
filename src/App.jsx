@@ -454,21 +454,23 @@ function App() {
                   />
 
                   {/* User Protected Routes with Layout */}
-                  <Route 
-                    path="/dashboard" 
-                    element={
-                      <PrivateRoute isAuthenticated={isAuthenticated}>
-                        <Suspense fallback={<SuspenseFallback message="Loading dashboard..." />}>
-                          <DashboardLayout onLogout={handleLogout} />
-                        </Suspense>
-                      </PrivateRoute>
-                    }
-                  >
+                <Route 
+    path="/dashboard" 
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <Suspense fallback={<SuspenseFallback message="Loading dashboard..." />}>
+          {/* This part is already correct */}
+          <DashboardLayout onLogout={handleLogout} />
+        </Suspense>
+      </PrivateRoute>
+    }
+>
                     <Route index element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <Dashboard />
-                      </Suspense>
-                    } /> 
+      <Suspense fallback={<SuspenseFallback />}>
+      
+        <Dashboard setIsAuthenticated={setIsAuthenticated} />
+      </Suspense>
+    } />
                     <Route path="marketguides" element={
                       <Suspense fallback={<SuspenseFallback />}>
                         <MarketGuides />
