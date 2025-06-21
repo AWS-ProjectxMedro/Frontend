@@ -111,7 +111,7 @@ const LoginRegister = ({ onLoginSuccess }) => {
   const onLogin = async (data) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${baseUrl}/users/login`, {
+      const res = await axios.post(`${baseUrl}/login`, {
         email: data.email,
         password: data.password,
       });
