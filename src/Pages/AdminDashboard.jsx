@@ -304,57 +304,6 @@ const AdminDashboard = ({ onLogout }) => {
     onLogout: handleLogout,
   };
 
-  // Show loading state while logging out or during auth error
-  if (isLoggingOut || logoutInProgress.current || authError) {
-    return (
-      <div className="admin-dashboard-loading">
-        <div className="loading-spinner">
-          <div style={{
-            border: '4px solid #f3f3f3',
-            borderTop: '4px solid #007bff',
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto 20px'
-          }}></div>
-          {authError ? 'Authentication required...' : 'Signing out...'}
-        </div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  // Don't render the dashboard if we don't have valid user data yet
-  if (!userData.userId) {
-    return (
-      <div className="admin-dashboard-loading">
-        <div className="loading-spinner">
-          <div style={{
-            border: '4px solid #f3f3f3',
-            borderTop: '4px solid #007bff',
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto 20px'
-          }}></div>
-          Loading dashboard...
-        </div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
 
   return (
     <div className={`admin-dashboard-layout ${isMobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>

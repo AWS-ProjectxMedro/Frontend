@@ -33,7 +33,11 @@ $large-desktop: 1200px;
   position: relative;
   background-color: $background-color;
   overflow-x: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  * {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
 }
 
 /* Main Login Layout */
@@ -41,8 +45,8 @@ $large-desktop: 1200px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 3rem;
+  justify-content: space-between;
+  gap: 6rem;
   padding: 2rem;
   flex-grow: 1;
   max-width: 1400px;
@@ -51,149 +55,69 @@ $large-desktop: 1200px;
 
   @media (max-width: $desktop) {
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     padding: 2rem 1rem;
+    justify-content: center;
   }
 
   @media (max-width: $tablet) {
     padding: 1.5rem 0.5rem;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   @media (max-width: $mobile) {
     padding: 1rem 0.25rem;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }
 
-/* Auth Card */
+/* Auth Card - No container/box, just form */
 .auth-card {
-  background: $primary-gradient;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 
-              0 4px 16px rgba(0, 0, 0, 0.1);
-  max-width: 480px; // Increased from 420px for better validation display
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 480px;
   width: 100%;
   text-align: center;
   position: relative;
-  animation: fadeIn 0.6s ease-in-out;
-  margin-top: 70px;
+  animation: none;
+  margin-top: 0;
   flex-shrink: 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
+  border: none;
 
   @media (max-width: $desktop) {
     order: 1;
-    max-width: 520px; // Increased for desktop
+    max-width: 520px;
     margin-top: 0;
   }
 
   @media (max-width: $tablet) {
-    padding: 2rem;
+    padding: 0;
     max-width: 90vw;
   }
 
   @media (max-width: $mobile) {
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 }
 
-/* Reusable Logo Section */
+/* Logo Section - Hidden */
 .logo-section1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 30px;
-
-  a {
-    display: inline-block;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-
-  img,
-  .logo1-img {
-    height: 50px;
-    width: 95px;
-    border-radius: 30px;
-    display: block;
-    transition: transform 0.3s ease;
-    margin-bottom: 8px;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  .brand-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: $white;
-    white-space: nowrap;
-    margin: 0;
-    margin-top: 8px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: $white;
-    white-space: nowrap;
-    margin-top: 8px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  @media (max-width: $desktop) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 25px;
-    gap: 12px;
-    
-    img,
-    .logo1-img {
-      height: 45px;
-      width: 85px;
-      margin-bottom: 6px;
-    }
-  }
-
-  @media (max-width: $mobile) {
-    margin-bottom: 20px;
-    gap: 10px;
-    
-    img,
-    .logo1-img {
-      height: 40px;
-      width: 75px;
-      margin-bottom: 5px;
-    }
-    
-    span,
-    .brand-name {
-      font-size: 1rem;
-      margin-top: 6px;
-    }
-  }
+  display: none;
 }
 
 /* Form Titles */
 .auth-title,
 .auth-title-log {
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-size: 30px;
   font-weight: 700;
   margin-bottom: 0.5rem;
   margin-top: 1rem;
+  margin-left: auto;
   color: $white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -209,13 +133,26 @@ $large-desktop: 1200px;
 /* Enhanced Form Styling with Validation */
 .auth-form,
 .auth-form-log {
+  width: 369px;
+  max-width: 100%;
+  margin: 0 auto;
+  
   .form-group {
     margin-bottom: 1.5rem; // Increased spacing for validation elements
     text-align: left;
     position: relative;
+    width: 100%;
 
     &:last-child {
       margin-bottom: 0;
+    }
+    
+    @media (max-width: $tablet) {
+      width: 100%;
+    }
+    
+    @media (max-width: $mobile) {
+      width: 100%;
     }
 
     label {
@@ -359,7 +296,7 @@ $large-desktop: 1200px;
   
   .error,
   p {
-    color: #ffcccb;
+    color: #000000;
     font-size: 14px;
     font-weight: 500;
     margin: 0;
@@ -383,7 +320,7 @@ $large-desktop: 1200px;
 
 /* General Error Message Styling */
 .general-error-message {
-  background: linear-gradient(135deg, $error-color, #ff6b7a);
+  background: linear-gradient(135deg, $error-color, #000000);
   color: white;
   padding: 16px;
   border-radius: 12px;
@@ -391,7 +328,7 @@ $large-desktop: 1200px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   animation: slideInUp 0.4s ease-out;
   backdrop-filter: blur(10px);
   
@@ -712,7 +649,7 @@ $large-desktop: 1200px;
   
   .otp-troubleshoot,
   .login-troubleshoot {
-    background: rgba(255, 255, 255, 0.1);
+    background: #CADEB6;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 12px;
@@ -936,6 +873,123 @@ $large-desktop: 1200px;
 
     &:active {
       transform: translateY(0);
+    }
+  }
+}
+
+/* Forgot Password Container for Dark Theme */
+.forgot-password-container {
+  text-align: right;
+  margin: 0.5rem 0 1.5rem 0;
+  width: 369px;
+  max-width: 100%;
+  
+  .forgot-password-link {
+    background: none;
+    border: none;
+    color: #CADEB6;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    padding: 4px 0;
+    
+    &:hover {
+      color: #B8D4A8;
+      text-decoration: underline;
+    }
+  }
+  
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* Social Login Section */
+.social-login-section {
+  margin-top: 2rem;
+  text-align: center;
+  width: 369px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  
+  .or-continue-with {
+    color: #000000;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  
+  .social-login-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      padding: 0;
+      
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+      
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+    
+    .facebook-icon {
+      background: #1877F2;
+      
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+    
+    .apple-icon {
+      background: #333333;
+      
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+    
+    .google-icon {
+      background: #FFFFFF;
+      
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+      
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
     }
   }
 }
@@ -1417,17 +1471,65 @@ $large-desktop: 1200px;
 }
 
 /* =========================
-   Light UI Overrides (new)
+   White Theme Login Form Styling - No Container
    ========================= */
 .auth-container {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
+  
+  // White theme for login form specifically - no box/container
+  .auth-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    
+    .auth-title-log,
+    .auth-subtitle {
+      display: none; // Hide titles for minimal design
+    }
+  }
+}
+
+/* Sign Text Above Form */
+.sign-text {
+  font-size: 30px;
+  font-weight: 500;
+  color: #000000;
+  text-align: left;
+  margin: 0 auto 2rem auto;
+  padding: 0;
+  width: 369px;
+  max-width: 100%;
+  
+  @media (max-width: $tablet) {
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: 24px;
+    margin-bottom: 1.2rem;
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
 .main-login {
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 1400px;
   min-height: calc(100vh - 140px); // center between header and footer
+  gap: 8rem !important; // Increased gap between illustration and form
+  
+  @media (max-width: $desktop) {
+    gap: 4rem !important;
+  }
+  
+  @media (max-width: $tablet) {
+    gap: 3rem !important;
+  }
 }
 
 /* Left illustration + copy */
@@ -1443,27 +1545,78 @@ $large-desktop: 1200px;
     color: #131313;
 
     .illustration-subtitle {
-      color: #6b7280;
-      font-weight: 600;
-      margin: 0 0 6px 0;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #000000;
+      font-weight: 500;
+      margin: 0 0 12px 0;
+      font-size: 40px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      
+      @media (max-width: $tablet) {
+        font-size: 36px;
+      }
+      
+      @media (max-width: $mobile) {
+        font-size: 28px;
+      }
     }
 
     .illustration-title {
-      margin: 0 0 10px 0;
-      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      margin: 0 0 16px 0;
+      font-size: 55px;
       line-height: 1.05;
-      font-weight: 800;
-      color: #0b1324;
+      font-weight: 700;
+      color: #000000;
       letter-spacing: -0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      white-space: nowrap;
+      
+      @media (max-width: $tablet) {
+        font-size: 48px;
+      }
+      
+      @media (max-width: $mobile) {
+        font-size: 36px;
+        white-space: normal;
+      }
     }
 
-    .illustration-helper { color: #6b7280; line-height: 1.5; }
-    .illustration-link { color: #2563eb; cursor: pointer; }
+    .illustration-helper { 
+      color: #6b7280; 
+      line-height: 1.5; 
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 400;
+      
+      @media (max-width: $tablet) {
+        font-size: 15px;
+      }
+      
+      @media (max-width: $mobile) {
+        font-size: 14px;
+      }
+    }
+    .illustration-link { 
+      color: #16a34a; 
+      cursor: pointer; 
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 500;
+    }
   }
 
-  .illustration-image { width: 240px; height: 240px; display: flex; align-items: center; justify-content: center; }
-  .illustration-image img { width: 100%; height: 100%; object-fit: contain; }
+  .illustration-image { 
+    width: 313px; 
+    height: 556px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0;
+  }
+  .illustration-image img { 
+    width: 313px; 
+    height: 556px; 
+    object-fit: contain; 
+  }
 }
 
 /* Right auth card becomes light */
@@ -1479,7 +1632,23 @@ $large-desktop: 1200px;
 .auth-card .logo-section1 img.logo1-img { filter: none; }
 
 .auth-title,
-.auth-title-log { color: #0f172a; text-shadow: none; margin-top: 0.25rem; font-size: clamp(1.5rem, 5vw, 2rem); }
+.auth-title-log { 
+  color: #0f172a; 
+  text-shadow: none; 
+  margin-top: 0.25rem; 
+  font-size: clamp(1.5rem, 5vw, 2rem); 
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+// Forgot Password title specific styling
+// Target auth-title when followed by auth-form (forgot password page)
+.auth-title:has(+ .auth-subtitle + .general-error-message + .auth-form),
+.auth-title:has(+ .auth-subtitle + .auth-form),
+.auth-container:has(.auth-form:not(.auth-form-log)) .auth-title {
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
 .auth-subtitle,
 .auth-subtitle-log { color: #6b7280; text-shadow: none; margin-bottom: 1.4rem; font-size: clamp(0.85rem, 2.5vw, 0.95rem); }
 
@@ -1489,11 +1658,7 @@ $large-desktop: 1200px;
 .auth-form .form-group input[type="text"],
 .auth-form .form-group input[type="email"],
 .auth-form .form-group input[type="tel"],
-.auth-form .form-group input[type="password"],
-.auth-form-log .form-group input[type="text"],
-.auth-form-log .form-group input[type="email"],
-.auth-form-log .form-group input[type="tel"],
-.auth-form-log .form-group input[type="password"] {
+.auth-form .form-group input[type="password"] {
   background-color: #fff3e9; // soft peach like the mock
   color: #0f172a;
   border: 1px solid #f6e7dc;
@@ -1501,10 +1666,46 @@ $large-desktop: 1200px;
   border-radius: 14px;
 }
 
-.auth-form .form-group input:focus,
-.auth-form-log .form-group input:focus {
+.auth-form-log .form-group input[type="text"],
+.auth-form-log .form-group input[type="email"],
+.auth-form-log .form-group input[type="tel"],
+.auth-form-log .form-group input[type="password"] {
+  background-color: rgba(253, 199, 118, 0.14); // #FDC776 at 14% opacity
+  color: #000000;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+  border-radius: 12px;
+  padding: 0.85rem 3rem 0.85rem 1rem;
+  width: 369px;
+  height: 62px;
+  box-sizing: border-box;
+  
+  &::placeholder {
+    color: #000000;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    width: 100%;
+    max-width: 320px;
+    height: 56px;
+  }
+}
+
+.auth-form .form-group input:focus {
   border-color: #f0d9c8;
   box-shadow: 0 8px 28px rgba(255, 183, 138, 0.2);
+}
+
+.auth-form-log .form-group input:focus {
+  border-color: #FFFFFF;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  outline: none;
 }
 
 .help-text { color: #64748b; text-shadow: none; }
@@ -1523,17 +1724,124 @@ $large-desktop: 1200px;
   color: #ffffff;
   box-shadow: 0 6px 20px rgba(22, 163, 74, 0.2);
 }
-.auth-button:hover:not(:disabled),
-.otp-verify-btn:hover:not(:disabled) { background: #15803d; box-shadow: 0 10px 28px rgba(22, 163, 74, 0.25); }
+
+.auth-button.login-btn-dark {
+  background: #CADEB6; // Light green for login button
+  color: #000000;
+  box-shadow: 0 4px 61px rgba(202, 222, 182, 1); // x-0, y-4, blur-61, color #CADEB6
+  border-radius: 12px;
+  font-weight: 600;
+  width: 369px;
+  max-width: 100%;
+  box-sizing: border-box;
+  
+  &:hover:not(:disabled) {
+    background: #CADEB6;
+    box-shadow: 0 6px 65px rgba(202, 222, 182, 1);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 61px rgba(202, 222, 182, 1);
+  }
+  
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+.auth-button:hover:not(:disabled):not(.login-btn-dark),
+.otp-verify-btn:hover:not(:disabled) { 
+  background: #15803d; 
+  box-shadow: 0 10px 28px rgba(22, 163, 74, 0.25); 
+}
 .auth-button:disabled,
 .otp-verify-btn:disabled { box-shadow: none; }
 
-.back-to-login { border: 1px solid #e5e7eb; color: #111827; }
-.back-to-login:hover { background: #f8fafc; border-color: #cbd5e1; color: #0f172a; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+// Forgot Password form button styling
+.auth-form .auth-button {
+  background: #CADEB6;
+  color: #000000;
+  box-shadow: 0 4px 61px rgba(202, 222, 182, 1);
+  border-radius: 12px;
+  font-weight: 600;
+  width: 369px;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: block;
+  
+  &:hover:not(:disabled) {
+    background: #B8D4A8;
+    box-shadow: 0 6px 65px rgba(202, 222, 182, 1);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 61px rgba(202, 222, 182, 1);
+  }
+  
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    width: 100%;
+    max-width: 320px;
+  }
+}
 
-.toggle-message,
-.toggle-message-log { color: #111827; text-shadow: none; }
-.toggle-message button,
-.toggle-message-log button { color: #2563eb; }
-.toggle-message button:hover,
-.toggle-message-log button:hover { background: rgba(37,99,235,0.08); color: #1d4ed8; }
+.back-to-login { 
+  border: 1px solid #e5e7eb; 
+  color: #111827;
+  width: 369px;
+  max-width: 100%;
+  margin: 1rem auto 0 auto;
+  display: block;
+  box-sizing: border-box;
+}
+.back-to-login:hover { 
+  background: #f8fafc; 
+  border-color: #cbd5e1; 
+  color: #0f172a; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+}
+
+.toggle-message { color: #111827; text-shadow: none; }
+.toggle-message button { color: #2563eb; }
+.toggle-message button:hover { background: rgba(37,99,235,0.08); color: #1d4ed8; }
+
+// Hide toggle message for login form in dark theme
+.auth-form-log + .auth-links + .toggle-message-log {
+  display: none;
+}
+
+.toggle-message-log {
+  display: none; // Hide for dark theme login
+}
+
+.login-help-section {
+  width: 369px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 369px;
+  }
+  
+  @media (max-width: $mobile) {
+    width: 100%;
+    max-width: 320px;
+  }
+}

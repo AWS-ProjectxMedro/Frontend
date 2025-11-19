@@ -1,3 +1,37 @@
+/* Global scroll and layout fixes for React Router SPA */
+html {
+  scroll-behavior: auto; /* Override smooth scrolling for instant navigation */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  /* Prevent layout shifts */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  /* Force proper rendering */
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   text-align: center;
 }

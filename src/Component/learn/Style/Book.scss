@@ -3,211 +3,182 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #ECF5FE;
+    background-color: #FFFFFF;
     min-height: 100vh;
     overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.book-content {
-    display: flex;
-    flex-direction: row;
+.book-main {
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-    gap: 2rem;
-
-    @media (max-width: 1024px) {
-        flex-direction: column;
-        align-items: center;
-        padding: 1.5rem 1rem;
-        gap: 1.5rem;
-    }
-}
-
-/* Sidebar (Assuming similar structure to Learn.scss) */
-.sidebar { /* Styles from Learn.scss can be applied here */
-    width: 280px;
-    flex-shrink: 0;
-    background: rgba(34, 34, 34, 0.9);
-    padding: 25px;
-    height: fit-content;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease-in-out, opacity 0.3s;
-
-    // Sidebar toggle states from original Book.scss (if isSidebarOpen state is used)
-    &.closed {
-        transform: translateX(-100%);
-        opacity: 0;
-        pointer-events: none; // Prevent interaction when closed
-        @media (min-width: 1025px) { // Only apply transform for toggle on larger screens
-             position: absolute; // If it's meant to slide out
-             left: 0;
-             top: 2rem; // Align with padding
-             z-index: 100;
-        }
-    }
-    &.open {
-        transform: translateX(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-
-    @media (max-width: 1024px) {
-        width: 100%;
-        max-width: 600px;
-        text-align: center;
-        padding: 20px;
-        position: relative; // Override absolute if it was set for desktop toggle
-        transform: none; // Reset transform
-        opacity: 1; // Ensure visible
-        &.closed, &.open { // Reset toggle specific styles for stacked layout
-            transform: none;
-            opacity: 1;
-        }
-    }
-
-    .sidebar-title {
-        color: #fff;
-        margin-bottom: 20px;
-        font-size: clamp(1.3rem, 4vw, 1.5rem);
-        font-weight: bold;
-    }
-
-    ul { list-style: none; padding: 0; margin: 0; }
-    li { margin-bottom: 15px; }
-
-    // Assuming NavLink is used for active states (JSX has Link, but activeClassName was present)
-    a {
-        text-decoration: none;
-        color: #fff;
-        font-size: clamp(1rem, 3vw, 1.1rem);
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 12px 15px;
-        border-radius: 8px;
-        transition: background 0.3s, transform 0.2s, color 0.3s;
-        font-weight: bold;
-
-        @media (max-width: 1024px) {
-            justify-content: center;
-        }
-    }
-
-    a:hover {
-        background: linear-gradient(135deg, #ffcc00, #ffdd44);
-        color: #222;
-        transform: translateX(10px);
-        box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
-        @media (max-width: 1024px) {
-            transform: translateX(0) scale(1.02);
-        }
-    }
-    // Add .active style if NavLink is used and `activeClassName` or `className` prop is set up
-    a.active {
-        background: linear-gradient(135deg, #ffdd44, #ffcc00);
-        color: #111;
-        transform: translateX(5px) scale(1.01);
-        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
-        @media (max-width: 1024px) {
-            transform: translateX(0) scale(1.03);
-        }
-    }
-}
-
-/* Book Section */
-.book-container {
+    padding: 40px 80px; // py-10 px-20 equivalent
+    background-color: #FFFFFF;
     flex: 1;
-    padding: clamp(1.5rem, 4vw, 2rem);
-    text-align: center;
-    background: #fff; // Give content area a distinct background
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    @media (max-width: 1024px) {
+        padding: 30px 40px;
+    }
+
+    @media (max-width: 768px) {
+        padding: 20px 24px;
+    }
+}
+
+/* Book Container */
+.book-container {
+    max-width: 1200px;
+    margin: 0 auto;
     width: 100%;
-    min-width: 0;
-    margin-top: 50px;
 }
 
+/* Book Title */
 .book-title {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 2rem;
+    font-size: 4.6rem; // text-5xl equivalent
+    font-weight: 600; // font-semibold
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: 3.5rem; // mt-12 equivalent
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.8); // Black for rest of text
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 640px) {
+        font-size: 1.75rem;
+    }
 }
 
+.book-title-r {
+    color: #CADEB6; // Light green for "R"
+}
+
+/* Book Grid */
 .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Smaller min for more books per row
-    gap: 1.5rem; // Adjusted gap
-    // justify-content: center; // grid does this by default if items don't fill row
+    grid-template-columns: repeat(3, 1fr); // 3 per row on large screen
+    gap: 3rem; // gap-12 equivalent
+    justify-items: center;
+    margin-top: 8rem;
 
-    @media (max-width: 480px) { // For very small screens
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 1rem;
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr); // 2 per row on medium
+        gap: 2rem;
+    }
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr; // 1 per row on mobile
+        gap: 1.5rem;
     }
 }
 
 /* Book Cards */
 .book-card {
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    text-align: center;
+    width: 100%;
+    max-width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    overflow: hidden; // Clip image corners
-    // height: 300px; /* Removed fixed height, let content define it or use min-height */
-    min-height: 280px; // Suggestion for consistency, adjust as needed
-    padding: 0; // Remove padding from card itself, content will have it
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.book-card-bg {
+    width: 100%;
+    max-width: 200px;
+    background-color: #DCE7D1;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    padding: 1rem; // p-4
+    padding-bottom: 1.5rem; // Extra padding at bottom for book image
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.book-img {
+    width: 120px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 0.375rem; // rounded-md
+    margin-top: 1.5rem; // mt-6
+    max-height: 180px; // Fixed max height to prevent overflow
+    // Inner shadow matching Figma settings: X: 0, Y: 4, Blur: 4, Spread: 0, Color: #9B8572, Opacity: 50%
+    box-shadow: inset 0 4px 4px 0 rgba(155, 133, 114, 0.5);
+}
+
+.book-info {
+    width: 100%;
+    background-color: transparent; // No background - appears on white
+    padding: 1rem 0 0 0; // Only top padding for spacing from container
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; // Smaller gap between title and author
+    align-items: center;
+    margin-top: 0.5rem; // Space between container and text
+}
+
+.book-name {
+    font-size: 1rem; // Larger, bold text like in image
+    font-weight: 700; // Bold
+    color: #1E1E1E; // Black
+    margin: 0;
+    line-height: 1.4;
+    text-transform: lowercase;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.book-author {
+    font-size: 0.875rem; // Smaller gray text
+    color: #8B8B8B; // Light gray
+    margin: 0;
+    line-height: 1.4;
+    text-transform: lowercase;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .book-card {
+        max-width: 200px;
+    }
+
+    .book-card-bg {
+        max-width: 200px;
+    }
 
     .book-img {
-        width: 100%;
-        height: 180px; // Adjust image height
-        object-fit: cover; // Changed from 'contain' to 'cover' for better fill
-        // border-radius: 5px; // Removed, card has radius
-    }
-
-    .book-info {
-        padding: 1rem 0.75rem; // Padding for text content
-        flex-grow: 1; // Allow info to take remaining space
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; // Pushes author down if title is short
-        width: 100%;
-    }
-
-    .book-name {
-        font-size: clamp(0.9rem, 3vw, 1.05rem);
-        margin-top: 0; // Reset from previous style
-        margin-bottom: 0.35rem;
-        font-weight: bold;
-        color: #222; // Darker color
-        line-height: 1.3;
-    }
-
-    .book-author {
-        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-        color: #666;
+        width: 110px;
+        height: 165px;
+        max-height: 165px;
     }
 }
 
-.book-card:hover {
-    transform: scale(1.04); // Slightly less scale
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
-}
+@media (max-width: 640px) {
+    .book-card {
+        max-width: 200px;
+    }
 
-/* Responsive Fixes from original Book.scss (related to sidebar toggle) */
-.sidebar-toggle { // If you add a toggle button
-    display: none; // Hidden by default
-    // Styles for the toggle button itself
-    // ...
-    @media (max-width: 1024px) {
-        // display: block; // Show toggle only on smaller screens IF the sidebar isn't always visible
+    .book-card-bg {
+        max-width: 200px;
+    }
+
+    .book-img {
+        width: 100px;
+        height: 150px;
+        max-height: 150px;
     }
 }

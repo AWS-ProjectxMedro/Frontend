@@ -2,12 +2,39 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001',
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.thecapitaltree.in',
   timeout: 30000, // 30 second timeout
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Analytics API instance (different port)
+export const analyticsApi = axios.create({
+  baseURL: process.env.REACT_APP_ANALYTICS_API_BASE_URL || 'http://localhost:3308',
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add auth interceptor to analytics API
+analyticsApi.interceptors.request.use(
+  async (config) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.error('Error getting JWT token for analytics:', error);
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Request interceptor to add JWT token
 api.interceptors.request.use(

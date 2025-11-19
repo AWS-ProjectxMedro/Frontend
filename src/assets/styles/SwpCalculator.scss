@@ -2,8 +2,13 @@
 .swpcalculator-container {
     display: flex;
     flex-direction: column;
-    background: #ffffff; // White background
+    background: #ffffff;
     min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+
+    * {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 }
 
 // --- Main Content Area ---
@@ -28,30 +33,47 @@
 // --- Calculator Section (Left Column) ---
 .calculator-section {
     background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 2rem 0;
 
     @media (max-width: 1024px) {
-        padding: 1.5rem;
+        padding: 1.5rem 0;
     }
 }
 
 // --- Calculator Title ---
 .calculator-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #111;
     margin: 0 0 2rem 0;
     text-align: left;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 
     .accent {
-        color: #8bbf6a;
+        color: #CADEB6;
+        font-size: 6rem;
+        font-weight: 600;
+        display: block;
+        line-height: 1;
+    }
+
+    .calculator-subtitle {
+        display: block;
+        font-size: 3.4rem;
+        font-weight: 600;
+        color: #000000;
+        line-height: 1;
+        margin-top: -0.5rem;
     }
 
     @media (max-width: 768px) {
-        font-size: 2rem;
+        .accent {
+            font-size: 2.5rem;
+        }
+        
+        .calculator-subtitle {
+            font-size: 2.5rem;
+        }
     }
 }
 
@@ -70,25 +92,28 @@
 }
 
 .input-group label {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.25rem;
+    font-size: 1.0rem;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 0.5rem;
 }
 
 .form-input {
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem;
     font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
+    border: 2px solid #e5e5e5;
+    border-radius: 40px;
+    width: 400px;
     box-sizing: border-box;
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.6);
+
     transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
-        border-color: #8bbf6a;
-        box-shadow: 0 0 0 3px rgba(139, 191, 106, 0.1);
+        border-color: #e5e5e5;
         outline: none;
+        background-color: #ffffff;
     }
 
     &::placeholder {
@@ -96,104 +121,25 @@
     }
 }
 
-.range-slider {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: #e0e0e0;
-    border-radius: 5px;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-
-    &::-webkit-slider-thumb {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 16px;
-        height: 16px;
-        background: #5848c2;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-
-    &::-moz-range-thumb {
-        width: 16px;
-        height: 16px;
-        background: #5848c2;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-
-     &:hover::-webkit-slider-thumb { background: #3e30a1; }
-     &:hover::-moz-range-thumb { background: #3e30a1; }
-}
-
-
-// --- Investment Period Controls ---
-.investment-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.control-btn {
-    background: #6c5ce7;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    line-height: 1;
-
-    &:hover { background: #5848c2; }
-    &:active { background: #3e30a1; }
-
-    @media (max-width: 480px) {
-        font-size: 16px;
-        padding: 7px 10px;
-    }
-}
-
-.period-input {
-    width: 60px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-    background-color: #f8f9fa;
-    color: #333;
-
-    @media (max-width: 480px) {
-        font-size: 15px;
-        padding: 9px;
-        width: 50px;
-    }
-}
-
 // --- Calculate Button ---
 .calculate-btn {
-    background: #8bbf6a;
-    color: white;
+    background: #CADEB6;
+    color: #000000;
+    width: 400px;
     padding: 1rem 2rem;
     border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
+    border-radius: 40px;
+    font-size: 2.25rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     &:hover {
-        background: #79b257;
-        transform: translateY(-2px);
+        background: #b8d4a3;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     &:active {
@@ -203,13 +149,15 @@
 
 // --- Results Display ---
 .results-summary {
-    background: #8bbf6a;
+    background: #f3f3f3;
+    
     padding: 1.5rem;
-    border-radius: 12px;
-    margin-top: 1.5rem;
-    color: white;
+    border-radius: 24px;
+    margin-top: 2rem;
+    color: #000000;
     width: 100%;
     box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .result-row {
@@ -217,21 +165,22 @@
     justify-content: space-between;
     font-size: 1rem;
     padding: 0.5rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 
     &:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     span:first-child {
         font-weight: 500;
-        opacity: 0.9;
+        color: #000000;
     }
 
     span:last-child {
         font-weight: 700;
+        color: #000000;
     }
 }
-
 
 // --- Testimonial Section (Right Column) ---
 .testimonial-section {
@@ -242,97 +191,111 @@
 
 .testimonial {
     background: white;
-    border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
 }
 
 .quote-icon {
-    font-size: 4rem;
+    font-size: 7rem;
     font-weight: 800;
-    color: #8bbf6a;
-    line-height: 1;
-    margin-bottom: 1rem;
+    color: #000000;
+    line-height: 0.8;
+    margin-bottom: 0.5rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: block;
+    text-align: left;
+    margin-left: 0;
 }
 
 .testimonial-text {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
     line-height: 1.6;
-    color: #333;
-    margin-bottom: 1.5rem;
+    color: #000000;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    text-align: left;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .testimonial-author {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-top: 2rem;
 }
 
 .author-avatar {
-    width: 50px;
-    height: 50px;
-    background: #8bbf6a;
+    width: 70px;
+    height: 70px;
+    background: #333333;
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+    
+    // Create a simple avatar representation
+    &::before {
+        content: 'P';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: white;
+        z-index: 1;
+    }
+}
+
+.author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .author-name {
     font-weight: 700;
-    color: #111;
+    color: #000000;
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .author-title {
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.95rem;
+    color: #4A4A4A;
+    font-weight: 400;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .dashboard-preview {
     background: white;
     border-radius: 16px;
-    padding: 1rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-img {
     width: 100%;
     height: auto;
-    border-radius: 12px;
     display: block;
 }
-
-.invest-now-button {
-  display: inline-block;
-  background: #ee5935;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 12px 24px;
-  font-size: 16px;
-  text-decoration: none; // removes underline
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
-
-  &:hover {
-    background: #d94c2b;
-  }
-}
-
 
 // --- Table Section Container ---
 .table-section-container {
     width: 100%;
     padding: 0 2rem 4rem 2rem;
     box-sizing: border-box;
-    background: #f9f9f9;
+    background: #ffffff;
 
     @media (max-width: 768px) {
         padding: 0 1.5rem 3rem 1.5rem;
@@ -350,8 +313,6 @@
     background: white;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
     overflow: hidden;
 
     @media (max-width: 768px) {
@@ -367,9 +328,10 @@
 .table-title {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #111;
+    color: #000000;
     margin: 0 0 1.5rem 0;
     text-align: left;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 
     @media (max-width: 768px) {
         font-size: 1.5rem;
@@ -380,17 +342,16 @@
 // --- Results Table ---
 .results-table {
     margin-top: 1rem;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #8bbf6a;
-    overflow-x: auto; // Enable horizontal scrolling on small screens
-    box-shadow: 0 4px 16px rgba(139, 191, 106, 0.1);
+    background: #FFFFFF;
+    border-radius: 25px;
+    border: 1.5px solid #CADEB6;
+    overflow-x: auto;
 }
 
 .results-table table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px; // Ensure table doesn't get too compressed
+    min-width: 800px;
 }
 
 .results-table th,
@@ -398,19 +359,22 @@
     padding: 0.75rem 1rem;
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
+    color: #000000;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .results-table th {
-    background-color: #8bbf6a;
-    color: white;
+    background-color: #ffffff;
+    color: #000000;
     font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
     position: sticky;
     top: 0;
 }
 
 .results-table tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: #f9f9f9;
 }
 
 .results-table tbody tr:last-child td {
@@ -433,10 +397,3 @@
         font-size: 0.8rem;
     }
 }
-
-// --- Remove potentially conflicting old styles (as per your original comments) ---
-// These are good to keep commented out or remove if not used elsewhere
-// .swpcalculator-display { /* ... */ }
-// .display-button { /* ... */ }
-// input { /* ... */ }
-// input[type="range"] { /* ... */ }

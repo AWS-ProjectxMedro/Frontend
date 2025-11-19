@@ -2,257 +2,378 @@
 .learn-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Use 100% instead of 100vw to avoid horizontal scroll issues */
-    background: #ECF5FE;
+    width: 100%;
+    background: #ffffff;
     min-height: 100vh;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
+    overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 
-/* Layout with Sidebar and Main Content */
-.learn-layout {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 1400px; /* Optional: Max width for very large screens */
-    margin: 0 auto; /* Center the layout */
-    padding: 2rem 1.5rem; // Add some padding
-    gap: 2rem; // Space between sidebar and main content
-
-    @media (max-width: 1024px) {
-        flex-direction: column;
-        align-items: center;
-        padding: 1.5rem 1rem;
-        gap: 1.5rem;
+    * {
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 }
 
-/* No-sidebar variant: center content and expand width */
-.learn-layout.no-sidebar {
-    display: block;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 280px; /* Slightly wider for better readability */
-    flex-shrink: 0; /* Prevent sidebar from shrinking */
-    background: rgba(34, 34, 34, 0.9);
-    padding: 25px;
-    height: fit-content;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease-in-out, opacity 0.3s;
-    margin-top: 50px;
-
-    @media (max-width: 1024px) {
-        width: 100%;
-        max-width: 600px; /* Max width when stacked */
-        text-align: center;
-        padding: 20px;
-    }
-}
-
-.sidebar-title { // Target class directly
-    color: #fff;
-    margin-bottom: 20px;
-    font-size: clamp(1.3rem, 4vw, 1.5rem); // Responsive font size
-    font-weight: bold;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    margin-bottom: 15px;
-}
-
-.sidebar a {
-    text-decoration: none;
-    color: #fff;
-    font-size: clamp(1rem, 3vw, 1.1rem);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; // Default for LTR
-    padding: 12px 15px;
-    border-radius: 8px;
-    transition: background 0.3s, transform 0.2s, color 0.3s;
-    font-weight: bold;
-
-    @media (max-width: 1024px) {
-        justify-content: center; // Center links when sidebar is full width
-    }
-}
-
-.sidebar a:hover {
-    background: linear-gradient(135deg, #ffcc00, #ffdd44);
-    color: #222;
-    transform: translateX(10px);
-    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
-
-    @media (max-width: 1024px) {
-        transform: translateX(0) scale(1.02); // Adjust hover for centered links
-    }
-}
-
-.sidebar a.active { // Style for active NavLink
-    background: linear-gradient(135deg, #ffdd44, #ffcc00); // Slightly different from hover
-    color: #111;
-    transform: translateX(5px) scale(1.01);
-    box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
-
-    @media (max-width: 1024px) {
-        transform: translateX(0) scale(1.03);
-    }
-}
-
-/* Main Content */
-.main-content-learn {
+/* Main Content Area */
+.learn-main {
     flex-grow: 1;
-    padding: clamp(1.5rem, 4vw, 2.5rem); // Responsive padding
-    margin: 40px auto; // centered without sidebar
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    width: 100%; // Ensure it takes available width
-    min-width: 0; // Allow shrinking if necessary in flex context
+    width: 100%;
+    padding: 3rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 2rem 1rem 1rem 1rem;
+    }
 }
 
-/* Learn Section */
-.learn-section {
+/* Hero Section */
+.learn-hero-section {
     text-align: center;
-    max-width: 900px;
-    margin: 0 auto; // Keep centered
-}
+    margin-bottom: 3rem;
+    padding: 1rem 0;
 
-.learn-hero {
-    background: linear-gradient(135deg, #ffcc00, #ffdd44);
-    padding: clamp(1.5rem, 5vw, 2rem);
-    border-radius: 15px;
-    margin-bottom: 2.5rem; // Increased margin
-
-    h1.main-heading-learn { // Specific to h1 in hero
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-        font-weight: bold;
-        color: #222; // Fallback
-        // For gradient text:
-        background: linear-gradient(135deg, #333333, #000000); // Example dark gradient for text fill
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.75rem;
-    }
-
-    h3 {
-        color: #333; // Darker color for better contrast on yellow
-        font-size: clamp(1rem, 3.5vw, 1.25rem);
-        line-height: 1.5;
+    @media (max-width: 768px) {
+        margin-bottom: 2rem;
+        padding: 0.5rem 0;
     }
 }
 
-.learn-section > h2 { // Target the "What You'll Learn" h2
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    margin-bottom: 1.5rem;
-    color: #333;
-}
+.hero-heading {
+    font-size: 3.4rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 
-.learn-title { margin: 2rem 0 1rem; font-weight: 800; letter-spacing: -0.02em; }
+    .hero-heading-accent {
+        color: #CADEB6;
+        display: block;
+        margin-top: 0.25rem;
+    }
 
-/* Learning Grid */
-.learn-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // More responsive
-    gap: 25px;
-    margin-top: 25px;
+    @media (max-width: 1024px) {
+        font-size: 3rem;
+    }
 
-    @media (max-width: 600px) { // Single column on small mobile
-        grid-template-columns: 1fr;
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+        
+        .hero-heading-accent {
+            display: inline;
+            margin-top: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 2rem;
     }
 }
 
-/* Clickable card variant */
-.learn-grid.learn-grid-clickable { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.hero-description {
+    font-size: 1.1rem;
+    color: #676767;
+    line-height: 1.2;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
 
-.learn-card-link {
-    position: relative;
-    text-decoration: none;
-    color: inherit;
-    padding: 24px 20px 26px;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.06);
-    transition: transform .2s ease, box-shadow .2s ease;
-
-    .card-index {
-        position: absolute;
-        top: 16px;
-        left: 16px;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        color: #0f172a;
-        background: #fde7f1;
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
     }
 
-    .card-icon { font-size: 28px; color: #6ea4ff; margin: 8px 0 8px; }
-    h3 { margin: 6px 0; font-size: 1.05rem; color: #111; }
-    p { color: #555; font-size: .95rem; min-height: 40px; }
-    .card-cta { display: inline-block; margin-top: 10px; color: #2563eb; font-weight: 600; }
-
-    &:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(0,0,0,0.1); }
+    @media (max-width: 480px) {
+        font-size: 1rem;
+    }
 }
 
-/* Learning Cards */
-.learn-card {
-    background: rgba(255, 255, 255, 0.95); // Slightly less transparent
-    color: #333; // Default text color
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Adjusted shadow
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    backdrop-filter: blur(5px);
+/* What You'll Learn Section */
+.learn-content-section {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    margin: 0 -2rem 3rem -2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 220px; // Ensure some consistent height
+    justify-content: center;
+    min-height: 70vh;
+    position: relative;
+    width: calc(100% + 4rem);
 
-    svg { // Directly style SVG if Fa icons are used
-        font-size: 50px; // Slightly smaller
-        color: #ffb700; // Darker yellow for icons
-        margin-bottom: 15px;
-    }
-
-    h3 {
-        font-size: clamp(1.1rem, 4vw, 1.25rem);
-        margin-bottom: 0.75rem;
-        color: #222;
-    }
-
-    p {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-        line-height: 1.5;
-        color: #555;
+    @media (max-width: 768px) {
+        padding: 2rem 1.5rem;
+        margin: 0 -1.5rem 2rem -1.5rem;
+        width: calc(100% + 3rem);
+        min-height: auto;
     }
 }
 
-.learn-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.learn-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    font-weight: 700;
+    color: #484848;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    animation: fadeIn 0.6s ease-in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    pointer-events: none;
+
+    span {
+        display: block;
+        text-align: center;
+    }
+
+    @media (max-width: 1024px) {
+        font-size: 3.5rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-bottom: 1.5rem;
+        z-index: auto;
+    }
 }
 
-.learnpara {
-    color: #333;
-    margin-top: 3rem; // Adjusted margin
-    font-size: clamp(1.2rem, 5vw, 1.8rem); // Responsive font size
-    font-weight: 500;
-    line-height: 1.6;
+/* Learning Cards Grid */
+.learn-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 362px);
+    gap: 220px;
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    animation: fadeIn 0.8s ease-in;
+    z-index: 2;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 540px;
+        width: 100%;
+    }
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 362px;
+    }
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 362px;
+    }
+}
+
+.learn-card-item {
+    position: relative;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 54px 80px -16px rgba(219, 222, 229, 0.8);
+
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    width: 362px;
+    height: 312px;
+    box-sizing: border-box;
+    animation: fadeIn 1s ease-in;
+    animation-fill-mode: both;
+    margin: 0 auto;
+    z-index: 2;
+
+    &:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    &:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0px 40px 80px rgba(202, 222, 182, 0.15);
+        
+        @media (max-width: 768px) {
+            transform: translateY(-2px);
+        }
+    }
+
+    @media (max-width: 600px) {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        min-height: 250px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-number {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #FCEEF4;
+    color: #0A1F44;
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #071440;
+    margin: 3.5rem 0 0.75rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.3;
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        margin-top: 3rem;
+    }
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #676767;
+    line-height: 1.5;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+
+    @media (max-width: 768px) {
+        font-size: 0.95rem;
+    }
+}
+
+/* Call-to-Action Section */
+.learn-cta-section {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+
+    @media (max-width: 768px) {
+        padding: 1.5rem 0;
+        margin-top: 1.5rem;
+    }
+}
+
+.cta-heading {
+    font-size: 3.4rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .cta-line-bold {
+        display: block;
+        color: #000000;
+        font-weight: 700;
+        font-size: 3.4rem;
+    }
+
+    .cta-line-light {
+        display: block;
+        color: #676767;
+        font-weight: 500;
+        font-size: 3rem;
+    }
+
+    @media (max-width: 1024px) {
+        font-size: 2rem;
+
+        .cta-line-bold {
+            font-size: 2rem;
+        }
+
+        .cta-line-light {
+            font-size: 1.85rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1.75rem;
+
+        .cta-line-bold {
+            font-size: 1.75rem;
+        }
+
+        .cta-line-light {
+            font-size: 1.6rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1.5rem;
+
+        .cta-line-bold {
+            font-size: 1.5rem;
+        }
+
+        .cta-line-light {
+            font-size: 1.35rem;
+        }
+    }
 }

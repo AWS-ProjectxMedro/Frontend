@@ -1,47 +1,48 @@
 // src/App.jsx
 
-import React, { useState, useEffect, lazy, Suspense, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import ScrollToTop from "./Component/ScrollToTop";
 
 // CSS import moved to top
 import "./App.css";
 
-// Lazy load ALL components to prevent circular dependencies
-const Homepage = lazy(() => import("./Pages/Homepage"));
-const Login = lazy(() => import("./Pages/Login"));
-const Dashboard = lazy(() => import("./Pages/Dashboard"));
-const About = lazy(() => import("./Pages/About"));
-const Support = lazy(() => import("./Pages/Support"));
-const Invest = lazy(() => import("./Pages/Invest"));
-const Learn = lazy(() => import("./Pages/Learn"));
-const SwpCalculator = lazy(() => import("./Pages/SwpCalculator"));
-const Services = lazy(() => import("./Pages/Services"));
-const Blog = lazy(() => import("./Component/learn/Blog"));
-const AdminDashboard = lazy(() => import("./Pages/AdminDashboard"));
+// Direct imports for faster loading
+import Homepage from "./Pages/Homepage";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import Dashboard from "./Pages/Dashboard";
+import About from "./Pages/About";
+import Support from "./Pages/Support";
+import Invest from "./Pages/Invest";
+import Learn from "./Pages/Learn";
+import SwpCalculator from "./Pages/SwpCalculator";
+import Services from "./Pages/Services";
+import Blog from "./Component/learn/Blog";
+import AdminDashboard from "./Pages/AdminDashboard";
 
 // Dashboard Components
-const Short60 = lazy(() => import("./Component/learn/Short60"));
-const Book = lazy(() => import("./Component/learn/Book"));
-const MarketGuides = lazy(() => import("./Component/dashboard/MarketGuides"));
-const BlogDetail = lazy(() => import("./Component/dashboard/BlogDetail"));
-const Profile = lazy(() => import("./Component/dashboard/Profile"));
-const InvestmentTools = lazy(() => import("./Component/dashboard/InvestmentTools"));
-const Payment = lazy(() => import("./Component/dashboard/Payment"));
-const Withdrawal = lazy(() => import("./Component/dashboard/Withdrawal"));
+import Book from "./Component/learn/Book";
+import MarketGuides from "./Component/dashboard/MarketGuides";
+import BlogDetail from "./Component/dashboard/BlogDetail";
+import Profile from "./Component/dashboard/Profile";
+import InvestmentTools from "./Component/dashboard/InvestmentTools";
+import Payment from "./Component/dashboard/Payment";
+import Withdrawal from "./Component/dashboard/Withdrawal";
 
 // Admin Components
-const AdminOverview = lazy(() => import("./Component/AdminDashboard/AdminOverview"));
-const UserManagement = lazy(() => import("./Component/AdminDashboard/userManagement"));
-const ManageBlog = lazy(() => import("./Component/AdminDashboard/manageBlog"));
-const TransactionPage = lazy(() => import("./Component/AdminDashboard/transcation"));
-const AdminPlansPage = lazy(() => import("./Component/AdminDashboard/AdminPlans"));
-const AdminWithdrawal = lazy(() => import("./Component/AdminDashboard/Withdrawal.jsx"));
+import AdminOverview from "./Component/AdminDashboard/AdminOverview";
+import UserManagement from "./Component/AdminDashboard/userManagement";
+import ManageBlog from "./Component/AdminDashboard/manageBlog";
+import TransactionPage from "./Component/AdminDashboard/transcation";
+import AdminPlansPage from "./Component/AdminDashboard/AdminPlans";
+import AdminWithdrawal from "./Component/AdminDashboard/Withdrawal.jsx";
 
 // Layout Component
-const DashboardLayout = lazy(() => import("./Pages/DashboardLayout"));
+import DashboardLayout from "./Pages/DashboardLayout";
 
 // Query Client Configuration
 const queryClient = new QueryClient({
@@ -94,48 +95,6 @@ const parseJwt = (token) => {
   }
 };
 
-// Loading Component
-const LoadingSpinner = ({ message = "Loading..." }) => (
-  <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    flexDirection: 'column',
-    fontSize: '18px',
-    backgroundColor: '#f8f9fa'
-  }}>
-    <div style={{
-      border: '4px solid #f3f3f3',
-      borderTop: '4px solid #007bff',
-      borderRadius: '50%',
-      width: '40px',
-      height: '40px',
-      animation: 'spin 1s linear infinite',
-      marginBottom: '20px'
-    }}></div>
-    {message}
-    <style>{`
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `}</style>
-  </div>
-);
-
-// Suspense Fallback
-const SuspenseFallback = ({ message = "Loading..." }) => (
-  <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '200px',
-    fontSize: '16px'
-  }}>
-    {message}
-  </div>
-);
 
 // Unauthorized Page Component
 const UnauthorizedPage = ({ userRole, isAuthenticated, onLogout }) => (
@@ -195,11 +154,6 @@ const PrivateRoute = ({ isAuthenticated, children }) => {
 
 const RoleBasedRoute = ({ isAuthenticated, userRole, allowedRoles, children, isLoggingOut }) => {
   console.log('RoleBasedRoute - Auth:', isAuthenticated, 'Role:', userRole, 'Allowed:', allowedRoles, 'LoggingOut:', isLoggingOut);
-  
-  // Don't redirect if logout is in progress
-  if (isLoggingOut) {
-    return <LoadingSpinner message="Signing out..." />;
-  }
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -268,7 +222,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Set to false for immediate render
   const [error, setError] = useState(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -318,12 +272,17 @@ function App() {
     }
   }, []);
 
-  // Check stored authentication on app load
+  // Check stored authentication on app load - non-blocking
   useEffect(() => {
     const checkStoredAuth = async () => {
       if (authCheckInProgress.current || isLoggingOut) return;
       
       authCheckInProgress.current = true;
+      
+      // Set loading to false immediately so app renders
+      if (componentMounted.current) {
+        setLoading(false);
+      }
       
       try {
         const token = localStorage.getItem(CONFIG.LOCAL_STORAGE_KEYS.AUTH_TOKEN);
@@ -357,9 +316,6 @@ function App() {
         clearAuthData();
       } finally {
         authCheckInProgress.current = false;
-        if (componentMounted.current) {
-          setLoading(false);
-        }
       }
     };
 
@@ -485,24 +441,14 @@ function App() {
     );
   }
 
-  // Loading state
-  if (loading) {
-    return <LoadingSpinner message="Loading Application..." />;
-  }
-
-  // Show logout screen during logout process
-  if (isLoggingOut) {
-    return <LoadingSpinner message="Signing out..." />;
-  }
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
           <Router>
+            <ScrollToTop />
             <div className="app-container">
-              <Suspense fallback={<SuspenseFallback message="Loading page..." />}>
-                <Routes>
+              <Routes>
                   {/* Public Routes */}
                   <Route path="/" element={<Homepage />} />
                   
@@ -519,6 +465,19 @@ function App() {
                     } 
                   />
                   
+                  <Route 
+                    path="/signup" 
+                    element={
+                      isAuthenticated ? (
+                        userRole === "admin" ? 
+                          <Navigate to="/adminDashboard" replace /> : 
+                          <Navigate to="/dashboard" replace />
+                      ) : (
+                        <SignUp />
+                      )
+                    } 
+                  />
+                  
                   <Route path="/invest" element={<Invest />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/support" element={<Support />} />
@@ -526,7 +485,6 @@ function App() {
                   <Route path="/swp-calculator" element={<SwpCalculator />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/blog" element={<Blog />} />
-                  <Route path="/short60" element={<Short60 />} />
                   <Route path="/book" element={<Book />} />
                   
                   {/* Unauthorized Route */}
@@ -546,47 +504,17 @@ function App() {
                     path="/dashboard" 
                     element={
                       <PrivateRoute isAuthenticated={isAuthenticated}>
-                        <Suspense fallback={<SuspenseFallback message="Loading dashboard..." />}>
-                          <DashboardLayout onLogout={handleLogout} />
-                        </Suspense>
+                        <DashboardLayout onLogout={handleLogout} />
                       </PrivateRoute>
                     }
                   >
-                    <Route index element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <Dashboard setIsAuthenticated={setIsAuthenticated} />
-                      </Suspense>
-                    } />
-                    <Route path="marketguides" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <MarketGuides />
-                      </Suspense>
-                    } />
-                    <Route path="blog/:blogId" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <BlogDetail />
-                      </Suspense>
-                    } />
-                    <Route path="profile" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <Profile />
-                      </Suspense>
-                    } />
-                    <Route path="investmenttools" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <InvestmentTools />
-                      </Suspense>
-                    } />
-                    <Route path="payment" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <Payment />
-                      </Suspense>
-                    } />
-                    <Route path="withdrawal" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <Withdrawal />
-                      </Suspense>
-                    } />
+                    <Route index element={<Dashboard setIsAuthenticated={setIsAuthenticated} />} />
+                    <Route path="marketguides" element={<MarketGuides />} />
+                    <Route path="blog/:blogId" element={<BlogDetail />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="investmenttools" element={<InvestmentTools />} />
+                    <Route path="payment" element={<Payment />} />
+                    <Route path="withdrawal" element={<Withdrawal />} />
                   </Route>
                   
                   {/* Admin Protected Routes */}
@@ -599,42 +527,16 @@ function App() {
                         allowedRoles={["admin"]}
                         isLoggingOut={isLoggingOut}
                       >
-                        <Suspense fallback={<SuspenseFallback message="Loading admin dashboard..." />}>
-                          <AdminDashboard onLogout={handleLogout} />
-                        </Suspense>
+                        <AdminDashboard onLogout={handleLogout} />
                       </RoleBasedRoute>
                     }
                   >
-                    <Route index element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <AdminOverview />
-                      </Suspense>
-                    } />
-                    <Route path="userManagement" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <UserManagement />
-                      </Suspense>
-                    } />
-                    <Route path="manageBlog" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <ManageBlog />
-                      </Suspense>
-                    } />
-                    <Route path="adminPlans" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <AdminPlansPage />
-                      </Suspense>
-                    } />
-                    <Route path="transaction" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <TransactionPage />
-                      </Suspense>
-                    } />
-                    <Route path="withdrawals" element={
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <AdminWithdrawal />
-                      </Suspense>
-                    } />
+                    <Route index element={<AdminOverview />} />
+                    <Route path="userManagement" element={<UserManagement />} />
+                    <Route path="manageBlog" element={<ManageBlog />} />
+                    <Route path="adminPlans" element={<AdminPlansPage />} />
+                    <Route path="transaction" element={<TransactionPage />} />
+                    <Route path="withdrawals" element={<AdminWithdrawal />} />
                   </Route>
                   
                   {/* Catch-all Route */}
@@ -649,9 +551,8 @@ function App() {
                         <Navigate to="/login" replace />
                       )
                     } 
-                  />
+                  /> 
                 </Routes>
-              </Suspense>
             </div>
           </Router>
         </HelmetProvider>

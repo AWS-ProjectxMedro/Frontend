@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global font family for entire project */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove underlines from all links globally */
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+/* Apply to all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Apply to all buttons */
+button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Apply to all inputs */
+input, textarea, select {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}

@@ -4,7 +4,6 @@ import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
 import { Link } from "react-router-dom";
-import { FaChartLine, FaChartBar, FaShieldAlt, FaMoneyBillWave } from "react-icons/fa";
 
 function Learn() {
     return (
@@ -18,59 +17,60 @@ function Learn() {
 
             <Header />
 
-            <div className="learn-layout no-sidebar">
-                {/* Main Content with clickable cards (replaces sidebar) */}
-                <main className="main-content-learn">
-                    <br />
-                    <br />
-                    <section className="learn-section" id="investment-learning">
-                        <div className="learn-hero">
-                            <h1 className="main-heading-learn">Empower Yourself with Investment Knowledge</h1>
-                            <h3>
-                                TheCapitalTree is committed to educating investors on market trends, 
-                                risk management, and wealth-building strategies.
-                            </h3>
-                        </div>
+            <main className="learn-main">
+                {/* Hero Section */}
+                <section className="learn-hero-section">
+                    <h1 className="hero-heading">
+                        Empower Yourself with <span className="hero-heading-accent">Investment Knowledge</span>
+                    </h1>
+                    <p className="hero-description">
+                        TheCapitalTree is committed to educating investors on market trends, risk management, and wealth-building strategies.
+                    </p>
+                </section>
 
-                        <h2 className="learn-title">What You’ll Learn</h2>
+                {/* What You'll Learn Section */}
+                <section className="learn-content-section">
+                    <h2 className="learn-title">
+                        <span>What</span>
+                        <span>You'll</span>
+                        <span>Learn</span>
+                    </h2>
+                    <div className="learn-cards-grid">
+                        <Link to="/blog" className="learn-card-item">
+                            <span className="card-number">01</span>
+                            <h3 className="card-title">Market Trends & Analysis:</h3>
+                            <p className="card-description">Smart strategies to secure and grow your financial future.</p>
+                        </Link>
+                        
+                        <Link to="/book" className="learn-card-item">
+                            <span className="card-number">02</span>
+                            <h3 className="card-title">Market Trends & Analysis:</h3>
+                            <p className="card-description">Smart strategies to secure and grow your financial future.</p>
+                        </Link>
+                        
+                        <Link to="/learn" className="learn-card-item">
+                            <span className="card-number">03</span>
+                            <h3 className="card-title">Market Trends & Analysis:</h3>
+                            <p className="card-description">Smart strategies to secure and grow your financial future.</p>
+                        </Link>
+                        
+                        <Link to="/blog" className="learn-card-item">
+                            <span className="card-number">04</span>
+                            <h3 className="card-title">Market Trends & Analysis:</h3>
+                            <p className="card-description">Smart strategies to secure and grow your financial future.</p>
+                        </Link>
+                    </div>
+                </section>
 
-                        <div className="learn-grid learn-grid-clickable">
-                            <Link to="/blog" className="learn-card learn-card-link" aria-label="Read market analysis articles">
-                                <span className="card-index">01</span>
-                                <div className="card-icon"><FaChartBar /></div>
-                                <h3>Market Trends & Analysis</h3>
-                                <p>Read our latest insights and stay ahead of the market.</p>
-                                <span className="card-cta">Explore Articles →</span>
-                            </Link>
-                            <Link to="/short60" className="learn-card learn-card-link" aria-label="Watch Short60 videos">
-                                <span className="card-index">02</span>
-                                <div className="card-icon"><FaChartLine /></div>
-                                <h3>Short60</h3>
-                                <p>Quick, focused learning bites to level up faster.</p>
-                                <span className="card-cta">Open Short60 →</span>
-                            </Link>
-                            <Link to="/book" className="learn-card learn-card-link" aria-label="See recommended books">
-                                <span className="card-index">03</span>
-                                <div className="card-icon"><FaMoneyBillWave /></div>
-                                <h3>Books</h3>
-                                <p>Handpicked reads to deepen your finance knowledge.</p>
-                                <span className="card-cta">Browse Books →</span>
-                            </Link>
-                            <Link to="/learn" className="learn-card learn-card-link" aria-label="Learn investment basics">
-                                <span className="card-index">04</span>
-                                <div className="card-icon"><FaShieldAlt /></div>
-                                <h3>Investment Basics</h3>
-                                <p>Foundational guides on risk, returns, and portfolios.</p>
-                                <span className="card-cta">Start Learning →</span>
-                            </Link>
-                        </div>
-
-                        <p className="learnpara">
-                            Stay ahead with our expert insights and <b>transform the way you invest!</b>
-                        </p>
-                    </section>
-                </main>
-            </div>
+                {/* Call-to-Action Section */}
+                <section className="learn-cta-section">
+                    <h2 className="cta-heading">
+                        <span className="cta-line-bold">Stay ahead with our expert</span>
+                        <span className="cta-line-bold">insights and</span>
+                        <span className="cta-line-light">transform the way you invest</span>
+                    </h2>
+                </section>
+            </main>
 
             <Footer />
         </div>

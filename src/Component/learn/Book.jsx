@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import "./Style/Book.scss";
 import Header from "../../Component/Header";  
 import Footer from "../../Component/Footer";  
@@ -23,41 +22,30 @@ const books = [
 ];
 
 const Book = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
     return (
         <div className="book-page">
             <Header />
             
-           
-            <div className="book-content">
-                
-                <nav className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}>
-                <h2 className="sidebar-title">Learning Paths</h2>
-                    <ul>
-                        <li><Link to="/learn">Investment Learning</Link></li>
-                        <li><Link to="/book">Books</Link></li>
-                        <li><Link to="/short60">Short60</Link></li>
-                        <li><Link to="/blog" activeClassName="active">Blog</Link></li>
-                    </ul>
-                </nav>
-
-                {/* Book Section */}
+            <main className="book-main">
                 <div className="book-container">
-                    <h2 className="book-title">Recommended Books</h2>
+                    <h1 className="book-title">
+                        <span className="book-title-r">R</span>ecommended Books
+                    </h1>
                     <div className="book-grid">
-                        {books.map((book) => (
-                            <div key={book.id} className="book-card">
-                                <img src={book.img} alt={book.title} className="book-img" loading="lazy" />
+                        {books.map((book, index) => (
+                            <div key={`${book.id}-${index}`} className="book-card">
+                                <div className="book-card-bg">
+                                    <img src={book.img} alt={book.title} className="book-img" loading="lazy" />
+                                </div>
                                 <div className="book-info">
-                                    <h3 className="book-name">{book.title}</h3>
-                                    <p className="book-author">by {book.author}</p>
+                                    <h3 className="book-name">{book.title.toLowerCase()}</h3>
+                                    <p className="book-author">{book.author.toLowerCase()}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </main>
 
             <Footer />
         </div>

@@ -1,152 +1,682 @@
-/* Main Content */
-/* New About page styles matching modern white theme */
-.about { padding: 6.5rem 1.5rem 2.5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
-.accent { color: #8bbf6a; }
-
-.about-hero { text-align: left; margin-bottom: 28px; }
-.about-title { font-size: 2.8rem; font-weight: 800; color: #111; margin: 0 0 12px 0; }
-.about-intro { color: #4b4f54; line-height: 1.8; max-width: 980px; margin: 10px 0; }
-.btn-learn { display: inline-block; margin-top: 14px; padding: 10px 16px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; }
-
-/* Why section */
-.why { margin-top: 26px; }
-.why-title { font-size: 2.2rem; margin-bottom: 16px; }
-.why-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-.why-item { display: grid; grid-template-columns: 60px 1fr 180px; align-items: center; gap: 12px; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
-.why-item .num { font-size: 2rem; font-weight: 800; color: #8bbf6a; }
-.why-item .text h3 { font-size: 1.05rem; color: #111; }
-.why-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 10px; }
-
-/* CTA */
-.about-cta { text-align: center; padding: 40px 0 10px 0; }
-.about-cta h2 { font-size: 1.8rem; font-weight: 700; color: #111; }
-
-/* About Section */
-/* Legacy rules kept below for compatibility where referenced elsewhere */
-.main-content-about { display: contents; }
-.about-section { display: none; }
-
-.about-section h1 {
-    font-size: 36px;
-    color: black;
-    margin-top: 4rem;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+/* About Page Styles - Matching Reference Image Pixel-Perfect */
+.about-container {
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.about-section p {
-    font-size: 20px;
-    color: var(--black);
-    line-height: 1.8;
-    margin: 1rem auto;
-    max-width: 85%;
+.about-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 39px;
+  background-color: #FFFFFF;
 }
 
-/* About Image */
-.About-img {
-    align-items: center;
-    max-width: 60%;
-    height: auto;
-    
-    margin: 30px 10px 0 0;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+/* Hero Section */
+.about-hero {
+  margin-bottom: 80px;
+  background-color: #FFFFFF;
 }
 
-.business-trends {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.about-hero-content {
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
-.About2-img {
-    height: 300px;
-    display: block;
-    
-    border-radius: 20px;
-    
+.about-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
-.about-content{
-   display: flex; 
+.about-title {
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 76px;
+  margin: 0;
+  color: #000000;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+  flex: 1;
+  min-width: 0;
+
+  .title-accent {
+    color: #CFE3C2;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
 }
 
-.About3-img{
-    height: 180px;
-    display: block;
-    margin: 0 0 0 10px;
-    border-radius: 20px;
+.about-intro {
+  font-size: 20px;
+  line-height: 32px;
+  color: #64717C;
+  margin: 0 0 30px 0;
+  max-width: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+  font-weight: 400;
 }
-.about-para{
-    display: flex;
-    flex-direction: column;
+
+.about-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
+.btn-learn-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 165px;
+  height: 54px;
+  padding: 0;
+  background-color: #F4F6F6;
+  color: #5F5F64;
+  text-decoration: none !important;
+  border-radius: 5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  /* ✅ Default soft multi-layer shadow */
+  box-shadow:
+    0px 100px 80px rgba(36, 77, 77, 0.1),
+    0px 64.81px 46.85px rgba(36, 77, 77, 0.0759),
+    0px 38.52px 25.48px rgba(36, 77, 77, 0.0607),
+    0px 20px 13px rgba(36, 77, 77, 0.05),
+    0px 8.15px 6.52px rgba(36, 77, 77, 0.0393),
+    0px 1.85px 3.15px rgba(36, 77, 77, 0.0241);
+}
+
+.btn-learn-more:hover {
+  transform: translateY(-3px);
+  /* Slightly deeper shadow on hover */
+  box-shadow:
+    0px 120px 100px rgba(36, 77, 77, 0.12),
+    0px 72px 56px rgba(36, 77, 77, 0.09),
+    0px 42px 30px rgba(36, 77, 77, 0.07),
+    0px 22px 15px rgba(36, 77, 77, 0.055),
+    0px 10px 7px rgba(36, 77, 77, 0.045),
+    0px 2px 4px rgba(36, 77, 77, 0.03);
+}
+
+.btn-learn-more:active {
+  transform: scale(0.98);
+}
+
 /* Why Choose Us Section */
-.about-h2 { display: none; }
-
-
-
-.aboutChoose {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 100%;
+.why-choose-us {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  background-color: #FFFFFF;
+  position: relative;
 }
 
-.about-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.why-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.about-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+.why-left {
+  display: flex;
+  flex-direction: column;
 }
 
-.about-card .icon {
-    font-size: 40px;
-    color: #4CAF50;
-    margin-bottom: 10px;
+.why-title {
+  font-size: 90px;
+  font-weight: 700;
+  line-height: 90px;
+  margin: 0 0 60px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+  display: inline-block;
+  white-space: nowrap;
+  height: 90px;
 }
 
-.about-card p {
-    font-size: 18px;
-    color: #333;
-    margin-top: 5px;
+.why-w {
+  color: #CFE3C2;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 90px;
+  font-weight: 700;
+  line-height: 90px;
+  display: inline-block;
 }
 
-/* Join Us Section */
-.join-us {
-    display: block;
-    text-align: center;
-    font-size: 30px;
-    margin: 20px auto;
-    padding: 10px;
-    color: #2c3e50;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.why-rest {
+  color: #000000;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 90px;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.why-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 0;
+}
+
+.why-feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+}
+
+.feature-number {
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.7);
+
+  margin-bottom: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.feature-text {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.7);
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+  word-wrap: break-word;
+}
+
+.feature-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  display: block;
+}
+
+.why-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 150px; /* Aligns with feature items below the title */
+}
+
+.why-images-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.why-grid-img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  min-height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.why-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Decorative Section */
+.about-decorative {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  margin: 80px 0;
+  overflow: hidden;
+  background: 
+    radial-gradient(circle at 2px 2px, rgba(207, 227, 194, 0.15) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+.decorative-elements {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.decorative-ellipse {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #CFE3C2;
+  opacity: 0.6;
+}
+
+.ellipse-1 {
+  width: 73.66px;
+  height: 60.7px;
+  left: 73px;
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.ellipse-2 {
+  width: 181.45px;
+  height: 149.52px;
+  right: 255px;
+  top: 150px;
+  transform: rotate(180deg);
+}
+
+.decorative-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* CTA Section */
+.about-cta {
+  position: relative;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  margin: 80px 0;
+  min-height: 634px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-background-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
 }
 
 
-.icon{
-    height: 80px;
-    width: 300px;
-    
+
+
+.cta-title {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #000000;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none !important;
+  max-width: 100%;
+  text-align: center;
 }
+
 /* Responsive Design */
-@media (max-width: 992px) {
-  .why-grid { grid-template-columns: 1fr; }
-  .why-item { grid-template-columns: 50px 1fr 160px; }
+@media (max-width: 1440px) {
+  .about-main {
+    padding: 80px 30px;
+    max-width: 1200px;
+  }
+
+  .about-title {
+    font-size: 64px;
+    line-height: 64px;
+  }
+
+  .about-title-wrapper {
+    gap: 30px;
+  }
+
+  .why-content-wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .why-title {
+    font-size: 75px;
+    line-height: 75px;
+  }
+
+  .why-w {
+    font-size: 75px;
+    line-height: 75px;
+  }
+
+  .why-rest {
+    font-size: 50px;
+    line-height: 75px;
+  }
+
+  .feature-number {
+    font-size: 48px;
+  }
+
+  .feature-text {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .cta-title {
+    font-size: 56px;
+    line-height: 1.2;
+  }
 }
+
+@media (max-width: 1024px) {
+  .about-main {
+    padding: 60px 24px;
+  }
+
+  .about-title-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .about-title {
+    font-size: 48px;
+    line-height: 48px;
+  }
+
+  .about-hero-actions {
+    justify-content: flex-start;
+  }
+
+  .about-intro {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .why-choose-us {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .why-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .why-title {
+    font-size: 60px;
+    line-height: 60px;
+    margin-bottom: 40px;
+  }
+
+  .why-w {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  .why-rest {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .why-features {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .feature-number {
+    font-size: 44px;
+  }
+
+  .feature-text {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .why-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .why-right {
+    padding-top: 100px;
+  }
+
+  .why-images-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-items: center;
+  }
+
+  .why-grid-img {
+    width: 100%;
+    max-width: 260px;
+    height: 160px;
+  }
+
+  .cta-title {
+    font-size: 48px;
+    line-height: 1.2;
+  }
+
+  .about-decorative {
+    min-height: 200px;
+    margin: 60px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-main {
+    padding: 40px 16px;
+  }
+
+  .about-title-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .about-title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .about-hero-actions {
+    justify-content: flex-start;
+  }
+
+  .about-intro {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+
+  .btn-learn-more {
+    width: 140px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .why-choose-us {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .why-title {
+    font-size: 45px;
+    line-height: 45px;
+    margin-bottom: 30px;
+  }
+
+  .why-w {
+    font-size: 45px;
+    line-height: 45px;
+  }
+
+  .why-rest {
+    font-size: 30px;
+    line-height: 45px;
+  }
+
+  .why-features {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .feature-number {
+    font-size: 40px;
+  }
+
+  .feature-text {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .why-feature-item {
+    margin-bottom: 20px;
+  }
+
+  .about-cta {
+    min-height: 500px;
+  }
+
+  .cta-title {
+    font-size: 36px;
+    line-height: 1.3;
+    padding: 0 16px;
+  }
+
+  .cta-content {
+    flex-direction: column;
+    gap: 15px;
+    padding: 60px 20px;
+  }
+
+  .why-right {
+    padding-top: 80px;
+  }
+
+  .why-images-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-items: center;
+  }
+
+  .why-grid-img {
+    width: 100%;
+    max-width: 220px;
+    height: 140px;
+  }
+
+  .cta-dot {
+    display: none;
+  }
+
+  .about-decorative {
+    min-height: 150px;
+    margin: 40px 0;
+  }
+
+  .ellipse-1 {
+    width: 50px;
+    height: 40px;
+    left: 20px;
+  }
+
+  .ellipse-2 {
+    width: 120px;
+    height: 100px;
+    right: 20px;
+    top: 50px;
+  }
+}
+
 @media (max-width: 640px) {
-  .about-title { font-size: 2.2rem; }
-  .why-item { grid-template-columns: 40px 1fr; }
-  .why-item img { grid-column: 1/-1; height: 140px; }
-  .about-cta h2 { font-size: 1.4rem; }
+  .about-title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .why-title {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  .why-w {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  .why-rest {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .feature-number {
+    font-size: 36px;
+  }
+
+  .feature-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .about-cta {
+    min-height: 400px;
+  }
+
+  .cta-content {
+    padding: 40px 16px;
+  }
+
+  .cta-title {
+    font-size: 32px;
+    line-height: 1.3;
+  }
+
+  .about-decorative {
+    min-height: 100px;
+    margin: 30px 0;
+  }
+
+  .why-right {
+    padding-top: 60px;
+  }
+
+  .why-images-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    justify-items: center;
+  }
+
+  .why-grid-img {
+    width: 100%;
+    max-width: 300px;
+    height: 160px;
+  }
 }

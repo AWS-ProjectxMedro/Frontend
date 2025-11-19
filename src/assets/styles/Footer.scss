@@ -1,142 +1,154 @@
-$footer-bg: #cbe0bd; // Soft green as per image
-$text-dark: #2d4a3a;
-$text-light: #4a5c52;
-$text-lighter: #7a8c7f;
+/* SCSS for Footer.js */
+
+// NOTE: You'll need to define custom colors in your SCSS/Tailwind config if you want
+// to perfectly match the original code's custom Tailwind color names (e.g., 'capital-green', 'capital-dark').
+// I'll use placeholders for now.
+
+$capital-green: #CADEB6; // New footer color
+$capital-dark: #233443;  // Exact Figma footer text color rgb(0.13725490868091583, 0.20392157137393951, 0.26274511218070984)
+$capital-wave-green: #CFE3C2; // Wave color
+
+@mixin responsive-padding {
+    padding: 0 1.5rem; // px-6
+    @media (min-width: 768px) {
+        padding-left: 3rem; // md:px-12
+        padding-right: 3rem; // md:px-12
+    }
+    @media (min-width: 1024px) {
+        padding-left: 4rem; // lg:px-16
+        padding-right: 4rem; // lg:px-16
+    }
+}
 
 .footer {
-  background-color: $footer-bg;
-  color: $text-dark;
-  padding: 0 0 32px 0; // wave sits on top and doesn't add extra gap
-  position: relative;
-  border: none;
-  margin-top: 0;
-  text-align: left;
-  overflow-x: hidden;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    position: relative;
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 4rem; // Lower the footer a little
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
 
-  @media (max-width: 992px) {
-    padding: 48px 0 24px 0;
-  }
-  @media (max-width: 576px) {
-    padding: 36px 0 18px 0;
-    text-align: center;
-  }
-}
-
-.footer-wave {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  pointer-events: none;
-  svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .wave-lines path {
-    stroke: #fff;
-    opacity: 0.6;
-    stroke-width: 2;
-    fill: none;
-  }
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding: 140px 40px 0 40px; // add top space to sit below wave
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
-  @media (max-width: 576px) {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 0 12px;
-    text-align: center;
-  }
-}
-
-.footer-section.company-info {
-  .footer-heading {
-    margin-bottom: 10px;
-    .footerLogo { display: none; }
-    .logo-text {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: $text-dark;
-      margin: 0;
+    &__wave {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        padding: 0;
+        vertical-align: bottom;
+        line-height: 0;
     }
-  }
-  .footer-para {
-    color: $text-light;
-    font-size: 0.96rem;
-    line-height: 1.7;
-    margin-bottom: 25px;
-    max-width: 300px;
-    @media (max-width: 576px) { max-width: none; text-align: center; }
-  }
-}
 
-.social-icons {
-  display: flex;
-  gap: 16px;
-  margin-top: 12px;
-  @media (max-width: 576px) { justify-content: center; }
-  a {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    color: $text-light;
-    font-size: 1.1rem;
-    transition: color 0.2s;
-    border-radius: 3px;
-    &:hover { color: $text-dark; background: none; box-shadow: none; }
-  }
-}
-
-.footer-section.links-section {
-  h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: $text-dark;
-    margin: 0 0 14px 0;
-    @media (max-width: 576px) { text-align: center; }
-  }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      margin-bottom: 10px;
-      a {
-        color: $text-light;
-        font-size: 0.95rem;
-        text-decoration: none;
-        transition: color 0.2s;
-        &:hover { color: $text-dark; }
-      }
+    &__content {
+        background-color: $capital-green; // bg-capital-green
+        padding-top: 5rem; // Increased from 4rem to create more space from wave
+        padding-bottom: 4rem; // py-16
+        margin-top: -1px; // Remove gap between wave and content (negative margin to overlap slightly)
+        width: 100%;
+        @include responsive-padding;
     }
-  }
-}
 
-.footer-bottom {
-  text-align: center;
-  margin-top: 34px;
-  padding: 0;
-  border: none;
-  .copyright {
-    color: $text-lighter;
-    margin: 0;
-    font-size: 0.88rem;
-    letter-spacing: 0.03em;
-  }
+    &__container {
+        max-width: 1440px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr; // grid-cols-1
+        gap: 3rem; // gap-12
+        
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr); // md:grid-cols-2
+        }
+        @media (min-width: 1024px) {
+            grid-template-columns: repeat(4, 1fr); // lg:grid-cols-4
+            gap: 4rem; // lg:gap-16
+        }
+    }
+
+    &__heading {
+        color: $capital-dark; // text-capital-dark
+        font-family: 'Plus Jakarta Sans', sans-serif; // Updated font\
+        margin-top: 40px !important;
+        margin-bottom: 1.5rem; // mb-6
+        font-size: 1rem; // text-base - regular size for headings
+        font-weight: 400; // regular weight
+        text-transform: none; // Keep headings in normal case
+        text-decoration: none !important;
+        
+        &--logo {
+            font-weight: 700; // font-bold for logo
+            font-size: 1.5rem; // text-2xl
+            margin-bottom: 1.5rem; // mb-6
+            text-transform: none; // Logo stays as is
+            @media (min-width: 1024px) {
+                font-size: 1.875rem; // lg:text-3xl
+            }
+        }
+    }
+
+    &__text {
+        color: $capital-dark; // text-capital-dark
+        font-family: 'Plus Jakarta Sans', sans-serif; // Updated font
+        font-size: 0.95rem; // slightly smaller
+        line-height: 1.6; // leading-relaxed
+        margin-bottom: 2rem; // mb-8
+        text-decoration: none !important;
+        font-weight: 400; // regular weight
+    }
+
+    &__social-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem; // gap-6
+    }
+
+    &__social-link {
+        color: $capital-dark; // text-capital-dark
+        transition: color 0.3s;
+        text-decoration: none !important;
+        
+        &:hover {
+            color: black; // hover:text-black
+            text-decoration: none !important;
+        }
+    }
+    
+    &__links-list {
+        list-style: none;
+        padding: 0;
+        margin: 0px;
+        li {
+            margin-bottom: 0.75rem; // Reduced spacing for compact layout
+        }
+    }
+
+    &__link {
+        color: $capital-dark; // text-capital-dark
+        font-family: 'Plus Jakarta Sans', sans-serif; // Updated font
+        font-size: 0.95rem; // Slightly smaller font size
+        transition: color 0.3s;
+        text-decoration: none !important;
+        font-weight: 400; // regular weight
+        
+        &:hover {
+            color: $capital-dark; // Keep same color on hover
+            text-decoration: none !important;
+        }
+    }
+
+    &__copyright {
+        margin-top: 3rem; // mt-12
+        padding-top: 2rem; // pt-8
+        border-top: 1px solid rgba(202, 222, 182, 0.5); // border-t using footer green color with opacity (#CADEB6)
+        text-align: center;
+    }
+
+    &__copyright-text {
+        color: $capital-dark; // text-capital-dark
+        font-family: 'Plus Jakarta Sans', sans-serif; // Updated font
+        font-size: 0.875rem; // text-sm
+        text-decoration: none !important;
+    }
 }

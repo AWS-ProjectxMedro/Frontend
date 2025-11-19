@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
-import logo1 from "../assets/image/logo1.png";
 import authIllustration from "../assets/image/Saly-14.png";
 import "../assets/styles/Login.scss";
 
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseUrl = process.env.REACT_APP_API_BASE_URL || 'https://api.thecapitaltree.in';
 
 const ADMIN_EMAILS = [
   "gaurav@example.com",
@@ -99,7 +98,7 @@ const InputField = ({
             type={showToggle && !showPassword ? "password" : type}
             id={id}
             {...registerProps}
-            placeholder={`Enter your ${label.toLowerCase()}`}
+            placeholder={id === 'loginEmail' ? 'Enter email or user name' : id === 'loginPassword' ? 'Password' : `Enter your ${label.toLowerCase()}`}
             className={error ? 'input-error' : validationState === 'valid' ? 'input-valid' : ''}
             style={{
               border: `2px solid ${error ? '#ff4757' : validationState === 'valid' ? '#2ed573' : 'rgba(255, 255, 255, 0.2)'}`,
@@ -124,11 +123,21 @@ const InputField = ({
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  fontSize: '16px',
-                  color: '#666'
+                  fontSize: '18px',
+                  color: id === 'loginPassword' ? '#000000' : '#666'
                 }}
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
               </button>
             )}
           </div>
@@ -596,21 +605,38 @@ const LoginRegister = ({ onLoginSuccess }) => {
       console.error("Registration error:", error);
       console.error("Error response:", error.response?.data);
       console.error("Error status:", error.response?.status);
+      console.error("Error message:", error.message);
       
       let errorMessage = "Registration failed";
       
+      // Handle network errors (backend not running)
+      if (!error.response) {
+        errorMessage = `Cannot connect to server. Please make sure the backend is running on ${baseUrl}`;
+        toast.error(errorMessage);
+        setFormErrors({ general: errorMessage });
+        setLoading(false);
+        return;
+      }
+      
+      // Handle specific HTTP status codes
       if (error.response?.status === 409) {
-        if (error.response.data.message.includes('email')) {
+        if (error.response.data?.message?.includes('email')) {
           errorMessage = "An account with this email already exists. Please login instead.";
           setFormErrors({ email: errorMessage });
-        } else if (error.response.data.message.includes('phone')) {
+        } else if (error.response.data?.message?.includes('phone')) {
           errorMessage = "An account with this phone number already exists.";
           setFormErrors({ phone: errorMessage });
         } else {
           errorMessage = "Account already exists. Please login instead.";
         }
+      } else if (error.response?.status === 400) {
+        errorMessage = error.response.data?.message || "Invalid registration data. Please check your input.";
+      } else if (error.response?.status === 500) {
+        errorMessage = "Server error. Please try again later.";
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
       }
       
       toast.error(errorMessage);
@@ -1136,14 +1162,13 @@ const LoginRegister = ({ onLoginSuccess }) => {
     // Default login form
     return (
       <>
-        <h2 className="auth-title-log">Log In</h2>
-        <p className="auth-subtitle">Welcome back! Please sign in to your account</p>
+        <h2 className="sign-text">Sign in</h2>
         <GeneralError />
         
         <form className="auth-form-log" onSubmit={handleSubmit(handleLogin)}>
           <InputField 
-            label="Email" 
-            type="email" 
+            label="" 
+            type="text" 
             id="loginEmail" 
             registerProps={register("email", { 
               required: "Email is required",
@@ -1151,11 +1176,10 @@ const LoginRegister = ({ onLoginSuccess }) => {
             })} 
             error={errors.email || (formErrors.email && { message: formErrors.email })}
             validationState={watchedEmail ? (validateEmail(watchedEmail).isValid ? 'valid' : 'invalid') : null}
-            helpText="Enter the email address you registered with"
           />
           
           <InputField 
-            label="Password" 
+            label="" 
             type="password" 
             id="loginPassword" 
             showToggle 
@@ -1165,7 +1189,17 @@ const LoginRegister = ({ onLoginSuccess }) => {
             error={errors.password}
           />
           
-          <button type="submit" className="auth-button" disabled={loading}>
+          <div className="forgot-password-container">
+            <button 
+              type="button" 
+              onClick={showForgotPasswordForm}
+              className="forgot-password-link"
+            >
+              Forgot password?
+            </button>
+          </div>
+          
+          <button type="submit" className="auth-button login-btn-dark" disabled={loading}>
             {loading ? (
               <span className="button-loading">
                 <span className="spinner"></span>
@@ -1177,14 +1211,28 @@ const LoginRegister = ({ onLoginSuccess }) => {
           </button>
         </form>
         
-        <div className="auth-links">
-          <button 
-            type="button" 
-            onClick={showForgotPasswordForm}
-            className="forgot-password-link"
-          >
-            Forgot Password?
-          </button>
+        <div className="social-login-section">
+          <div className="or-continue-with">or continue with</div>
+          <div className="social-login-icons">
+            <button type="button" className="social-icon facebook-icon" aria-label="Login with Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </button>
+            <button type="button" className="social-icon apple-icon" aria-label="Login with Apple">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.35-3.74 4.25z"/>
+              </svg>
+            </button>
+            <button type="button" className="social-icon google-icon" aria-label="Login with Google">
+              <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+            </button>
+          </div>
         </div>
         
         <p className="toggle-message-log">
@@ -1221,17 +1269,17 @@ const LoginRegister = ({ onLoginSuccess }) => {
       <div className="main-login">
         <div className="illustration-section">
           <div className="illustration-copy">
-            <h3 className="illustration-subtitle">{showResetPassword ? "" : showForgotPassword ? "" : isRegister ? "Sign Up to" : "Sign in to"}</h3>
+            <h2 className="illustration-subtitle">{showResetPassword ? "" : showForgotPassword ? "" : isRegister ? "Sign Up to" : "Sign in to"}</h2>
             <h1 className="illustration-title">The Capital Tree</h1>
             {!showResetPassword && !showForgotPassword && (
               <p className="illustration-helper">
                 {isRegister ? (
                   <>
-                    If you don’t have an account register<br />You can <span className="illustration-link">Register here !</span>
+                    If you don't have an account register<br />You can <Link to="/signup" className="illustration-link">Register here !</Link>
                   </>
                 ) : (
                   <>
-                    If you don’t have an account register<br />You can <span className="illustration-link">Register here !</span>
+                    If you don't have an account register<br />You can <Link to="/signup" className="illustration-link">Register here !</Link>
                   </>
                 )}
               </p>
@@ -1242,11 +1290,6 @@ const LoginRegister = ({ onLoginSuccess }) => {
           </div>
         </div>
         <div className="auth-card">
-          <div className="logo-section1">
-            <img src={logo1} alt="Logo" className="logo1-img" />
-            <h1 className="brand-name">TheCapitalTree</h1>
-          </div>
-
           {renderForm()}
         </div>
       </div>

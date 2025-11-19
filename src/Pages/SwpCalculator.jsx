@@ -4,7 +4,7 @@ import "../assets/styles/SwpCalculator.scss";
 import Header from "../Component/Header";
 import Footer from "../Component/Footer";
 import Seo from "../Component/Seo";
-import Animation from "../assets/image/invest.jpg"; // Assuming this path is correct
+import Animation from "../assets/image/invest.jpg";
 
 function SwpCalculator() {
   const [investmentPeriod, setInvestmentPeriod] = useState(1);
@@ -129,7 +129,8 @@ function SwpCalculator() {
         {/* Left Side - Calculator */}
         <section className="calculator-section">
           <h1 className="calculator-title">
-            <span className="accent">SWP</span> Calculator
+            <span className="accent">SWP</span>
+            <span className="calculator-subtitle">Calculator</span>
           </h1>
           
           <div className="calculator-form">
@@ -204,12 +205,12 @@ function SwpCalculator() {
         {/* Right Side - Testimonial & Dashboard */}
         <section className="testimonial-section">
           <div className="testimonial">
-            <div className="quote-icon">"</div>
+            <div className="quote-icon">&ldquo;</div>
             <p className="testimonial-text">
               The Capital Tree made our transactions seamless and secure. The platform is fast, reliable, and incredibly user-friendly. Highly recommend!
             </p>
             <div className="testimonial-author">
-              <div className="author-avatar">P</div>
+              <div className="author-avatar"></div>
               <div className="author-info">
                 <div className="author-name">Prateek</div>
                 <div className="author-title">Web3 Entrepreneur</div>

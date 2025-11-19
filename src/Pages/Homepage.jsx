@@ -42,11 +42,11 @@ const Homepage = () => {
           <div className="meta">
             <div>
               <span className="meta-label">Date</span>
-              <span className="meta-value">20.05.2025</span>
+              <span className="meta-value">20.11.2023</span>
             </div>
             <div>
               <span className="meta-label">Created</span>
-              <span className="meta-value">2025</span>
+              <span className="meta-value">2023</span>
             </div>
           </div>
           <div className="socials">
@@ -59,11 +59,10 @@ const Homepage = () => {
         {/* Core content */}
         <section className="hero-content">
           <h1 className="hero-title">
-            <span className="quote">“</span> Cultivating Growth <span className="quote">”</span>
-            <br/>
-            Investment at one
-            <br/>
-            time
+            <div className="title-line-1">
+              <span className="quote">"</span><span className="growth-text">CULTIVATING GROWTH</span><span className="quote">"</span>
+            </div>
+            <div className="title-line-2">INVESTMENT AT ONE TIME</div>
           </h1>
 
           <div className="card-row">
@@ -92,10 +91,14 @@ const Homepage = () => {
 
           <div className="hero-footer-row">
             <div className="hero-labels">
-              <div className="label-title">Fintech Trading</div>
+              <div className="label-title">FINTECH TRADING</div>
               <div className="label-sub">Empowering investors with AI‑driven trading insights and real‑time analytics.</div>
             </div>
-            <div className="hero-index">07</div>
+            <div className="hero-index-wrapper">
+              <button className="nav-arrow nav-arrow-left" aria-label="Previous">‹</button>
+              <div className="hero-index">07</div>
+              <button className="nav-arrow nav-arrow-right" aria-label="Next">›</button>
+            </div>
           </div>
         </section>
       </main>
